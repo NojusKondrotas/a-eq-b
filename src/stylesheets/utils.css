@@ -1,0 +1,13 @@
+.center-text {
+    text-align: center;
+}
+
+.center-horiz-vert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-width-full {
+    width: 100%;
+}
