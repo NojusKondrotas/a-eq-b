@@ -23,7 +23,7 @@ export function initConfigs() {
 
     if (!cfgMinFreqIn || !cfgMaxFreqIn || !cfgArrSizeIn || !cfgComparisonLenIn
         || !cfgMinFreqVal || !cfgMaxFreqVal || !cfgArrSizeVal || !cfgComparisonLenVal) {
-        window.location.href = "pages/error.html";
+        window.location.href = "pages/error/error.html";
     }
 
     (cfgMinFreqIn as HTMLElement).addEventListener('input', () => {
@@ -64,7 +64,13 @@ export const getArrSize = () => parseInt(sessionStorage.getItem('arr-size') as s
 export const getComparisonLen = () => parseInt(sessionStorage.getItem('comparison-len') as string);
 
 export function initStartGameBtn() {
-    document.getElementById('start-game-btn')?.addEventListener('click', () => {
+    const startGameBtn = document.getElementById('start-game-btn');
+
+    if (!startGameBtn) {
+        window.location.href = 'pages/error/error.html';
+    }
+
+    (startGameBtn as HTMLElement).addEventListener('click', () => {
         switch (sessionStorage.getItem('selected_sort')) {
             case 'merge':
                 window.location.href = 'pages/sorts/merge/merge.html'
