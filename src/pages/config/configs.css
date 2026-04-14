@@ -1,0 +1,30 @@
+#configurations {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 110px;
+
+    font-weight: 900;
+}
+
+#start-game {
+    display: flex;
+    height: 60%;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-game-btn {
+    width: 250px;
+    height: 170px;
+
+    background: none;
+
+    font-size: 5em;
+}
+
+#start-game-btn:hover {
+    cursor: pointer;
+}

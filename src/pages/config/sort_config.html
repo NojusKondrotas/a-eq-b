@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <base href="/">
+    <link rel="stylesheet" href="/pages/config/configs.css">
+    <link rel="stylesheet" href="/stylesheets/utils.css">
+    <link rel="stylesheet" href="/stylesheets/universal.css">
+</head>
+<body>
+    <div id="configurations">
+        <div class="center-goriz-vert">
+            <p class="center-text">min freq</p>
+            <input id="min-freq-input" type="range" min="200" max="2200" value="200" class="slider-width-full">
+            <p id="min-freq-val" class="center-text"></p>
+        </div>
+        <div class="center-goriz-vert">
+            <p class="center-text">max freq</p>
+            <input id="max-freq-input" type="range" min="200" max="2200" value="500" class="slider-width-full">
+            <p id="max-freq-val" class="center-text"></p>
+        </div>
+        <div class="center-goriz-vert">
+            <p class="center-text">n</p>
+            <input id="arr-size-input" type="range" min="1" max="200" value="10" class="slider-width-full">
+            <p id="arr-size-val" class="center-text"></p>
+        </div>
+        <div class="center-goriz-vert">
+            <p class="center-text">bot comparison length</p>
+            <input id="comparison-len-input" type="range" min="1" max="2000" value="350" class="slider-width-full">
+            <p id="comparison-len-val" class="center-text"></p>
+        </div>
+    </div>
+
+    <div id="start-game"><button id="start-game-btn" class="box">start</button></div>
+
+    <script type="module" src="/page_indexes/configs_index.js"></script>
+    <script type="module" src="/configs.js"></script>
+</body>
+</html>
