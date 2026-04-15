@@ -1,3 +1,5 @@
+import { startMergeSort } from "./sorts/merge/merge_handler.ts";
+
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
 let cfgArrSizeIn: HTMLElement | null;
@@ -29,22 +31,22 @@ export function initConfigs() {
     (cfgMinFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMinFreqIn as HTMLInputElement).value;
         setInnerText((cfgMinFreqVal as HTMLElement), val);
-        sessionStorage.setItem('min_freq', val);
+        sessionStorage.setItem('min-freq', val);
     });
     (cfgMaxFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMaxFreqIn as HTMLInputElement).value;
         setInnerText((cfgMaxFreqVal as HTMLElement), val);
-        sessionStorage.setItem('max_freq', val);
+        sessionStorage.setItem('max-freq', val);
     });
     (cfgArrSizeIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgArrSizeIn as HTMLInputElement).value;
         setInnerText((cfgArrSizeVal as HTMLElement), val);
-        sessionStorage.setItem('arr_size', val);
+        sessionStorage.setItem('arr-size', val);
     });
     (cfgComparisonLenIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgComparisonLenIn as HTMLInputElement).value;
         setInnerText((cfgComparisonLenVal as HTMLElement), val);
-        sessionStorage.setItem('comparison_len', val);
+        sessionStorage.setItem('comparison-len', val);
     });
 
     setInnerText((cfgMinFreqVal as HTMLElement), (cfgMinFreqIn as HTMLInputElement).value);
@@ -52,10 +54,10 @@ export function initConfigs() {
     setInnerText((cfgArrSizeVal as HTMLElement), (cfgArrSizeIn as HTMLInputElement).value);
     setInnerText((cfgComparisonLenVal as HTMLElement), (cfgComparisonLenIn as HTMLInputElement).value);
 
-    sessionStorage.setItem('min_freq', (cfgMinFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('max_freq', (cfgMaxFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('arr_size', (cfgArrSizeIn as HTMLInputElement).value);
-    sessionStorage.setItem('comparison_len', (cfgComparisonLenIn as HTMLInputElement).value);
+    sessionStorage.setItem('min-freq', (cfgMinFreqIn as HTMLInputElement).value);
+    sessionStorage.setItem('max-freq', (cfgMaxFreqIn as HTMLInputElement).value);
+    sessionStorage.setItem('arr-size', (cfgArrSizeIn as HTMLInputElement).value);
+    sessionStorage.setItem('comparison-len', (cfgComparisonLenIn as HTMLInputElement).value);
 }
 
 export const getMinFreq = () => parseInt(sessionStorage.getItem('min-freq') as string);
@@ -73,7 +75,7 @@ export function initStartGameBtn() {
     (startGameBtn as HTMLElement).addEventListener('click', () => {
         switch (sessionStorage.getItem('selected_sort')) {
             case 'merge':
-                window.location.href = 'pages/sorts/merge/merge.html'
+                startMergeSort();
                 break;
         }
     });
