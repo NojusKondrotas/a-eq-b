@@ -13,9 +13,13 @@
   },
   "private": true,
   "scripts": {
+    "clean": "rimraf ./dist",
     "build": "tsc && pug ./src --out ./dist --hierarchy && copyfiles -u 1 \"src/**/*.css\" dist",
     "serve": "serve dist",
     "dev": "bun run build && bun run serve"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "rimraf": "^6.1.3"
+  }
 }
