@@ -9,3 +9,7 @@ html, body {
 .box {
     border: 5px solid black;
 }
+
+.thin-box {
+    border: 3px solid black;
+}
