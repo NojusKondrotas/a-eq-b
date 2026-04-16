@@ -1,5 +1,3 @@
-import { beep } from "./beep.ts";
-
 document.addEventListener('DOMContentLoaded', () => {
     const mergeSort = document.getElementById('merge-sort');
     const insertionSort = document.getElementById('insertion-sort');

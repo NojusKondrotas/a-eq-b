@@ -32,22 +32,22 @@ export function initConfigs() {
     (cfgMinFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMinFreqIn as HTMLInputElement).value;
         setInnerText((cfgMinFreqVal as HTMLElement), val);
-        sessionStorage.setItem('min-freq', val);
+        sessionStorage.setItem('min_freq', val);
     });
     (cfgMaxFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMaxFreqIn as HTMLInputElement).value;
         setInnerText((cfgMaxFreqVal as HTMLElement), val);
-        sessionStorage.setItem('max-freq', val);
+        sessionStorage.setItem('max_freq', val);
     });
     (cfgArrSizeIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgArrSizeIn as HTMLInputElement).value;
         setInnerText((cfgArrSizeVal as HTMLElement), val);
-        sessionStorage.setItem('arr-size', val);
+        sessionStorage.setItem('arr_size', val);
     });
     (cfgComparisonLenIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgComparisonLenIn as HTMLInputElement).value;
         setInnerText((cfgComparisonLenVal as HTMLElement), val);
-        sessionStorage.setItem('comparison-len', val);
+        sessionStorage.setItem('comparison_len', val);
     });
 
     setInnerText((cfgMinFreqVal as HTMLElement), (cfgMinFreqIn as HTMLInputElement).value);
@@ -55,16 +55,16 @@ export function initConfigs() {
     setInnerText((cfgArrSizeVal as HTMLElement), (cfgArrSizeIn as HTMLInputElement).value);
     setInnerText((cfgComparisonLenVal as HTMLElement), (cfgComparisonLenIn as HTMLInputElement).value);
 
-    sessionStorage.setItem('min-freq', (cfgMinFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('max-freq', (cfgMaxFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('arr-size', (cfgArrSizeIn as HTMLInputElement).value);
-    sessionStorage.setItem('comparison-len', (cfgComparisonLenIn as HTMLInputElement).value);
+    sessionStorage.setItem('min_freq', (cfgMinFreqIn as HTMLInputElement).value);
+    sessionStorage.setItem('max_freq', (cfgMaxFreqIn as HTMLInputElement).value);
+    sessionStorage.setItem('arr_size', (cfgArrSizeIn as HTMLInputElement).value);
+    sessionStorage.setItem('comparison_len', (cfgComparisonLenIn as HTMLInputElement).value);
 }
 
-export const getMinFreq = () => parseInt(sessionStorage.getItem('min-freq') as string);
-export const getMaxFreq = () => parseInt(sessionStorage.getItem('max-freq') as string);
-export const getArrSize = () => parseInt(sessionStorage.getItem('arr-size') as string);
-export const getComparisonLen = () => parseInt(sessionStorage.getItem('comparison-len') as string);
+export const getMinFreq = () => parseInt(sessionStorage.getItem('min_freq') as string);
+export const getMaxFreq = () => parseInt(sessionStorage.getItem('max_freq') as string);
+export const getArrSize = () => parseInt(sessionStorage.getItem('arr_size') as string);
+export const getComparisonLen = () => parseInt(sessionStorage.getItem('comparison_len') as string);
 
 export function initStartGameBtn() {
     const startGameBtn = document.getElementById('start-game-btn');
