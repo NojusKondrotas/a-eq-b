@@ -1,4 +1,5 @@
-import { startMergeSort } from "./sorts/merge/merge_handler.ts";
+import { countdown } from "./countdown.ts";
+import { SortType } from "./sorts/sort_types.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -75,7 +76,7 @@ export function initStartGameBtn() {
     (startGameBtn as HTMLElement).addEventListener('click', () => {
         switch (sessionStorage.getItem('selected_sort')) {
             case 'merge':
-                startMergeSort();
+                countdown(SortType.MergeSort, 3);
                 break;
         }
     });
