@@ -1,0 +1,30 @@
+doctype html 
+html(lang="en")
+    head 
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title merge_sort 
+        base(href="/")
+        link(rel="stylesheet" href="/stylesheets/sort.css")
+        link(rel="stylesheet" href="/stylesheets/configs.css")
+        link(rel="stylesheet" href="/stylesheets/universal.css")
+        link(rel="stylesheet" href="/stylesheets/utils.css")
+    body 
+        include ../includes/_sort_config
+
+        #countdown-cnt 
+            p#countdown-cnt-text 
+        #playground
+            #sorted-arr 
+                button.thin-box.output-el 1
+                button.thin-box.output-el 5
+                button.thin-box.output-el 4
+            #selectable-els 
+                #left-els 
+                    button.box.input-el-imm 2
+                    button.thin-box.input-el-grad 9
+                #right-els 
+                    button.box.input-el-imm 3
+        
+        script(type="module" src="/configs.js")
+        script(type="module" src="/page_indexes/sort_index.js")
