@@ -56,16 +56,26 @@ export function initConfigs() {
         sessionStorage.setItem('comparison_len', val);
     });
 
+    if (!sessionStorage.getItem('min_freq')) {
+        sessionStorage.setItem('min_freq', (cfgMinFreqIn as HTMLInputElement).value);
+        sessionStorage.setItem('max_freq', (cfgMaxFreqIn as HTMLInputElement).value);
+        sessionStorage.setItem('arr_size', (cfgArrSizeIn as HTMLInputElement).value);
+        sessionStorage.setItem('comparison_len', (cfgComparisonLenIn as HTMLInputElement).value);
+    } else {
+        (cfgMinFreqIn as HTMLInputElement).value = sessionStorage.getItem('min_freq') as string;
+
+        (cfgMaxFreqIn as HTMLInputElement).value = sessionStorage.getItem('max_freq') as string;
+
+        (cfgArrSizeIn as HTMLInputElement).value = sessionStorage.getItem('arr_size') as string;
+
+        (cfgComparisonLenIn as HTMLInputElement).value = sessionStorage.getItem('comparison_len') as string;
+    }
+
     setInnerText((cfgMinFreqVal as HTMLElement), (cfgMinFreqIn as HTMLInputElement).value);
     setInnerText((cfgMaxFreqVal as HTMLElement), (cfgMaxFreqIn as HTMLInputElement).value);
     setInnerText((cfgArrSizeVal as HTMLElement), (cfgArrSizeIn as HTMLInputElement).value);
     setInnerText((cfgComparisonLenVal as HTMLElement), (cfgComparisonLenIn as HTMLInputElement).value);
     setInnerText((cfgFreqDiffVal as HTMLElement), getFreqDiff().toString());
-
-    sessionStorage.setItem('min_freq', (cfgMinFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('max_freq', (cfgMaxFreqIn as HTMLInputElement).value);
-    sessionStorage.setItem('arr_size', (cfgArrSizeIn as HTMLInputElement).value);
-    sessionStorage.setItem('comparison_len', (cfgComparisonLenIn as HTMLInputElement).value);
 }
 
 export const getMinFreq = () => parseInt(sessionStorage.getItem('min_freq') as string);
