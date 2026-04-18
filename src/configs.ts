@@ -1,3 +1,4 @@
+import { calculateFreqDiff, getFreqDiff } from "./beep.ts";
 import { countdown } from "./countdown.ts";
 import { SortType } from "./sorts/sort_types.ts";
 
@@ -10,6 +11,7 @@ let cfgMinFreqVal: HTMLElement | null;
 let cfgMaxFreqVal: HTMLElement | null;
 let cfgArrSizeVal: HTMLElement | null;
 let cfgComparisonLenVal: HTMLElement | null;
+let cfgFreqDiffVal: HTMLElement | null;
 
 const setInnerText = (obj: HTMLElement, text: string) => obj.innerText = text;
 
@@ -23,25 +25,29 @@ export function initConfigs() {
     cfgMaxFreqVal = document.getElementById('max-freq-val');
     cfgArrSizeVal = document.getElementById('arr-size-val');
     cfgComparisonLenVal = document.getElementById('comparison-len-val');
+    cfgFreqDiffVal = document.getElementById('freq-diff-val');
 
     if (!cfgMinFreqIn || !cfgMaxFreqIn || !cfgArrSizeIn || !cfgComparisonLenIn
-        || !cfgMinFreqVal || !cfgMaxFreqVal || !cfgArrSizeVal || !cfgComparisonLenVal) {
+        || !cfgMinFreqVal || !cfgMaxFreqVal || !cfgArrSizeVal || !cfgComparisonLenVal || !cfgFreqDiffVal) {
         window.location.href = "pages/error/error.html";
     }
 
     (cfgMinFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMinFreqIn as HTMLInputElement).value;
         setInnerText((cfgMinFreqVal as HTMLElement), val);
+        setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('min_freq', val);
     });
     (cfgMaxFreqIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgMaxFreqIn as HTMLInputElement).value;
         setInnerText((cfgMaxFreqVal as HTMLElement), val);
+        setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('max_freq', val);
     });
     (cfgArrSizeIn as HTMLElement).addEventListener('input', () => {
         const val = (cfgArrSizeIn as HTMLInputElement).value;
         setInnerText((cfgArrSizeVal as HTMLElement), val);
+        setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('arr_size', val);
     });
     (cfgComparisonLenIn as HTMLElement).addEventListener('input', () => {
@@ -54,6 +60,7 @@ export function initConfigs() {
     setInnerText((cfgMaxFreqVal as HTMLElement), (cfgMaxFreqIn as HTMLInputElement).value);
     setInnerText((cfgArrSizeVal as HTMLElement), (cfgArrSizeIn as HTMLInputElement).value);
     setInnerText((cfgComparisonLenVal as HTMLElement), (cfgComparisonLenIn as HTMLInputElement).value);
+    setInnerText((cfgFreqDiffVal as HTMLElement), getFreqDiff().toString());
 
     sessionStorage.setItem('min_freq', (cfgMinFreqIn as HTMLInputElement).value);
     sessionStorage.setItem('max_freq', (cfgMaxFreqIn as HTMLInputElement).value);
