@@ -1,9 +1,14 @@
+.pos-abs {
+    position: absolute;
+}
+
 .center-text {
     text-align: center;
 }
 
 .center-horiz-vert {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -12,8 +17,20 @@
     width: 100%;
 }
 
+.bottom-20 {
+    bottom: 20px;
+}
+
+.bigger-font {
+    font-size: 2em;
+}
+
 .very-big-font {
     font-size: 10em;
+}
+
+.margin-all-20 {
+    margin: 10px;
 }
 
 .margin-all-0 {

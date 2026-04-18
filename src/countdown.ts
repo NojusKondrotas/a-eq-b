@@ -9,14 +9,16 @@ export const drawCountdown = (cnt: HTMLElement, sec: number) => cnt.innerHTML = 
 export async function countdown(type: SortType, secs: number) {
     const configurations = document.getElementById('configurations');
     const startGame = document.getElementById('start-game');
+    const guideText = document.getElementById('guide-text');
     const countdownCnt = document.getElementById('countdown-cnt');
     const countdownCntText = document.getElementById('countdown-cnt-text');
     const playground = document.getElementById('playground');
-    if (!configurations || !startGame || !countdownCnt || !countdownCntText || !playground)
+    if (!configurations || !startGame || !guideText || !countdownCnt || !countdownCntText || !playground)
         window.location.href = "pages/error/error.html";
 
     (configurations as HTMLElement).style.display = 'none';
     (startGame as HTMLElement).style.display = 'none';
+    (guideText as HTMLElement).style.display = 'none';
     (countdownCnt as HTMLElement).style.display = 'flex';
 
     for (let i = secs; i > 0; --i) {
