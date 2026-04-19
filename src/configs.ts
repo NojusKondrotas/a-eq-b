@@ -1,6 +1,7 @@
 import { calculateFreqDiff, getFreqDiff } from "./beep.ts";
 import { countdown } from "./countdown.ts";
 import { SortType } from "./sorts/sort_types.ts";
+import { addEvent } from "./time-event-handler.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -30,29 +31,30 @@ export function initConfigs() {
     if (!cfgMinFreqIn || !cfgMaxFreqIn || !cfgArrSizeIn || !cfgComparisonLenIn
         || !cfgMinFreqVal || !cfgMaxFreqVal || !cfgArrSizeVal || !cfgComparisonLenVal || !cfgFreqDiffVal) {
         window.location.href = "pages/error/error.html";
+        return;
     }
 
-    (cfgMinFreqIn as HTMLElement).addEventListener('input', () => {
+    cfgMinFreqIn.addEventListener('input', () => {
         const val = (cfgMinFreqIn as HTMLInputElement).value;
-        setInnerText((cfgMinFreqVal as HTMLElement), val);
+        setInnerText(cfgMinFreqVal as HTMLElement, val);
         setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('min_freq', val);
     });
-    (cfgMaxFreqIn as HTMLElement).addEventListener('input', () => {
+    cfgMaxFreqIn.addEventListener('input', () => {
         const val = (cfgMaxFreqIn as HTMLInputElement).value;
-        setInnerText((cfgMaxFreqVal as HTMLElement), val);
+        setInnerText(cfgMaxFreqVal as HTMLElement, val);
         setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('max_freq', val);
     });
-    (cfgArrSizeIn as HTMLElement).addEventListener('input', () => {
+    cfgArrSizeIn.addEventListener('input', () => {
         const val = (cfgArrSizeIn as HTMLInputElement).value;
-        setInnerText((cfgArrSizeVal as HTMLElement), val);
+        setInnerText(cfgArrSizeVal as HTMLElement, val);
         setInnerText(cfgFreqDiffVal as HTMLElement, calculateFreqDiff().toString());
         sessionStorage.setItem('arr_size', val);
     });
-    (cfgComparisonLenIn as HTMLElement).addEventListener('input', () => {
+    cfgComparisonLenIn.addEventListener('input', () => {
         const val = (cfgComparisonLenIn as HTMLInputElement).value;
-        setInnerText((cfgComparisonLenVal as HTMLElement), val);
+        setInnerText(cfgComparisonLenVal as HTMLElement, val);
         sessionStorage.setItem('comparison_len', val);
     });
 
@@ -63,19 +65,16 @@ export function initConfigs() {
         sessionStorage.setItem('comparison_len', (cfgComparisonLenIn as HTMLInputElement).value);
     } else {
         (cfgMinFreqIn as HTMLInputElement).value = sessionStorage.getItem('min_freq') as string;
-
         (cfgMaxFreqIn as HTMLInputElement).value = sessionStorage.getItem('max_freq') as string;
-
         (cfgArrSizeIn as HTMLInputElement).value = sessionStorage.getItem('arr_size') as string;
-
         (cfgComparisonLenIn as HTMLInputElement).value = sessionStorage.getItem('comparison_len') as string;
     }
 
-    setInnerText((cfgMinFreqVal as HTMLElement), (cfgMinFreqIn as HTMLInputElement).value);
-    setInnerText((cfgMaxFreqVal as HTMLElement), (cfgMaxFreqIn as HTMLInputElement).value);
-    setInnerText((cfgArrSizeVal as HTMLElement), (cfgArrSizeIn as HTMLInputElement).value);
-    setInnerText((cfgComparisonLenVal as HTMLElement), (cfgComparisonLenIn as HTMLInputElement).value);
-    setInnerText((cfgFreqDiffVal as HTMLElement), getFreqDiff().toString());
+    setInnerText(cfgMinFreqVal, (cfgMinFreqIn as HTMLInputElement).value);
+    setInnerText(cfgMaxFreqVal, (cfgMaxFreqIn as HTMLInputElement).value);
+    setInnerText(cfgArrSizeVal, (cfgArrSizeIn as HTMLInputElement).value);
+    setInnerText(cfgComparisonLenVal, (cfgComparisonLenIn as HTMLInputElement).value);
+    setInnerText(cfgFreqDiffVal, getFreqDiff().toString());
 }
 
 export const getMinFreq = () => parseInt(sessionStorage.getItem('min_freq') as string);
@@ -88,9 +87,12 @@ export function initStartGameBtn() {
 
     if (!startGameBtn) {
         window.location.href = 'pages/error/error.html';
+        return;
     }
 
-    (startGameBtn as HTMLElement).addEventListener('click', () => {
+    startGameBtn.addEventListener('click', () => {
+        addEvent('game_start');
+
         switch (sessionStorage.getItem('selected_sort')) {
             case 'merge':
                 countdown(SortType.MergeSort, 3);
