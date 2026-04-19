@@ -1,3 +1,7 @@
+* {
+    cursor: url('../res/new-cursor.png'), auto !important;
+}
+
 html, body {
     position: absolute;
     width: 100%;
