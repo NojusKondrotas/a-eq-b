@@ -54,7 +54,7 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
         }
         btn.textContent = num.toString();
 
-        btn.addEventListener('click', () =>
+        btn.addEventListener('mousedown', () =>
             isleft
             ? handleUpdateLeft(parent, writableArr, sortedArrContainer, checkDone)
             : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone)
