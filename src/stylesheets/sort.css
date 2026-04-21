@@ -8,13 +8,16 @@
 
 #sorted-arr {
     display: flex;
-    width: 100%;
+    width: fit-content;
     height: 150px;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 11px;
+    padding: 0 10px;
     justify-content: center;
-    align-items: center;
-    gap: 75px;
+    align-items: flex-start;
 
-    /* background-color: aquamarine; */
+    gap: 75px;
 }
 
 #selectable-els {
@@ -23,14 +26,6 @@
     height: 100%;
     margin: 140px 0px 0px 0px;
 }
-
-/* #left-els {
-    background-color: yellow;
-}
-
-#right-els {
-    background-color: yellowgreen;
-} */
 
 #left-els, #right-els {
     display: flex;
@@ -51,21 +46,49 @@
 }
 
 .input-el-grad {
-    width: 40px;
+    width: 60px;
     aspect-ratio: 1;
 
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 500;
 
     background: none;
 }
 
 .output-el {
-    width: 50px;
-    height: 50px;
+    display: flex;
+    position: relative;
+    min-width: 50px;
+    min-height: 50px;
+    width: fit-content;
+    height: fit-content;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 70px;
+    flex-wrap: wrap;
 
     background: none;
 
     font-size: 30px;
     font-weight: 900;
+}
+
+.output-el-val {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+
+    background: none;
+
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.output-el-img {
+    width: 80px;
+    margin-top: 11px;
 }
