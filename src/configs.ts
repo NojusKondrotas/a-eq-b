@@ -1,5 +1,6 @@
 import { calculateFreqDiff, getFreqDiff } from "./beep.ts";
 import { countdown } from "./countdown.ts";
+import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
 import { SortType } from "./sorts/sort_types.ts";
 import { addEvent } from "./time-event-handler.ts";
 
@@ -16,7 +17,7 @@ let cfgFreqDiffVal: HTMLElement | null;
 
 const setInnerText = (obj: HTMLElement, text: string) => obj.innerText = text;
 
-export function initConfigs() {
+export function initConfigs(): void {
     cfgMinFreqIn = document.getElementById('min-freq-input');
     cfgMaxFreqIn = document.getElementById('max-freq-input');
     cfgArrSizeIn = document.getElementById('arr-size-input');
@@ -82,7 +83,25 @@ export const getMaxFreq = () => parseInt(sessionStorage.getItem('max_freq') as s
 export const getArrSize = () => parseInt(sessionStorage.getItem('arr_size') as string);
 export const getComparisonLen = () => parseInt(sessionStorage.getItem('comparison_len') as string);
 
-export function initStartGameBtn() {
+export function initEventListeners(): void {
+    const arr = getSortedArrDOM();
+    if (!arr) {
+        window.location.href = 'pages/error/error.html';
+        return;
+    }
+
+    window.addEventListener('wheel', (ev) => {
+        const leftOffset = arr.offsetLeft;
+        if (ev.deltaY > 0) {
+            arr.style.left = `${leftOffset - 64}px`;
+        }
+        else {
+            arr.style.left = `${leftOffset + 64}px`
+        }
+    });
+}
+
+export function initStartGameBtn(): void {
     const startGameBtn = document.getElementById('start-game-btn');
 
     if (!startGameBtn) {
