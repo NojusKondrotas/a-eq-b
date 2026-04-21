@@ -1,6 +1,5 @@
-import { beep, calculateFreqDiff, getFreqDiff } from "../../beep.ts";
 import { handleMergeDrawing } from "../../minigames/merge_sort/draw.ts";
-import { addComparisonLog, Complexity, initSortLog, logTheoreticalComparisons, logTotalComparisons } from "../sort_logger.ts";
+import { getSortedArrDOM, satisfiesSortOrderDOM } from "../../minigames/minigame_utils.ts";
 
 async function mergeSortHuman(arr: Array<number>, l: number, r: number) {
     if (l >= r)
@@ -17,10 +16,10 @@ async function mergeHuman(arr: Array<number>, l: number, m: number, r: number) {
 }
 
 export async function startMergeSortHuman(arr: Array<number>) {
-    initSortLog();
     console.log("Initial:", arr);
     await mergeSortHuman(arr, 0, arr.length - 1);
     console.log("Sorted:", arr);
-    logTotalComparisons();
-    logTheoreticalComparisons(arr.length, Complexity.nlogn);
+    const sortedArrDOM = getSortedArrDOM();
+    if (sortedArrDOM)
+        satisfiesSortOrderDOM(sortedArrDOM);
 }
