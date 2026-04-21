@@ -20,6 +20,10 @@
     text-decoration: none;
 }
 
-.sort-link:visited {
-    color: blue;
+.sort-link p {
+    color: var(--blue-ink);
+}
+
+.sort-link:visited p {
+    color: var(--blue-ink);
 }

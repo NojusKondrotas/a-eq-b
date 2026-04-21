@@ -1,3 +1,9 @@
+:root {
+    --notebook-paper: #eaeaea;
+    --black-ink: #2c181a;
+    --blue-ink: #331bc7;
+}
+
 * {
     cursor: url('../res/new-cursor.png'), auto !important;
 }
@@ -6,14 +12,21 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-
     margin: 0;
+
+    background-color: var(--notebook-paper);
+
+    overflow: hidden;
+}
+
+div, p, button {
+    color: var(--black-ink);
 }
 
 .box {
-    border: 5px solid black;
+    border: 5px solid var(--black-ink);
 }
 
 .thin-box {
-    border: 3px solid black;
+    border: 3px solid var(--black-ink);
 }
