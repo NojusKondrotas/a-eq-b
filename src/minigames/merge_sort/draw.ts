@@ -1,3 +1,5 @@
+import { createInputGradualEl, createInputImmediateEl, createOutputEl, getSortedArrDOM, gradualToImmediateEl } from "../minigame_utils.ts";
+
 let leftEls: Array<HTMLElement>, rightEls: Array<HTMLElement>;
 let lDOM: number, rDOM: number, w: number;
 
@@ -7,26 +9,13 @@ function deleteChildren(el: HTMLElement) {
     }
 }
 
-function createOut(num: number): HTMLElement {
-    const el = document.createElement('div');
-    el.classList.add('thin-box', 'output-el');
-    el.textContent = num.toString();
-
-    return el;
-}
-
-function toSelectable(el: HTMLElement): void {
-    el.classList = '';
-    el.classList.add('box', 'input-el-imm');
-}
-
 function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
                           checkDone: () => void): void {
     const val = parseInt(leftEls[lDOM].textContent);
-    const outEl = createOut(val);
+    const outEl = createOutputEl(val.toString());
     sortedArrContainer.appendChild(outEl);
     parent.removeChild(leftEls[lDOM]);
-    ++lDOM < leftEls.length ? toSelectable(leftEls[lDOM]) : lDOM;
+    ++lDOM < leftEls.length ? gradualToImmediateEl(leftEls[lDOM]) : lDOM;
     sortedArr[w++] = val;
     checkDone();
 }
@@ -34,10 +23,10 @@ function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedA
 function handleUpdateRight(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
                           checkDone: () => void): void {
     const val = parseInt(rightEls[rDOM].textContent);
-    const outEl = createOut(val);
+    const outEl = createOutputEl(val.toString());
     sortedArrContainer.appendChild(outEl);
     parent.removeChild(rightEls[rDOM]);
-    ++rDOM < rightEls.length ? toSelectable(rightEls[rDOM]) : rDOM;
+    ++rDOM < rightEls.length ? gradualToImmediateEl(rightEls[rDOM]) : rDOM;
     sortedArr[w++] = val;
     checkDone();
 }
@@ -46,13 +35,12 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
                        HTMLElement, writableArr: Array<number>,
                        isleft: boolean, checkDone: () => void) {
     arr.forEach((num, idx) => {
-        const btn = document.createElement('button');
+        let btn: HTMLElement;
         if (idx == 0) {
-            btn.classList.add('box', 'input-el-imm');
+            btn = createInputImmediateEl('button', num.toString());
         } else {
-            btn.classList.add('thin-box', 'input-el-grad');
+            btn = createInputGradualEl('button', num.toString());
         }
-        btn.textContent = num.toString();
 
         btn.addEventListener('mousedown', () =>
             isleft
@@ -68,7 +56,7 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
 export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: number): Promise<void> {
     const leftElsContainer = document.getElementById('left-els');
     const rightElsContainer = document.getElementById('right-els');
-    const sortedArrContainer = document.getElementById('sorted-arr');
+    const sortedArrContainer = getSortedArrDOM();
 
     if (!leftElsContainer || !rightElsContainer || !sortedArrContainer) {
         window.location.href = '../../pages/error/error.html';
