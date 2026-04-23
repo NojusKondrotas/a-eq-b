@@ -2,6 +2,11 @@
     --notebook-paper: #eaeaea;
     --black-ink: #2c181a;
     --blue-ink: #331bc7;
+    --yellow-highlighter: #E7CB5D;
+}
+
+::selection {
+    background-color: var(--yellow-highlighter);
 }
 
 * {
