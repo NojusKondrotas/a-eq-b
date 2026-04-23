@@ -4,3 +4,13 @@ export function shuffle(arr: Array<number>): void {
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
+
+export function hash(str: string): string {
+    let hash = 5381;
+    for (let c of str) {
+        hash = (((hash<<5)>>>0) + hash) + c.charCodeAt(0);
+        console.log(hash)
+    }
+
+    return hash.toString(16);
+}

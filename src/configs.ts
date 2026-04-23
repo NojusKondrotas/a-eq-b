@@ -85,7 +85,8 @@ export const getComparisonLen = () => parseInt(sessionStorage.getItem('compariso
 
 export function initEventListeners(): void {
     const arr = getSortedArrDOM();
-    if (!arr) {
+    const arrInit = document.getElementById('init-arr');
+    if (!arr || !arrInit) {
         window.location.href = 'pages/error/error.html';
         return;
     }
@@ -94,9 +95,11 @@ export function initEventListeners(): void {
         const leftOffset = arr.offsetLeft;
         if (ev.deltaY > 0) {
             arr.style.left = `${leftOffset - 64}px`;
+            arrInit.style.left = `${leftOffset - 64}px`;
         }
         else {
-            arr.style.left = `${leftOffset + 64}px`
+            arr.style.left = `${leftOffset + 64}px`;
+            arrInit.style.left = `${leftOffset + 64}px`;
         }
     });
 }
