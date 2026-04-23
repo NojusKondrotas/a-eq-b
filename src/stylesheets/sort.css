@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+#playground * {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
 #sorted-arr {
     position: relative;
     display: flex;
@@ -92,6 +97,6 @@
 }
 
 .output-el-img {
-    width: 80px;
+    width: 100px;
     margin-top: 11px;
 }
