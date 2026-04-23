@@ -1,6 +1,4 @@
 import { beep, calculateFreqDiff, getFreqDiff } from "../../beep.ts";
-import { getArrSize, getComparisonLen, getMaxFreq, getMinFreq } from "../../configs.ts";
-import { shuffle } from "../../numerics.ts";
 import { addComparisonLog, Complexity, initSortLog, logTheoreticalComparisons, logTotalComparisons } from "../sort_logger.ts";
 
 async function mergeSortBot(arr: Array<number>, l: number, r: number) {
