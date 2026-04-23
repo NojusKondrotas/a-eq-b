@@ -1,39 +1,53 @@
+import { createOutputEl } from "../minigames/minigame_utils.ts";
+
 export enum Complexity {
-    logn,
-    n,
-    nlogn,
-    n2
+    logn = 'logn',
+    n = 'n',
+    nlogn = 'nlogn',
+    n2 = 'n2'
+}
+
+export class AsymptoticNotations {
+    Omega: Complexity
+    Theta: Complexity
+    BigO: Complexity
+
+    constructor(omega: Complexity, theta: Complexity, bigO: Complexity) {
+        this.Omega = omega;
+        this.Theta = theta;
+        this.BigO = bigO;
+    }
 }
 
 let total_comparisons = 0;
 export const getTotalComparisons = () => total_comparisons;
 
+export function calculateTheoreticalComparisons(n: number, complexity: Complexity): number {
+    switch (complexity) {
+        case Complexity.logn: return Math.log2(n);
+        case Complexity.n: return n;
+        case Complexity.nlogn: return n * Math.log2(n);
+        case Complexity.n2: return n * n;
+        default: return -1;
+    }
+}
+
 export const initSortLog = () => total_comparisons = 0;
 export const addComparisonLog = () => total_comparisons += 1;
-export const logTotalComparisons = () => console.log("Total comparisons:", total_comparisons);
-export function logTheoreticalComparisons(n: number, complexity: Complexity) {
-    let theoreticalCompares = 0;
-    let complexityStr = "";
-    switch (complexity) {
-        case Complexity.logn:
-            complexityStr = 'logn';
-            theoreticalCompares = Math.log2(n);
-            break;
-        case Complexity.n:
-            complexityStr = 'n';
-            theoreticalCompares = n;
-            break;
-        case Complexity.nlogn:
-            complexityStr = 'nlogn';
-            theoreticalCompares = n * Math.log2(n);
-            break;
-        case Complexity.n2:
-            complexityStr = 'n2';
-            theoreticalCompares = n * n;
-            break;
-        default:
-            return;
-    }
+export const logTotalComparisons = (el: HTMLElement) => el.textContent = `Total comparisons: ${total_comparisons}`;
+export function logTheoreticalComparisons(n: number, complexities: AsymptoticNotations,
+    omega: HTMLElement, theta: HTMLElement, bigO: HTMLElement) {
+    let tComparisonsOmega = calculateTheoreticalComparisons(n, complexities.Omega).toFixed(4);
+    let tComparisonsTheta = calculateTheoreticalComparisons(n, complexities.Theta).toFixed(4);
+    let tComparisonsBigO = calculateTheoreticalComparisons(n, complexities.BigO).toFixed(4);
 
-    console.log(complexityStr, "=", theoreticalCompares);
+    omega.textContent = `Ω(${complexities.Omega}): ${tComparisonsOmega}`;
+    theta.textContent = `θ(${complexities.Theta}): ${tComparisonsTheta}`;
+    bigO.textContent = `O(${complexities.BigO}): ${tComparisonsBigO}`;
+}
+export function logArr(arr: Array<number>, container: HTMLElement) {
+    arr.forEach(val => {
+        const outEl = createOutputEl(val.toString());
+        container.appendChild(outEl);
+    })
 }

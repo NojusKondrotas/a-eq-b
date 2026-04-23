@@ -1,5 +1,4 @@
-import { beep, calculateFreqDiff, getFreqDiff } from "../../beep.ts";
-import { addComparisonLog, Complexity, initSortLog, logTheoreticalComparisons, logTotalComparisons } from "../sort_logger.ts";
+import { beep } from "../../beep.ts";
 
 async function mergeSortBot(arr: Array<number>, l: number, r: number) {
     if (l >= r)
@@ -29,33 +28,25 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number) {
             j += 1;
         }
 
-        addComparisonLog();
         w += 1;
     }
 
     while (i < left.length) {
         arr[w] = left[i];
         await beep(left[i]);
-        addComparisonLog();
         w += 1;
         i += 1;
     }
     while (j < right.length) {
         arr[w] = right[j];
         await beep(right[j]);
-        addComparisonLog();
         w += 1;
         j += 1;
     }
 }
 
-export async function startMergeSortBot(arr: Array<number>) {
-    calculateFreqDiff();
-    initSortLog();
-    console.log("Initial:", arr);
-    console.log("Freq diff:", getFreqDiff());
+export async function startMergeSortBot(arr: Array<number>): Promise<void> {
     await mergeSortBot(arr, 0, arr.length - 1);
-    console.log("Sorted:", arr);
-    logTotalComparisons();
-    logTheoreticalComparisons(arr.length, Complexity.nlogn);
+    console.log("Sorted bot:", arr);
+    return;
 }

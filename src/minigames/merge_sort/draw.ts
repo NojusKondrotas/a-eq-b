@@ -1,3 +1,4 @@
+import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { createInputGradualEl, createInputImmediateEl, createOutputEl, getSortedArrDOM, gradualToImmediateEl } from "../minigame_utils.ts";
 
 let leftEls: Array<HTMLElement>, rightEls: Array<HTMLElement>;
@@ -42,13 +43,15 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
             btn = createInputGradualEl('button', num.toString());
         }
 
-        btn.addEventListener('mousedown', () =>
+        btn.addEventListener('mousedown', () => {
             isleft
             ? handleUpdateLeft(parent, writableArr, sortedArrContainer, checkDone)
-            : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone)
-        );
+            : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone);
 
-        (parent as HTMLElement).appendChild(btn);
+            addComparisonLog();
+        });
+
+        parent.appendChild(btn);
         arrDOM.push(btn);
     });
 }

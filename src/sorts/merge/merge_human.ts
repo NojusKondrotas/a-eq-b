@@ -15,11 +15,10 @@ async function mergeHuman(arr: Array<number>, l: number, m: number, r: number) {
     await handleMergeDrawing(arr, l, m, r);
 }
 
-export async function startMergeSortHuman(arr: Array<number>) {
-    console.log("Initial:", arr);
+export async function startMergeSortHuman(arr: Array<number>): Promise<void> {
     await mergeSortHuman(arr, 0, arr.length - 1);
-    console.log("Sorted:", arr);
     const sortedArrDOM = getSortedArrDOM();
     if (sortedArrDOM)
         satisfiesSortOrderDOM(sortedArrDOM);
+    return;
 }
