@@ -1,0 +1,4 @@
+mixin sort_container(sort_header, sort_url, sort_name)
+    a.sort-link.box(id=`${sort_header}-sort` href=sort_url)
+        p.sort-link-numeric-val.justify-center(id=`${sort_header}-sort-hash`)
+        p.link-color.justify-center #{sort_name}
