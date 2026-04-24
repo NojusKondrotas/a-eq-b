@@ -30,10 +30,14 @@ div, p, button {
 }
 
 .box {
+    box-sizing: border-box;
+
     border: 5px solid var(--black-ink);
 }
 
 .thin-box {
+    box-sizing: border-box;
+
     border: 3px solid var(--black-ink);
 }
 

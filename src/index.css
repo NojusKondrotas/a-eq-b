@@ -1,8 +1,8 @@
 #sorts-box {
     display: flex;
-    width: 60%;
+    width: 750px;
 
-    margin: 5% 20%;
+    margin-top: 5%;
     gap: 20px 50px;
 
     flex-wrap: wrap;
