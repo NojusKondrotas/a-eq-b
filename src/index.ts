@@ -16,9 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sortHashDOM.textContent = hash(sortLabelDOM.textContent);
         sortClickerDOM.addEventListener('click', () => sessionStorage.setItem('selected_sort', sort));
 
-        const measurementsHandler: ElMeasurementsHandler = new ElMeasurementsHandler(
-            measureElement(sortLabelDOM, document.body)
-        );
+        const measurementsHandler: ElMeasurementsHandler = measureElement(sortLabelDOM, document.body, 5, 0, 5);
+        
         measurementsHandler.setDisplay('none');
 
         sortClickerDOM.addEventListener('mouseover', () => {

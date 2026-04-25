@@ -21,22 +21,23 @@ export class ElMeasurementsHandler {
     }
 }
 
-export function measureElement(el: HTMLElement, container: HTMLElement): ElementMeasurements {
-    const lineTop = createHorizontalLine(el, 5, 0);
-    const lineBottom = createHorizontalLine(el, 5, el.offsetHeight);
-    const lineLeft = createVerticalLine(el, 5, 0);
-    const lineRight = createVerticalLine(el, 5, el.offsetWidth);
-    const lineDiagonal = createHorizontalLine(el, 5, 1);
+export function measureElement(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, rotationOffset: number): ElMeasurementsHandler {
+    const lineTop = createHorizontalLine(el, borderWidth, offset);
+    const lineBottom = createHorizontalLine(el, borderWidth, el.offsetHeight);
+    const lineLeft = createVerticalLine(el, borderWidth, offset);
+    const lineRight = createVerticalLine(el, borderWidth, el.offsetWidth);
+    const lineDiagonal = createHorizontalLine(el, borderWidth, offset + 1);
     lineDiagonal.style.width = '200%';
     lineDiagonal.style.height = '200%';
-    rotateLine(lineDiagonal, el, 5);
+    rotateLine(lineDiagonal, el, rotationOffset);
     container.appendChild(lineTop);
     container.appendChild(lineBottom);
     container.appendChild(lineLeft);
     container.appendChild(lineRight);
     container.appendChild(lineDiagonal);
 
-    return { lineTop, lineRight, lineBottom, lineLeft, lineDiagonal } satisfies ElementMeasurements;
+    return new ElMeasurementsHandler({ lineTop, lineRight, lineBottom, lineLeft, lineDiagonal } satisfies ElementMeasurements);
 }
 
 export function getAbsoluteTop(el: HTMLElement) {
