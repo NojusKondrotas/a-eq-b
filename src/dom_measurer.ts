@@ -1,43 +1,95 @@
-export interface ElementMeasurements {
-    lineTop: HTMLElement;
-    lineRight: HTMLElement;
-    lineBottom: HTMLElement;
-    lineLeft: HTMLElement;
-    lineDiagonal: HTMLElement;
+export enum MeasureLine {
+    Top,
+    Right,
+    Bottom,
+    Left,
+    SlashDiagonal,
+    // BackslashDiagonal
 }
 
 export class ElMeasurementsHandler {
-    elMeasurements: ElementMeasurements;
-    constructor(el_measurements: ElementMeasurements) {
-        this.elMeasurements = {...el_measurements};
+    measurementLines: Array<HTMLElement>;
+    constructor(measurement_lines: Array<HTMLElement>) {
+        this.measurementLines = [...measurement_lines];
     }
 
     setDisplay(mode: string) {
-        this.elMeasurements.lineTop.style.display = mode;
-        this.elMeasurements.lineBottom.style.display = mode;
-        this.elMeasurements.lineLeft.style.display = mode;
-        this.elMeasurements.lineRight.style.display = mode;
-        this.elMeasurements.lineDiagonal.style.display = mode;
+        this.measurementLines.forEach(line => {
+            line.style.display = mode;
+        });
     }
 }
 
-export function measureElement(el: HTMLElement, container: HTMLElement,
-    borderWidth: number, offset: number, rotationOffset: number): ElMeasurementsHandler {
-    const lineTop = createHorizontalLine(el, borderWidth, offset, '#7c1616');
-    const lineBottom = createHorizontalLine(el, borderWidth, el.offsetHeight, 'rgb(156, 19, 19)');
-    const lineLeft = createVerticalLine(el, borderWidth, offset, 'rgb(156, 19, 19)');
-    const lineRight = createVerticalLine(el, borderWidth, el.offsetWidth, '#7c1616');
-    const lineDiagonal = createHorizontalLine(el, borderWidth, offset + 1, 'rgb(156, 19, 19)');
+export function measureElementTop(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, color: string) {
+    const lineTop = createHorizontalLine(el, borderWidth, offset, color);
+    container.appendChild(lineTop);
+
+    return lineTop;
+}
+
+export function measureElementRight(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, color: string) {
+    const lineRight = createVerticalLine(el, borderWidth, el.offsetWidth, color);
+    container.appendChild(lineRight);
+
+    return lineRight;
+}
+
+export function measureElementBottom(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, color: string) {
+    const lineBottom = createHorizontalLine(el, borderWidth, el.offsetHeight, color);
+    container.appendChild(lineBottom);
+
+    return lineBottom;
+}
+
+export function measureElementLeft(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, color: string) {
+    const lineLeft = createVerticalLine(el, borderWidth, offset, color);
+    container.appendChild(lineLeft);
+
+    return lineLeft;
+}
+
+export function measureElementDiagonal(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, rotationOffset: number,  color: string) {
+    const lineDiagonal = createHorizontalLine(el, borderWidth, offset, color);
     lineDiagonal.style.width = '200%';
     lineDiagonal.style.height = '200%';
     rotateLine(lineDiagonal, el, rotationOffset);
-    container.appendChild(lineTop);
-    container.appendChild(lineBottom);
-    container.appendChild(lineLeft);
-    container.appendChild(lineRight);
     container.appendChild(lineDiagonal);
 
-    return new ElMeasurementsHandler({ lineTop, lineRight, lineBottom, lineLeft, lineDiagonal } satisfies ElementMeasurements);
+    return lineDiagonal;
+}
+
+export function measureElement(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, rotationOffset: number, lines?: Array<MeasureLine>): ElMeasurementsHandler {
+    const measurementLines: Array<HTMLElement> = [];
+    if (!lines) {
+        lines = Object.values(MeasureLine) as MeasureLine[];
+    }
+    lines.forEach(line => {
+        switch(line) {
+            case MeasureLine.Top:
+                measurementLines.push(measureElementTop(el, container, borderWidth, offset, '#7c1616'));
+                break;
+            case MeasureLine.Right:
+                measurementLines.push(measureElementRight(el, container, borderWidth, '#7c1616'));
+                break;
+            case MeasureLine.Bottom:
+                measurementLines.push(measureElementBottom(el, container, borderWidth, el.offsetHeight, 'rgb(156, 19, 19)'));
+                break;
+            case MeasureLine.Left:
+                measurementLines.push(measureElementLeft(el, container, borderWidth, offset, 'rgb(156, 19, 19)'));
+                break;
+            case MeasureLine.SlashDiagonal:
+                measurementLines.push(measureElementDiagonal(el, container, borderWidth, offset, rotationOffset + 1, 'rgb(156, 19, 19)'));
+                break;
+        }
+    });
+
+    return new ElMeasurementsHandler(measurementLines);
 }
 
 export function getAbsoluteTop(el: HTMLElement) {
