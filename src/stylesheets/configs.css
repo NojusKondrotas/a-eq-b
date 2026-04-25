@@ -15,12 +15,12 @@
 }
 
 #start-game-btn {
-    width: 250px;
-    height: 170px;
+    width: 160px;
+    height: 128px;
 
     background: none;
 
-    font-size: 5em;
+    font-size: 64px;
 }
 
 #start-game-btn:hover {

@@ -45,11 +45,13 @@
 }
 
 .input-el-imm {
-    width: 100px;
+    width: 128px;
     aspect-ratio: 1;
 
-    font-size: 62px;
+    font-size: 64px;
     font-weight: 900;
+
+    color: var(--black-ink);
 
     background: none;
 }
@@ -60,6 +62,8 @@
 
     font-size: 34px;
     font-weight: 500;
+
+    color: var(--black-ink);
 
     background: none;
 }
@@ -85,19 +89,21 @@
 
 .output-el-val {
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 64px;
+    height: 64px;
     margin: 0;
     justify-content: center;
     align-items: center;
 
     background: none;
 
-    font-size: 30px;
+    color: var(--black-ink);
+
+    font-size: 32px;
     font-weight: 900;
 }
 
 .output-el-img {
-    width: 100px;
+    width: 112px;
     margin-top: 11px;
 }

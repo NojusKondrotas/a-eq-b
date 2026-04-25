@@ -2,11 +2,6 @@
     position: absolute;
 }
 
-.center-text {
-    display: flex;
-    justify-content: center;
-}
-
 .center-horiz-vert {
     display: flex;
     flex-direction: column;
@@ -32,6 +27,10 @@
 .flex-direction-column {
     display: flex;
     flex-direction: column;
+}
+
+.width-fit {
+    width: fit-content;
 }
 
 .width-full {
