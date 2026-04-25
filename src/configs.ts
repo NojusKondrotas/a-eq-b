@@ -1,5 +1,7 @@
 import { calculateFreqDiff, getFreqDiff } from "./beep.ts";
 import { countdown } from "./countdown.ts";
+import { ElMeasurementsHandler } from "./dom_measurer.ts";
+import { measureMergeSortPlacements } from "./minigames/merge_sort/merge.ts";
 import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
 import { SortType } from "./sorts/sort_types.ts";
 import { addEvent } from "./time-event-handler.ts";
@@ -14,6 +16,9 @@ let cfgMaxFreqVal: HTMLElement | null;
 let cfgArrSizeVal: HTMLElement | null;
 let cfgComparisonLenVal: HTMLElement | null;
 let cfgFreqDiffVal: HTMLElement | null;
+
+let measurements: Array<ElMeasurementsHandler>;
+export const getMeasurement = (idx: number) => measurements[idx] ?? ElMeasurementsHandler;
 
 const setInnerText = (obj: HTMLElement, text: string) => obj.innerText = text;
 
@@ -121,4 +126,43 @@ export function initStartGameBtn(): void {
                 break;
         }
     });
+}
+
+export function setConfigsDisplay(mode: string) {
+    const configurations = document.getElementById('configurations')!;
+    const guideText = document.getElementById('guide-text')!;
+    const startGame = document.getElementById('start-game')!;
+    
+    configurations.style.display = mode;
+    guideText.style.display = mode;
+    startGame.style.display = mode;
+}
+
+export function setCountdownDisplay(mode: string) {
+    const countdownCnt = document.getElementById('countdown-cnt')!;
+
+    countdownCnt.style.display = mode;
+}
+
+export function setSortPlaygroundDisplay(mode: string) {
+    const playground = document.getElementById('playground')!;
+    
+    playground.style.display = mode;
+}
+
+export function setSortStartsDisplay(mode: string) {
+    const stats = document.getElementById('stats')!;
+
+    stats.style.display = mode;
+}
+
+export function measureSortPlacements(): void {
+    let loc_measurements: Array<ElMeasurementsHandler> | null = null;
+    switch (sessionStorage.getItem('selected_sort')) {
+        case 'merge':
+            loc_measurements = measureMergeSortPlacements();
+            break;
+    }
+
+    measurements = loc_measurements ?? [];
 }

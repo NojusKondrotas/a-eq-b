@@ -1,4 +1,4 @@
-import { getArrSize } from "./configs.ts";
+import { getArrSize, getMeasurement } from "./configs.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
@@ -37,8 +37,19 @@ export async function countdown(type: SortType, secs: number) {
 
     for (let i = secs; i > 0; --i) {
         drawCountdown(countdownCntText, i);
+        const mes1 = getMeasurement(i * 2 - 1);
+        const mes2 = getMeasurement(i * 2 - 2);
+        mes1.setDisplay('');
+        mes2.setDisplay('');
+        if (i == 1) {
+            for (let j = 0; j < 4; ++j)
+                getMeasurement(i * 2 + j).setDisplay('none');
+        }
         await sleep(1000);
     }
+
+    getMeasurement(0).setDisplay('none');
+    getMeasurement(1).setDisplay('none');
 
     countdownCnt.style.display = 'none';
     playground.style.display = 'flex';

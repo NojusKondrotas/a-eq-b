@@ -1,4 +1,4 @@
-import { initConfigs, initEventListeners, initStartGameBtn } from "../configs.ts";
+import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "../configs.ts";
 import { addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -6,18 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventListeners();
     initStartGameBtn();
 
-    const countdownCnt = document.getElementById('countdown-cnt');
-    const playground = document.getElementById('playground');
-    const stats = document.getElementById('stats');
-
-    if (!countdownCnt || !playground || !stats) {
-        window.location.href = '../pages/error/error.html';
-        return;
-    }
-
-    countdownCnt.style.display = 'none';
-    playground.style.display = 'none';
-    stats.style.display = 'none';
+    setCountdownDisplay('none');
+    setConfigsDisplay('none');
+    setSortStartsDisplay('none');
+    measureSortPlacements();
+    setConfigsDisplay('');
+    setSortPlaygroundDisplay('none');
+    setSortStartsDisplay('none');
 
     document.addEventListener('keydown', (ev) => {
         if (ev.key == 'Escape' && hasEventOccured('game_start') && !hasEventOccured('escape')) {
