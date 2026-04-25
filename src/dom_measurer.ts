@@ -20,6 +20,11 @@ export class ElMeasurementsHandler {
     }
 }
 
+export function addMeasuredElEventListeners(el: HTMLElement, measurements: ElMeasurementsHandler) {
+    el.addEventListener('mouseover', () => measurements.setDisplay(''));
+    el.addEventListener('mouseleave', () => measurements.setDisplay('none'));
+}
+
 export function measureElementTop(el: HTMLElement, container: HTMLElement,
     borderWidth: number, offset: number, color: string) {
     const lineTop = createHorizontalLine(el, borderWidth, offset, color);

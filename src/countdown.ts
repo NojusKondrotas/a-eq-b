@@ -1,4 +1,5 @@
-import { getArrSize, getMeasurement } from "./configs.ts";
+import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "./configs.ts";
+import { addMeasuredElEventListeners, measureElement, MeasureLine } from "./dom_measurer.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
@@ -30,10 +31,8 @@ export async function countdown(type: SortType, secs: number) {
         return;
     }
 
-    configurations.style.display = 'none';
-    startGame.style.display = 'none';
-    guideText.style.display = 'none';
-    countdownCnt.style.display = 'flex';
+    setConfigsDisplay('none');
+    setCountdownDisplay('flex');
 
     for (let i = secs; i > 0; --i) {
         drawCountdown(countdownCntText, i);
@@ -51,8 +50,8 @@ export async function countdown(type: SortType, secs: number) {
     getMeasurement(0).setDisplay('none');
     getMeasurement(1).setDisplay('none');
 
-    countdownCnt.style.display = 'none';
-    playground.style.display = 'flex';
+    setCountdownDisplay('none');
+    setSortPlaygroundDisplay('flex');
 
     const arrInit = Array.from(Array(getArrSize()).keys());
     shuffle(arrInit);
@@ -66,11 +65,28 @@ export async function countdown(type: SortType, secs: number) {
             break;
     }
 
-    stats.style.display = 'flex';
+    setSortStartsDisplay('flex');
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),
         omega, theta, bigO
     );
     logArr(arrInit, initArrDOM);
+
+    const totalCompsMes = measureElement(totalComps, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const omegaMes = measureElement(omega, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const thetaMes = measureElement(theta, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const bigOMes = measureElement(bigO, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    totalCompsMes.setDisplay('none');
+    omegaMes.setDisplay('none');
+    thetaMes.setDisplay('none');
+    bigOMes.setDisplay('none');
+    addMeasuredElEventListeners(totalComps, totalCompsMes);
+    addMeasuredElEventListeners(omega, omegaMes);
+    addMeasuredElEventListeners(theta, thetaMes);
+    addMeasuredElEventListeners(bigO, bigOMes);
 }
