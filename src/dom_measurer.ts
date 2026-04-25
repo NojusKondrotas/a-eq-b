@@ -23,11 +23,11 @@ export class ElMeasurementsHandler {
 
 export function measureElement(el: HTMLElement, container: HTMLElement,
     borderWidth: number, offset: number, rotationOffset: number): ElMeasurementsHandler {
-    const lineTop = createHorizontalLine(el, borderWidth, offset);
-    const lineBottom = createHorizontalLine(el, borderWidth, el.offsetHeight);
-    const lineLeft = createVerticalLine(el, borderWidth, offset);
-    const lineRight = createVerticalLine(el, borderWidth, el.offsetWidth);
-    const lineDiagonal = createHorizontalLine(el, borderWidth, offset + 1);
+    const lineTop = createHorizontalLine(el, borderWidth, offset, '#7c1616');
+    const lineBottom = createHorizontalLine(el, borderWidth, el.offsetHeight, 'rgb(156, 19, 19)');
+    const lineLeft = createVerticalLine(el, borderWidth, offset, 'rgb(156, 19, 19)');
+    const lineRight = createVerticalLine(el, borderWidth, el.offsetWidth, '#7c1616');
+    const lineDiagonal = createHorizontalLine(el, borderWidth, offset + 1, 'rgb(156, 19, 19)');
     lineDiagonal.style.width = '200%';
     lineDiagonal.style.height = '200%';
     rotateLine(lineDiagonal, el, rotationOffset);
@@ -60,24 +60,24 @@ export function getAbsoluteLeft(el: HTMLElement) {
     return sum;
 }
 
-export function createHorizontalLine(el: HTMLElement, borderWidth: number, offset: number): HTMLElement {
+export function createHorizontalLine(el: HTMLElement, borderWidth: number, offset: number, color: string): HTMLElement {
     const top = getAbsoluteTop(el) + borderWidth + offset;
     const line = document.createElement('div');
     line.style.position = 'absolute';
     line.style.width = '100%';
-    line.style.borderTop = '1px dashed #492020';
+    line.style.borderTop = `1px dashed ${color}`;
     line.style.top = `${top}px`;
     line.style.pointerEvents = 'none';
 
     return line;
 }
 
-export function createVerticalLine(el: HTMLElement, borderWidth: number, offset: number): HTMLElement {
+export function createVerticalLine(el: HTMLElement, borderWidth: number, offset: number, color: string): HTMLElement {
     const left = getAbsoluteLeft(el) + borderWidth + offset;
     const line = document.createElement('div');
     line.style.position = 'absolute';
     line.style.height = '100%';
-    line.style.borderLeft = '1px dashed #492020';
+    line.style.borderLeft = `1px dashed ${color}`;
     line.style.top = '0';
     line.style.left = `${left}px`;
     line.style.pointerEvents = 'none';
