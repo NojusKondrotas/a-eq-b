@@ -1,0 +1,2 @@
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../dist/**/*.html";

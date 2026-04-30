@@ -40,13 +40,3 @@ div, p, button {
 
     border: 3px solid var(--black-ink);
 }
-
-.vertical-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.vertical-container * {
-    flex-shrink: 0;
-}
