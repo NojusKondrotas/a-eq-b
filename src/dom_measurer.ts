@@ -97,6 +97,14 @@ export function measureElement(el: HTMLElement, container: HTMLElement,
     return new ElMeasurementsHandler(measurementLines);
 }
 
+export function initElementMeasurement(el: HTMLElement, container: HTMLElement,
+    borderWidth: number, offset: number, rotationOffset: number, lines?: Array<MeasureLine>): ElMeasurementsHandler {
+    const handler = measureElement(el, container, borderWidth, offset, rotationOffset, lines);
+    addMeasuredElEventListeners(el, handler);
+
+    return handler;
+}
+
 export function getAbsoluteTop(el: HTMLElement) {
     let sum = 0;
     while (el) {

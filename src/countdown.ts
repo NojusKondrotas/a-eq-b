@@ -1,5 +1,5 @@
 import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "./configs.ts";
-import { addMeasuredElEventListeners, measureElement, MeasureLine } from "./dom_measurer.ts";
+import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
@@ -73,20 +73,16 @@ export async function countdown(type: SortType, secs: number) {
     );
     logArr(arrInit, initArrDOM);
 
-    const totalCompsMes = measureElement(totalComps, document.body, 0, 0, 0,
+    const totalCompsMes = initElementMeasurement(totalComps, document.body, 0, 0, 0,
         [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
-    const omegaMes = measureElement(omega, document.body, 0, 0, 0,
+    const omegaMes = initElementMeasurement(omega, document.body, 0, 0, 0,
         [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
-    const thetaMes = measureElement(theta, document.body, 0, 0, 0,
+    const thetaMes = initElementMeasurement(theta, document.body, 0, 0, 0,
         [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
-    const bigOMes = measureElement(bigO, document.body, 0, 0, 0,
+    const bigOMes = initElementMeasurement(bigO, document.body, 0, 0, 0,
         [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
     totalCompsMes.setDisplay('none');
     omegaMes.setDisplay('none');
     thetaMes.setDisplay('none');
     bigOMes.setDisplay('none');
-    addMeasuredElEventListeners(totalComps, totalCompsMes);
-    addMeasuredElEventListeners(omega, omegaMes);
-    addMeasuredElEventListeners(theta, thetaMes);
-    addMeasuredElEventListeners(bigO, bigOMes);
 }

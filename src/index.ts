@@ -1,4 +1,4 @@
-import { ElMeasurementsHandler, measureElement } from "./dom_measurer.ts";
+import { initElementMeasurement } from "./dom_measurer.ts";
 import { hash } from "./numerics.ts";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,15 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sortHashDOM.textContent = hash(sortLabelDOM.textContent);
         sortClickerDOM.addEventListener('click', () => sessionStorage.setItem('selected_sort', sort));
 
-        const measurementsHandler: ElMeasurementsHandler = measureElement(sortLabelDOM, document.body, 5, 0, 5);
-        
+        const measurementsHandler = initElementMeasurement(sortLabelDOM, document.body, 5, 0, 5);
         measurementsHandler.setDisplay('none');
-
-        sortClickerDOM.addEventListener('mouseover', () => {
-            measurementsHandler.setDisplay('');
-        });
-        sortClickerDOM.addEventListener('mouseleave', () => {
-            measurementsHandler.setDisplay('none');
-        });
     });
 });
