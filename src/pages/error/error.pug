@@ -5,10 +5,9 @@ head
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     base(href="/")
     title 451
+    link(rel="stylesheet" href="/style.css")
     link(rel="stylesheet" href="/stylesheets/universal.css")
-    link(rel="stylesheet" href="/stylesheets/utils.css")
-    link(rel="stylesheet" href="/pages/error/error.css")
 body 
-    #error-box 
-        p.justify-center.margin-all-0.very-big-font.width-full 451
-        p.justify-center.width-full Uhoh, could not load the page!
+    div(class="absolute flex w-full h-full top-1/5 flex-col items-center gap-y-[100px]")
+        p.justify-center.m-0.text-9xl 451
+        p.justify-center Uhoh, could not load the page!
