@@ -14,13 +14,14 @@ html(lang="en")
 
         #countdown-cnt 
             p#countdown-cnt-text 
-        #playground
-            #sorted-arr.arr-container 
-            #selectable-els 
-                #left-els 
-                #right-els 
-        
-        include ../includes/_sort_end
+        .flex.w-full.h-full.flex-col
+            #playground
+                #sorted-arr.arr-container 
+                #selectable-els 
+                    #left-els 
+                    #right-els 
+            
+            include ../includes/_sort_end
 
         script(type="module" src="/configs.js")
         script(type="module" src="/page_indexes/sort_index.js")
