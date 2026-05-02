@@ -1,30 +1,50 @@
 #configurations {
-    display: flex;
+    display: grid;
     width: 100%;
-    justify-content: center;
-    align-items: center;
-    gap: 110px;
+    row-gap: 32px;
+
+    grid-template-columns: auto;
+    grid-template-rows: 128px 128px;
+    grid-template-areas: 
+        "min-freq max-freq arr-size comparison-len freq-diff"
+        "guide-text . start-game . ."
+    ;
+    row-gap: 32px;
+    
+    justify-items: center;
 
     font-weight: 900;
+}
+
+#configurations > * {
+    width: 186px;
 }
 
 #start-game {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    grid-area: start-game;
 }
 
 #start-game-btn {
-    width: 160px;
     height: 128px;
 
     background: none;
 
     font-size: 64px;
+    font-weight: 900;
+
+    color: var(--black-ink);
 }
 
 #start-game-btn:hover {
     cursor: pointer;
+}
+
+#guide-text {
+    grid-area: guide-text;
 }
 
 #countdown-cnt {
