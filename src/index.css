@@ -8,7 +8,7 @@
     flex-wrap: wrap;
 }
 
-.sort-link {
+.sort-link-box {
     display: flex;
     position: relative;
     aspect-ratio: 1;
@@ -19,25 +19,26 @@
 
     font-weight: 900;
     text-decoration: none;
+    font-size: 16px;
 }
 
-.sort-link .link-color {
+.sort-link-box .link-color {
     color: var(--blue-ink);
 }
 
-.sort-link:visited .link-color {
+.sort-link-box:visited .link-color {
     color: var(--blue-ink);
 }
 
-.sort-link .sort-link-numeric-val {
+.sort-link-box > .sort-link-box-numeric-val {
     display: none;
 }
 
-.sort-link:hover .sort-link-numeric-val {
+.sort-link-box:hover > .sort-link-box-numeric-val {
     display: flex;
 }
 
-.sort-link-numeric-val {
+.sort-link-box-numeric-val {
     display: none;
     position: absolute;
     margin: 0;

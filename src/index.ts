@@ -1,4 +1,4 @@
-import { initElementMeasurement } from "./dom_measurer.ts";
+import { addMeasuredElEventListeners, measureElement } from "./dom_measurer.ts";
 import { hash } from "./numerics.ts";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         sortHashDOM.textContent = hash(sortLabelDOM.textContent);
-        sortClickerDOM.addEventListener('click', () => sessionStorage.setItem('selected_sort', sort));
+        sortClickerDOM.addEventListener('mousedown', () => sessionStorage.setItem('selected_sort', sort));
 
-        const measurementsHandler = initElementMeasurement(sortLabelDOM, document.body, 5, 0, 5);
+        const measurementsHandler = measureElement(sortLabelDOM, document.body, 5, 0, 5);
+        addMeasuredElEventListeners(sortClickerDOM, measurementsHandler);
         measurementsHandler.setDisplay('none');
     });
 });
