@@ -1,9 +1,14 @@
 import { addMeasuredElEventListeners, measureElement } from "./dom_measurer.ts";
+import { registerKey, registerKeybind, unregisterKey } from "./keybind-handler.ts";
 import { hash } from "./numerics.ts";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const sorts = ['merge', 'insertion', 'selection', 'quick', 'bubble', 'heap'];
-    sorts.forEach(sort => {
+    const sorts = new Map<string, string[]>([
+        ['merge', ['A']], ['insertion', ['B']],
+        ['selection', ['C']], ['quick', ['D']],
+        ['bubble', ['E']], ['heap', ['F']]
+    ]);
+    for(const [sort, keybinds] of sorts) {
         const sortClickerDOM = document.getElementById(`${sort}-sort`);
         const sortHashDOM = document.getElementById(`${sort}-sort-hash`);
         const sortLabelDOM = document.getElementById(`${sort}-label`);
@@ -19,5 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const measurementsHandler = measureElement(sortLabelDOM, document.body, 5, 0, 5);
         addMeasuredElEventListeners(sortClickerDOM, measurementsHandler);
         measurementsHandler.setDisplay('none');
-    });
+
+        registerKeybind(sort, () => {
+            sessionStorage.setItem('selected_sort', sort);
+            keybinds.forEach(key => unregisterKey(key, { ignoreCase: true }));
+            document.location.href = `pages/sorts/${sort}.html`;
+        }, keybinds, { ignoreCase: true });
+    }
 });
+
+document.addEventListener('keydown', (ev) => registerKey(ev.key, { ignoreCase: true }));
+document.addEventListener('keyup', (ev) => unregisterKey(ev.key, { ignoreCase: true }));

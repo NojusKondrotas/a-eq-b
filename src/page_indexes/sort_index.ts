@@ -1,11 +1,86 @@
-import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "../configs.ts";
+import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay, startMinigame } from "../configs.ts";
 import { initElementMeasurement } from "../dom_measurer.ts";
+import { registerKey, registerKeybind, unregisterKey } from "../keybind-handler.ts";
 import { addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
+
+function toggleMinigameGuide(): void {
+    const guide = document.getElementById('guide-text');
+    if (!guide)
+        return;
+
+    guide.style.visibility == 'hidden'
+    ? guide.style.visibility = ''
+    : guide.style.visibility = 'hidden';
+}
+
+function toggleConfigs(): void {
+    const configs = document.getElementsByClassName('configs');
+    if (!configs)
+        return;
+    
+    Array.from(configs as HTMLCollectionOf<HTMLElement>).forEach(el => {
+        el.style.visibility == 'hidden'
+        ? el.style.visibility = ''
+        : el.style.visibility = 'hidden';
+    });
+}
+
+function toggleKeyboard(): void {
+
+}
+
+function redirectToIndexPage(): void {
+    window.location.href = '../index.html';
+}
+
+function initSortIndexEventListeners(): void {
+    const keybinds = new Map<string, string[]>([
+        ['guide_text', ['A']],
+        ['configs', ['B']],
+        ['start_1', ['Spacebar']],
+        ['start_2', [' ']],
+        ['display_keyboard', ['C']],
+        ['index', ['D']]
+    ]);
+    const keybindHandlers = new Map<string, () => void>([
+        ['guide_text', toggleMinigameGuide],
+        ['configs', toggleConfigs],
+        ['start_1', startMinigame],
+        ['start_2', startMinigame],
+        ['display_keyboard', toggleKeyboard],
+        ['index', redirectToIndexPage]
+    ]);
+
+    keybinds.forEach((val, key) => {
+        registerKeybind(key, keybindHandlers.get(key)!, val, { ignoreCase: true });
+    });
+    
+    document.addEventListener('keydown', (ev) => {
+        if (ev.key == 'Escape') {
+            if (hasEventOccured('game_start') && !hasEventOccured('escape')){
+                deleteEvent('game_start');
+                deleteEvent('escape');
+                window.location.reload();
+            } else {
+                addEvent('escape');
+            }
+        }
+
+        registerKey(ev.key, { ignoreCase: true, guardAgainstHold: true });
+    });
+    document.addEventListener('keyup', (ev) => {
+        if (ev.key == 'Escape')
+            deleteEvent('escape');
+
+        unregisterKey(ev.key, { ignoreCase: true, guardAgainstHold: true });
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initConfigs();
     initEventListeners();
     initStartGameBtn();
+    initSortIndexEventListeners();
 
     const startGameBtn = document.getElementById('start-game-btn')!;
     const guideText = document.getElementById('guide-text')!;
@@ -23,18 +98,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setConfigsDisplay('');
     setSortPlaygroundDisplay('none');
     setSortStartsDisplay('none');
-
-    document.addEventListener('keydown', (ev) => {
-        if (ev.key == 'Escape' && hasEventOccured('game_start') && !hasEventOccured('escape')) {
-            deleteEvent('game_start');
-            deleteEvent('escape');
-            window.location.reload();
-        }
-
-        addEvent('escape');
-    })
-    document.addEventListener('keyup', (ev) => {
-        if (ev.key == 'Escape')
-            deleteEvent('escape');
-    });
 });
