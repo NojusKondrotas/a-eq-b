@@ -1,4 +1,4 @@
-import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "./configs.ts";
+import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
@@ -32,6 +32,7 @@ export async function countdown(type: SortType, secs: number) {
     }
 
     setConfigsDisplay('none');
+    setFooterDisplay('none');
     setCountdownDisplay('flex');
 
     for (let i = secs; i > 0; --i) {

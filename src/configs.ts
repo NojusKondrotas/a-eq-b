@@ -109,6 +109,16 @@ export function initEventListeners(): void {
     });
 }
 
+export function startMinigame(): void {
+    addEvent('game_start');
+
+    switch (sessionStorage.getItem('selected_sort')) {
+        case 'merge':
+            countdown(SortType.MergeSort, 3);
+            break;
+    }
+}
+
 export function initStartGameBtn(): void {
     const startGameBtn = document.getElementById('start-game-btn');
 
@@ -118,13 +128,7 @@ export function initStartGameBtn(): void {
     }
 
     startGameBtn.addEventListener('click', () => {
-        addEvent('game_start');
-
-        switch (sessionStorage.getItem('selected_sort')) {
-            case 'merge':
-                countdown(SortType.MergeSort, 3);
-                break;
-        }
+        startMinigame();
     });
 }
 
@@ -154,6 +158,12 @@ export function setSortStartsDisplay(mode: string) {
     const stats = document.getElementById('stats')!;
 
     stats.style.display = mode;
+}
+
+export function setFooterDisplay(mode: string) {
+    const footer = document.getElementById('footer')!;
+
+    footer.style.display = mode;
 }
 
 export function measureSortPlacements(): void {
