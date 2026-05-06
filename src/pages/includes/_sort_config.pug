@@ -1,23 +1,11 @@
+include ../mixins/_sort_mixins
+
 #configurations
-    .flex.flex-col.justify-center.items-center
-        p.flex.justify-center.text-base min freq
-        input#min-freq-input.w-full(type="range" min="200" max="2200" value="200")
-        p#min-freq-val.flex.justify-center.text-base
-    .flex.flex-col.justify-center.items-center
-        p.flex.justify-center.text-base max freq
-        input#max-freq-input.w-full(type="range" min="200" max="2200" value="500")
-        p#max-freq-val.flex.justify-center.text-base
-    .flex.flex-col.justify-center.items-center
-        p.flex.justify-center.text-base n
-        input#arr-size-input.w-full(type="range" min="2" max="200" value="10")
-        p#arr-size-val.flex.justify-center.text-base
-    .flex.flex-col.justify-center.items-center
-        p.flex.justify-center.text-base bot comparison length
-        input#comparison-len-input.w-full(type="range" min="1" max="2000" value="350")
-        p#comparison-len-val.flex.justify-center.text-base
-    .flex.flex-col.justify-center.items-center
-        p.flex.justify-center.text-base freq diff
-        p#freq-diff-val.flex.justify-center.text-base
+    +config(['min', 'freq'].join(' '), ['min', 'freq'].join('-'), 'y', '200', '2200', '200')
+    +config(['max', 'freq'].join(' '), ['max', 'freq'].join('-'), 'y', '200', '2200', '500')
+    +config('n', 'arr-size', 'y', '2', '200', '10')
+    +config('bot comparison length', 'comparison-len', 'y', '1', '2000', '350')
+    +config(['freq', 'diff'].join(' '), ['freq', 'diff'].join('-'))
     p#guide-text.relative.m-0.left-4.justify-self-start.self-start.text-base during the sorting procedure, tap on the element which is the largest
     #start-game
         button#start-game-btn.box start

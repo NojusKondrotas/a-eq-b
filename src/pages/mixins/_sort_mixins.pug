@@ -1,0 +1,6 @@
+mixin config(name, id, control, min, max, value)
+    .configs.flex.flex-col.justify-center.items-center
+        p.flex.justify-center.text-base= name
+        if control 
+            input.w-full(id=`${id}-input` type="range" min=`${min}` max=`${max}` value=`${value}`)
+        p(id=`${id}-val`).flex.justify-center.text-base
