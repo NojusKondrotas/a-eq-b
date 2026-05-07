@@ -26,7 +26,15 @@ function toggleConfigs(): void {
 }
 
 function toggleKeyboard(): void {
+    const keyboard = document.getElementById('keyboard');
+    if (!keyboard) {
+        window.location.href = '../pages/error/error.html';
+        return;
+    }
 
+    keyboard.style.display == 'none'
+    ? keyboard.style.display = 'flex'
+    : keyboard.style.display = 'none';
 }
 
 function redirectToIndexPage(): void {
