@@ -43,18 +43,16 @@ function redirectToIndexPage(): void {
 
 function initSortIndexEventListeners(): void {
     const keybinds = new Map<string, string[]>([
-        ['guide_text', ['A']],
-        ['configs', ['B']],
-        ['start_1', ['Spacebar']],
-        ['start_2', [' ']],
-        ['display_keyboard', ['C']],
-        ['index', ['D']]
+        ['start', ['A']],
+        ['guide_text', ['C']],
+        ['configs', ['D']],
+        ['display_keyboard', ['E']],
+        ['index', ['F']]
     ]);
     const keybindHandlers = new Map<string, () => void>([
+        ['start', startMinigame],
         ['guide_text', toggleMinigameGuide],
         ['configs', toggleConfigs],
-        ['start_1', startMinigame],
-        ['start_2', startMinigame],
         ['display_keyboard', toggleKeyboard],
         ['index', redirectToIndexPage]
     ]);
@@ -64,7 +62,7 @@ function initSortIndexEventListeners(): void {
     });
     
     document.addEventListener('keydown', (ev) => {
-        if (ev.key == 'Escape') {
+        if (ev.key.toLocaleLowerCase() == 'b') {
             if (hasEventOccured('game_start') && !hasEventOccured('escape')){
                 deleteEvent('game_start');
                 deleteEvent('escape');
@@ -73,11 +71,11 @@ function initSortIndexEventListeners(): void {
                 addEvent('escape');
             }
         }
-
+        
         registerKey(ev.key, { ignoreCase: true, guardAgainstHold: true });
     });
     document.addEventListener('keyup', (ev) => {
-        if (ev.key == 'Escape')
+        if (ev.key.toLocaleLowerCase() == 'b')
             deleteEvent('escape');
 
         unregisterKey(ev.key, { ignoreCase: true, guardAgainstHold: true });
