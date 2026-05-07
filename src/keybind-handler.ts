@@ -3,6 +3,7 @@ import { addEvent, deleteEvent, hasEventOccured } from "./time-event-handler.ts"
 const activeKeys = new Set<string>();
 const keybinds = new Map<string, string[]>();
 const keybindsHandlers = new Map<string, () => void>();
+const activeKeybinds = new Set<string>();
 
 type KeybindOpts = {
     ignoreCase?: boolean,
@@ -14,7 +15,8 @@ export const registerKey = (key: string, opts?: KeybindOpts): void => {
     ? key.toLocaleLowerCase()
     : key;
 
-    activeKeys.add(keyNormalized);
+    if (!activeKeys.has(keyNormalized))
+        activeKeys.add(keyNormalized);
 
     if (opts?.guardAgainstHold) {
         if (!hasEventOccured(`keyreg_${key}`)) {
@@ -51,9 +53,19 @@ export const unregisterKeybind = (name: string): void => {
 };
 
 export const triggerKeybinds = (): void => {
+    const activatedKeybinds = new Set<string>();
     for(const [name, keys] of keybinds) {
-        if (keys.every((key) => activeKeys.has(key))) {
-            keybindsHandlers.get(name)?.();
+        if (keys.every(key => activeKeys.has(key))) {
+            if (!activeKeybinds.has(name))
+                keybindsHandlers.get(name)?.();
+            activeKeybinds.add(name);
+            activatedKeybinds.add(name);
         }
     }
+
+    activeKeybinds.forEach(keybind => {
+        if (!activatedKeybinds.has(keybind)) {
+            activeKeybinds.delete(keybind);
+        }
+    })
 };
