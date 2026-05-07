@@ -11,7 +11,7 @@ type KeybindOpts = {
 
 export const registerKey = (key: string, opts?: KeybindOpts): void => {
     let keyNormalized = (opts?.ignoreCase)
-    ? key.toLowerCase()
+    ? key.toLocaleLowerCase()
     : key;
 
     activeKeys.add(keyNormalized);
@@ -27,7 +27,7 @@ export const registerKey = (key: string, opts?: KeybindOpts): void => {
 };
 export const unregisterKey = (key: string, opts?: KeybindOpts): void => {
     let keyNormalized = (opts?.ignoreCase)
-    ? key.toLowerCase()
+    ? key.toLocaleLowerCase()
     : key;
 
     if (opts?.guardAgainstHold) {
@@ -40,7 +40,7 @@ export const unregisterKey = (key: string, opts?: KeybindOpts): void => {
 
 export const registerKeybind = (name: string, handler: () => void, keys: string[], opts?: KeybindOpts): void => {
     const normalised = (opts?.ignoreCase)
-    ? keys.map(key => key.toLowerCase())
+    ? keys.map(key => key.toLocaleLowerCase())
     : keys;
     keybinds.set(name, normalised.sort());
     keybindsHandlers.set(name, handler);
