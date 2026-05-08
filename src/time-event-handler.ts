@@ -1,5 +1,8 @@
 const timestamps: Map<string, number | null> = new Map();
 
+export let abortController: AbortController;
+export const initAbortController = () => abortController = new AbortController();
+
 export function addEvent(ev: string): number {
     const time = performance.now();
     timestamps.set(ev, time);

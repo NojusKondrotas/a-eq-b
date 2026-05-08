@@ -1,7 +1,30 @@
-import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStartsDisplay, startMinigame } from "../configs.ts";
+import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "../configs.ts";
+import { countdown } from "../countdown.ts";
 import { initElementMeasurement } from "../dom_measurer.ts";
 import { registerKey, registerKeybind, unregisterKey } from "../keybind-handler.ts";
-import { addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
+import { SortType } from "../sorts/sort_types.ts";
+import { abortController, addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
+
+export async function startMinigame(): Promise<void> {
+    if (abortController && hasEventOccured('game_end'))
+        abortController.abort();
+
+    if (hasEventOccured('game_start')) {
+        return;
+    }
+
+    addEvent('game_start');
+    setSortStatsDisplay('none');
+
+    switch (sessionStorage.getItem('selected_sort')) {
+        case 'merge':
+            await countdown(SortType.MergeSort, 3);
+            break;
+    }
+
+    deleteEvent('game_start');
+    addEvent('game_end');
+}
 
 function toggleMinigameGuide(): void {
     const guide = document.getElementById('guide-text');
@@ -63,8 +86,10 @@ function initSortIndexEventListeners(): void {
     
     document.addEventListener('keydown', (ev) => {
         if (ev.key.toLocaleLowerCase() == 'b') {
-            if (hasEventOccured('game_start') && !hasEventOccured('escape')){
+            if (hasEventOccured('game_start') && !hasEventOccured('escape')
+                || hasEventOccured('game_end')){
                 deleteEvent('game_start');
+                deleteEvent('game_end');
                 deleteEvent('escape');
                 window.location.reload();
             } else {
@@ -99,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setCountdownDisplay('none');
     setConfigsDisplay('none');
-    setSortStartsDisplay('none');
+    setSortStatsDisplay('none');
     measureSortPlacements();
     setConfigsDisplay('');
     setSortPlaygroundDisplay('none');
-    setSortStartsDisplay('none');
+    setSortStatsDisplay('none');
 });

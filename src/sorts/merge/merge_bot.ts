@@ -1,16 +1,20 @@
 import { beep } from "../../beep.ts";
 
-async function mergeSortBot(arr: Array<number>, l: number, r: number) {
+async function mergeSortBot(arr: Array<number>, l: number, r: number, signal: AbortSignal) {
+    if (signal.aborted) return;
+
     if (l >= r)
         return;
     
     let m = Math.floor(l + (r - l) / 2);
-    await mergeSortBot(arr, l, m);
-    await mergeSortBot(arr, m + 1, r);
-    await mergeBot(arr, l, m, r);
+    await mergeSortBot(arr, l, m, signal);
+    await mergeSortBot(arr, m + 1, r, signal);
+    await mergeBot(arr, l, m, r, signal);
 }
 
-async function mergeBot(arr: Array<number>, l: number, m: number, r: number) {
+async function mergeBot(arr: Array<number>, l: number, m: number, r: number, signal: AbortSignal) {
+    if (signal.aborted) return;
+    
     let left = arr.slice(l, m+1);
     let right = arr.slice(m+1, r+1);
 
@@ -18,6 +22,8 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number) {
     let w = l;
 
     while (i < left.length && j < right.length) {
+        if (signal.aborted) return;
+
         if (left[i] <= right[j]) {
             arr[w] = left[i];
             await beep(left[i]);
@@ -32,12 +38,16 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number) {
     }
 
     while (i < left.length) {
+        if (signal.aborted) return;
+
         arr[w] = left[i];
         await beep(left[i]);
         w += 1;
         i += 1;
     }
     while (j < right.length) {
+        if (signal.aborted) return;
+        
         arr[w] = right[j];
         await beep(right[j]);
         w += 1;
@@ -45,8 +55,14 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number) {
     }
 }
 
-export async function startMergeSortBot(arr: Array<number>): Promise<void> {
-    await mergeSortBot(arr, 0, arr.length - 1);
-    console.log("Sorted bot:", arr);
+export async function startMergeSortBot(arr: Array<number>, signal: AbortSignal): Promise<void> {
+    try {
+        await mergeSortBot(arr, 0, arr.length - 1, signal);
+        console.log("Sorted bot:", arr);
+    } catch (e) {
+        if (e instanceof DOMException && e.name === "AbortError")
+            return;
+        throw e;
+    }
     return;
 }

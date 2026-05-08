@@ -1,10 +1,8 @@
 import { calculateFreqDiff, getFreqDiff } from "./beep.ts";
-import { countdown } from "./countdown.ts";
 import { ElMeasurementsHandler } from "./dom_measurer.ts";
 import { measureMergeSortPlacements } from "./minigames/merge_sort/measure.ts";
 import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
-import { SortType } from "./sorts/sort_types.ts";
-import { addEvent } from "./time-event-handler.ts";
+import { startMinigame } from "./page_indexes/sort_index.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -109,16 +107,6 @@ export function initEventListeners(): void {
     });
 }
 
-export function startMinigame(): void {
-    addEvent('game_start');
-
-    switch (sessionStorage.getItem('selected_sort')) {
-        case 'merge':
-            countdown(SortType.MergeSort, 3);
-            break;
-    }
-}
-
 export function initStartGameBtn(): void {
     const startGameBtn = document.getElementById('start-game-btn');
 
@@ -127,8 +115,8 @@ export function initStartGameBtn(): void {
         return;
     }
 
-    startGameBtn.addEventListener('click', () => {
-        startMinigame();
+    startGameBtn.addEventListener('click', async () => {
+        await startMinigame();
     });
 }
 
@@ -154,7 +142,7 @@ export function setSortPlaygroundDisplay(mode: string) {
     playground.style.display = mode;
 }
 
-export function setSortStartsDisplay(mode: string) {
+export function setSortStatsDisplay(mode: string) {
     const stats = document.getElementById('stats')!;
 
     stats.style.display = mode;

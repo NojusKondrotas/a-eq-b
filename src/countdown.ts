@@ -1,9 +1,10 @@
-import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStartsDisplay } from "./configs.ts";
+import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
 import { SortType } from "./sorts/sort_types.ts";
+import { deleteEvent, initAbortController } from "./time-event-handler.ts";
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -57,6 +58,7 @@ export async function countdown(type: SortType, secs: number) {
     const arrInit = Array.from(Array(getArrSize()).keys());
     shuffle(arrInit);
     initSortLog();
+    initAbortController();
 
     switch (type) {
         case SortType.MergeSort:
@@ -66,7 +68,7 @@ export async function countdown(type: SortType, secs: number) {
             break;
     }
 
-    setSortStartsDisplay('flex');
+    setSortStatsDisplay('flex');
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),
