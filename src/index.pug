@@ -10,6 +10,7 @@ html(lang="en")
         link(rel="stylesheet" href="/index.css")
     body 
         include pages/mixins/_index_mixins
+        include pages/mixins/_general_mixins
 
         .w-full.flex.justify-center
             #sorts-box 
@@ -20,6 +21,15 @@ html(lang="en")
                 +sort_container('bubble', '/pages/error/error.html', 'bubble sort')
                 +sort_container('heap', '/pages/error/error.html', 'heapsort')
         
-        include pages/includes/_index_footer
-
+        +footer(
+            {
+                'merge sort' : 'A',
+                'insertion sort' : 'B',
+                'selection sort' : 'C',
+                'quicksort' : 'D',
+                'bubble sort' : 'E',
+                'heapsort' : 'F'
+            }
+        )
+        
         script(type="module" src="/index.js")

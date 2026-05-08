@@ -1,0 +1,9 @@
+mixin keybind(elucidation, ...keys)
+    div(class="flex flex-col w-max items-start gap-y-2")
+        p.m-0= keys.flat().join('+')
+        p.m-0= elucidation
+
+mixin footer(keybinds)
+    #footer(class="absolute grid grid-cols-6 w-full mx-2.5 my-0 bottom-2.5 gap-y-8")
+        each keys, name in keybinds
+            +keybind(name, keys)
