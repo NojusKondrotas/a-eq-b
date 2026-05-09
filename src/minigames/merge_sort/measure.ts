@@ -1,13 +1,35 @@
-import { ElMeasurementsHandler, measureElement } from "../../dom_measurer.ts";
+import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../dom_measurer.ts";
 import { createInputGradualEl, createInputImmediateEl } from "../minigame_utils.ts";
 
 export function measureMergeSortPlacements() {
-    const leftEls = document.getElementById('left-els');
-    const rightEls = document.getElementById('right-els');
-    if (!leftEls || !rightEls) {
-        window.location.href = '../../pages/error/error.html';
-        return null;
-    }
+    const parent = document.createElement('div');
+    Object.assign(parent.style, {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: "0",
+        left: "100%",
+        margin: "0"
+    });
+    const container = document.createElement('div');
+    container.classList.add('flex', 'w-full', 'h-full', 'flex-col')
+    const playground = document.createElement('div');
+    playground.id = 'playground';
+    const sortedArr = document.createElement('div');
+    sortedArr.id = 'sorted-arr';
+    const selectableEls = document.createElement('div');
+    selectableEls.id = 'selectable-els';
+    const leftEls = document.createElement('div');
+    leftEls.id = 'left-els';
+    const rightEls = document.createElement('div');
+    rightEls.id = 'right-els';
+    selectableEls.appendChild(leftEls);
+    selectableEls.appendChild(rightEls);
+    playground.appendChild(sortedArr);
+    playground.appendChild(selectableEls);
+    container.appendChild(playground);
+    parent.appendChild(container);
+    document.body.appendChild(parent);
 
     const measurements: Array<ElMeasurementsHandler> = [];
 
@@ -35,7 +57,12 @@ export function measureMergeSortPlacements() {
         }
     }
 
-    measurements.forEach(mes => mes.setDisplay('none'));
+    measurements.forEach(mes => {
+        shiftMeasurementHorizontal(mes, "100%");
+        mes.setDisplay('none');
+    });
+
+    document.body.removeChild(parent);
 
     return measurements;
 }

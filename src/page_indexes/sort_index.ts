@@ -123,10 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guideTextMes.setDisplay('none');
 
     setCountdownDisplay('none');
-    setConfigsDisplay('none');
     setSortStatsDisplay('none');
-    measureSortPlacements();
-    setConfigsDisplay('');
     setSortPlaygroundDisplay('none');
-    setSortStatsDisplay('none');
+    measureSortPlacements();
 });

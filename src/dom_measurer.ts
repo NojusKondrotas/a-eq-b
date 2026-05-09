@@ -8,16 +8,21 @@ export enum MeasureLine {
 }
 
 export class ElMeasurementsHandler {
-    measurementLines: Array<HTMLElement>;
-    constructor(measurement_lines: Array<HTMLElement>) {
-        this.measurementLines = [...measurement_lines];
+    measurementContainer: HTMLElement;
+    constructor(cont: HTMLElement) {
+        this.measurementContainer = cont;
     }
 
     setDisplay(mode: string) {
-        this.measurementLines.forEach(line => {
-            line.style.display = mode;
-        });
+        this.measurementContainer.style.display = mode;
     }
+}
+
+export function shiftMeasurementHorizontal(mes: ElMeasurementsHandler, val: string) {
+    const left = getComputedStyle(mes.measurementContainer).left;
+    console.log(left, mes.measurementContainer.style.left)
+    mes.measurementContainer.style.left = `calc(${left} - ${val})`
+    console.log(val, mes.measurementContainer.style.left)
 }
 
 export function addMeasuredElEventListeners(el: HTMLElement, measurements: ElMeasurementsHandler) {
@@ -70,31 +75,34 @@ export function measureElementDiagonal(el: HTMLElement, container: HTMLElement,
 
 export function measureElement(el: HTMLElement, container: HTMLElement,
     borderWidth: number, offset: number, rotationOffset: number, lines?: Array<MeasureLine>): ElMeasurementsHandler {
-    const measurementLines: Array<HTMLElement> = [];
+    const parent = document.createElement('div');
+    parent.classList.add('absolute', 'top-0', 'left-0', 'm-0', 'w-full', 'h-full', 'pointer-events-none')
     if (!lines) {
         lines = Object.values(MeasureLine) as MeasureLine[];
     }
     lines.forEach(line => {
         switch(line) {
             case MeasureLine.Top:
-                measurementLines.push(measureElementTop(el, container, borderWidth, offset, '#7c1616'));
+                measureElementTop(el, parent, borderWidth, offset, '#7c1616');
                 break;
             case MeasureLine.Right:
-                measurementLines.push(measureElementRight(el, container, borderWidth, '#7c1616'));
+                measureElementRight(el, parent, borderWidth, '#7c1616');
                 break;
             case MeasureLine.Bottom:
-                measurementLines.push(measureElementBottom(el, container, borderWidth, el.offsetHeight, 'rgb(156, 19, 19)'));
+                measureElementBottom(el, parent, borderWidth, el.offsetHeight, 'rgb(156, 19, 19)');
                 break;
             case MeasureLine.Left:
-                measurementLines.push(measureElementLeft(el, container, borderWidth, offset, 'rgb(156, 19, 19)'));
+                measureElementLeft(el, parent, borderWidth, offset, 'rgb(156, 19, 19)');
                 break;
             case MeasureLine.SlashDiagonal:
-                measurementLines.push(measureElementDiagonal(el, container, borderWidth, offset, rotationOffset + 1, 'rgb(156, 19, 19)'));
+                measureElementDiagonal(el, parent, borderWidth, offset, rotationOffset + 1, 'rgb(156, 19, 19)');
                 break;
         }
     });
 
-    return new ElMeasurementsHandler(measurementLines);
+    document.body.appendChild(parent);
+
+    return new ElMeasurementsHandler(parent);
 }
 
 export function initElementMeasurement(el: HTMLElement, container: HTMLElement,
@@ -129,7 +137,7 @@ export function createHorizontalLine(el: HTMLElement, borderWidth: number, offse
     const top = getAbsoluteTop(el) + borderWidth + offset;
     const line = document.createElement('div');
     line.style.position = 'absolute';
-    line.style.width = '100%';
+    line.style.width = '200%';
     line.style.borderTop = `1px dashed ${color}`;
     line.style.top = `${top}px`;
     line.style.pointerEvents = 'none';
@@ -141,7 +149,7 @@ export function createVerticalLine(el: HTMLElement, borderWidth: number, offset:
     const left = getAbsoluteLeft(el) + borderWidth + offset;
     const line = document.createElement('div');
     line.style.position = 'absolute';
-    line.style.height = '100%';
+    line.style.height = '200%';
     line.style.borderLeft = `1px dashed ${color}`;
     line.style.top = '0';
     line.style.left = `${left}px`;
