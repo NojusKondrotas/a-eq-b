@@ -1,10 +1,11 @@
 import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
+import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 import { shuffle } from "./numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
 import { SortType } from "./sorts/sort_types.ts";
-import { deleteEvent, initAbortController } from "./time-event-handler.ts";
+import { initAbortController } from "./time-event-handler.ts";
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -31,6 +32,8 @@ export async function countdown(type: SortType, secs: number) {
         window.location.href = "pages/error/error.html";
         return;
     }
+
+    deleteChildren(initArrDOM);
 
     setConfigsDisplay('none');
     setFooterDisplay('none');

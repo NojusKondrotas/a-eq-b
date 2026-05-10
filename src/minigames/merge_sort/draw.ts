@@ -4,7 +4,7 @@ import { createInputGradualEl, createInputImmediateEl, createOutputEl, getSorted
 let leftEls: Array<HTMLElement>, rightEls: Array<HTMLElement>;
 let lDOM: number, rDOM: number, w: number;
 
-function deleteChildren(el: HTMLElement) {
+export function deleteChildren(el: HTMLElement) {
     while (el.firstChild) {
         el.removeChild(el.lastChild as ChildNode);
     }
