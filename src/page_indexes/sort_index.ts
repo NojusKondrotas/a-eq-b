@@ -54,10 +54,14 @@ function toggleKeyboard(): void {
         window.location.href = '../pages/error/error.html';
         return;
     }
-
-    keyboard.style.display == 'none'
-    ? keyboard.style.display = 'flex'
-    : keyboard.style.display = 'none';
+    
+    if (keyboard.style.display == 'none') {
+        setConfigsDisplay('none');
+        keyboard.style.display = 'flex';
+    } else {
+        setConfigsDisplay('');
+        keyboard.style.display = 'none';
+    }
 }
 
 function redirectToIndexPage(): void {
