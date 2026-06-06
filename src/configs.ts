@@ -124,7 +124,7 @@ export function setConfigsDisplay(mode: string) {
     const configurations = document.getElementById('configurations')!;
     const guideText = document.getElementById('guide-text')!;
     const startGame = document.getElementById('start-game')!;
-    
+
     configurations.style.display = mode;
     guideText.style.display = mode;
     startGame.style.display = mode;
@@ -138,7 +138,7 @@ export function setCountdownDisplay(mode: string) {
 
 export function setSortPlaygroundDisplay(mode: string) {
     const playground = document.getElementById('playground')!;
-    
+
     playground.style.display = mode;
 }
 
@@ -150,7 +150,7 @@ export function setSortStatsDisplay(mode: string) {
 
 export function positionStats(footer: HTMLElement, initArr: HTMLElement): void {
     const height = getComputedStyle(footer).height;
-    initArr.style.bottom = `calc(${height} + 1rem)`;
+    initArr.style.marginBottom = `calc(${height} + 1rem)`;
 }
 
 export function setFooterDisplay(mode: string) {
