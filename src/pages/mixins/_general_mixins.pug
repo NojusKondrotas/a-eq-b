@@ -3,7 +3,7 @@ mixin keybind(elucidation, ...keys)
         p.m-0= keys.flat().join('+')
         p.m-0= elucidation
 
-mixin footer(keybinds)
-    #footer(class="absolute grid grid-cols-6 w-full mx-2.5 my-0 bottom-2.5 gap-y-8")
+mixin footer(id, display, keybinds)
+    div(id=`${id}` class=`absolute ${display} grid-cols-6 w-full mx-2.5 my-0 bottom-2.5 gap-y-8`)
         each keys, name in keybinds
             +keybind(name, keys)
