@@ -75,6 +75,9 @@ export async function countdown(type: SortType, secs: number) {
 
     setSortStatsDisplay('flex');
     positionSortResKeybinds(sortResKeybinds, sortedArr);
+    const sortResKeybindsMes = initElementMeasurement(sortResKeybinds, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left, MeasureLine.SlashDiagonal]);
+    sortResKeybindsMes.setDisplay('none');
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),
