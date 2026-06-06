@@ -1,9 +1,22 @@
 import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "../configs.ts";
 import { countdown } from "../countdown.ts";
 import { initElementMeasurement } from "../dom_measurer.ts";
-import { registerKey, registerKeybind, unregisterKey } from "../keybind-handler.ts";
+import { registerKey, registerKeybind, unregisterKey, unregisterKeybind } from "../keybind-handler.ts";
 import { SortType } from "../sorts/sort_types.ts";
 import { abortController, addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
+
+function unregisterKeybinds() {
+    const keybinds = new Array<string>(
+        'guide_text',
+        'configs',
+        'display_keyboard',
+        'index'
+    );
+
+    keybinds.forEach((val) => {
+        unregisterKeybind(val);
+    });
+}
 
 export async function startMinigame(): Promise<void> {
     if (abortController && hasEventOccured('game_end'))
@@ -15,6 +28,8 @@ export async function startMinigame(): Promise<void> {
 
     addEvent('game_start');
     setSortStatsDisplay('none');
+
+    unregisterKeybinds();
 
     switch (sessionStorage.getItem('selected_sort')) {
         case 'merge':

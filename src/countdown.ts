@@ -1,4 +1,4 @@
-import { getArrSize, getMeasurement, positionStats, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
+import { getArrSize, getMeasurement, positionStats, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setReducedFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 import { shuffle } from "./numerics.ts";
@@ -21,6 +21,7 @@ export async function countdown(type: SortType, secs: number) {
 
     const stats = document.getElementById('stats');
     const footer = document.getElementById('footer');
+    const reducedFooter = document.getElementById('reduced-footer');
     const totalComps = document.getElementById('total-comps');
     const omega = document.getElementById('omega');
     const theta = document.getElementById('theta');
@@ -28,7 +29,7 @@ export async function countdown(type: SortType, secs: number) {
     const initArrDOM = document.getElementById('init-arr');
 
     if (!configurations || !startGame || !guideText || !countdownCnt || !countdownCntText || !playground
-        || !stats || !footer || !totalComps || !omega || !theta || !bigO || !initArrDOM
+        || !stats || !footer || !reducedFooter || !totalComps || !omega || !theta || !bigO || !initArrDOM
     ) {
         window.location.href = "pages/error/error.html";
         return;
@@ -72,9 +73,9 @@ export async function countdown(type: SortType, secs: number) {
             break;
     }
 
-    setFooterDisplay('grid');
+    setReducedFooterDisplay('grid');
     setSortStatsDisplay('flex');
-    positionStats(footer, stats);
+    positionStats(reducedFooter, stats);
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),

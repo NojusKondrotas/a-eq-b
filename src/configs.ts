@@ -159,6 +159,12 @@ export function setFooterDisplay(mode: string) {
     footer.style.display = mode;
 }
 
+export function setReducedFooterDisplay(mode: string) {
+    const footer = document.getElementById('reduced-footer')!;
+
+    footer.style.display = mode;
+}
+
 export function measureSortPlacements(): void {
     let loc_measurements: Array<ElMeasurementsHandler> | null = null;
     switch (sessionStorage.getItem('selected_sort')) {
