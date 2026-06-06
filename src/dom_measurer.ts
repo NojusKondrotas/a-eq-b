@@ -65,8 +65,8 @@ export function measureElementLeft(el: HTMLElement, container: HTMLElement,
 export function measureElementDiagonal(el: HTMLElement, container: HTMLElement,
     borderWidth: number, offset: number, rotationOffset: number,  color: string) {
     const lineDiagonal = createHorizontalLine(el, borderWidth, offset, color);
-    lineDiagonal.style.width = '200%';
-    lineDiagonal.style.height = '200%';
+    lineDiagonal.style.width = '300%';
+    lineDiagonal.style.height = '300%';
     rotateLine(lineDiagonal, el, rotationOffset);
     container.appendChild(lineDiagonal);
 
