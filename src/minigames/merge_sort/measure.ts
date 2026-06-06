@@ -1,4 +1,4 @@
-import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../dom_measurer.ts";
+import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../utils/dom_measurer.ts";
 import { createInputGradualEl, createInputImmediateEl } from "../minigame_utils.ts";
 
 export function measureMergeSortPlacements() {

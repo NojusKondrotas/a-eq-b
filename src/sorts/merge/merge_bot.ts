@@ -1,11 +1,11 @@
-import { beep } from "../../beep.ts";
+import { beep } from "../../utils/beep.ts";
 
 async function mergeSortBot(arr: Array<number>, l: number, r: number, signal: AbortSignal) {
     if (signal.aborted) return;
 
     if (l >= r)
         return;
-    
+
     let m = Math.floor(l + (r - l) / 2);
     await mergeSortBot(arr, l, m, signal);
     await mergeSortBot(arr, m + 1, r, signal);
@@ -14,9 +14,9 @@ async function mergeSortBot(arr: Array<number>, l: number, r: number, signal: Ab
 
 async function mergeBot(arr: Array<number>, l: number, m: number, r: number, signal: AbortSignal) {
     if (signal.aborted) return;
-    
-    let left = arr.slice(l, m+1);
-    let right = arr.slice(m+1, r+1);
+
+    let left = arr.slice(l, m + 1);
+    let right = arr.slice(m + 1, r + 1);
 
     let i = 0, j = 0;
     let w = l;
@@ -47,7 +47,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
     }
     while (j < right.length) {
         if (signal.aborted) return;
-        
+
         arr[w] = right[j];
         await beep(right[j]);
         w += 1;

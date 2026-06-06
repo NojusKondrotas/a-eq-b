@@ -1,4 +1,4 @@
-import { abortController } from "../../time-event-handler.ts";
+import { abortController } from "../../utils/time-event-handler.ts";
 import { startMergeSortBot } from "./merge_bot.ts";
 import { startMergeSortHuman } from "./merge_human.ts";
 

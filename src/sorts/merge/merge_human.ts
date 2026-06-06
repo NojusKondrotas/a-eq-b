@@ -4,7 +4,7 @@ import { getSortedArrDOM, satisfiesSortOrderDOM } from "../../minigames/minigame
 async function mergeSortHuman(arr: Array<number>, l: number, r: number) {
     if (l >= r)
         return;
-    
+
     let m = Math.floor(l + (r - l) / 2);
     await mergeSortHuman(arr, l, m);
     await mergeSortHuman(arr, m + 1, r);

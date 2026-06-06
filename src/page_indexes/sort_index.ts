@@ -1,9 +1,9 @@
 import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setReducedFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "../configs.ts";
 import { countdown } from "../countdown.ts";
-import { initElementMeasurement } from "../dom_measurer.ts";
-import { registerKey, registerKeybind, unregisterKey, unregisterKeybind } from "../keybind-handler.ts";
+import { initElementMeasurement } from "../utils/dom_measurer.ts";
+import { registerKey, registerKeybind, unregisterKey, unregisterKeybind } from "../utils/keybind-handler.ts";
 import { SortType } from "../sorts/sort_types.ts";
-import { abortController, addEvent, deleteEvent, hasEventOccured } from "../time-event-handler.ts";
+import { abortController, addEvent, deleteEvent, hasEventOccured } from "../utils/time-event-handler.ts";
 
 function unregisterKeybinds() {
     const keybinds = new Array<string>(

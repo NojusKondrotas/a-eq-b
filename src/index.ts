@@ -1,6 +1,6 @@
-import { addMeasuredElEventListeners, measureElement } from "./dom_measurer.ts";
-import { registerKey, registerKeybind, unregisterKey } from "./keybind-handler.ts";
-import { hash } from "./numerics.ts";
+import { addMeasuredElEventListeners, measureElement } from "./utils/dom_measurer.ts";
+import { registerKey, registerKeybind, unregisterKey } from "./utils/keybind-handler.ts";
+import { hash } from "./utils/numerics.ts";
 
 document.addEventListener('DOMContentLoaded', () => {
     const sorts = new Map<string, string[]>([
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ['selection', ['C']], ['quick', ['D']],
         ['bubble', ['E']], ['heap', ['F']]
     ]);
-    for(const [sort, keybinds] of sorts) {
+    for (const [sort, keybinds] of sorts) {
         const sortClickerDOM = document.getElementById(`${sort}-sort`);
         const sortHashDOM = document.getElementById(`${sort}-sort-hash`);
         const sortLabelDOM = document.getElementById(`${sort}-label`);
