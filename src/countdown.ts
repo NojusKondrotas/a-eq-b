@@ -1,4 +1,4 @@
-import { getArrSize, getMeasurement, positionSortResKeybinds, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
+import { getArrSize, getMeasurement, positionStats, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 import { shuffle } from "./numerics.ts";
@@ -20,8 +20,7 @@ export async function countdown(type: SortType, secs: number) {
     const playground = document.getElementById('playground');
 
     const stats = document.getElementById('stats');
-    const sortResKeybinds = document.getElementById('sort-res-keybinds');
-    const sortedArr = document.getElementById('sorted-arr');
+    const footer = document.getElementById('footer');
     const totalComps = document.getElementById('total-comps');
     const omega = document.getElementById('omega');
     const theta = document.getElementById('theta');
@@ -29,7 +28,7 @@ export async function countdown(type: SortType, secs: number) {
     const initArrDOM = document.getElementById('init-arr');
 
     if (!configurations || !startGame || !guideText || !countdownCnt || !countdownCntText || !playground
-        || !stats || !sortResKeybinds || !sortedArr || !totalComps || !omega || !theta || !bigO || !initArrDOM
+        || !stats || !footer || !totalComps || !omega || !theta || !bigO || !initArrDOM
     ) {
         window.location.href = "pages/error/error.html";
         return;
@@ -73,11 +72,9 @@ export async function countdown(type: SortType, secs: number) {
             break;
     }
 
+    setFooterDisplay('grid');
     setSortStatsDisplay('flex');
-    positionSortResKeybinds(sortResKeybinds, sortedArr);
-    const sortResKeybindsMes = initElementMeasurement(sortResKeybinds, document.body, 0, 0, 0,
-        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left, MeasureLine.SlashDiagonal]);
-    sortResKeybindsMes.setDisplay('none');
+    positionStats(footer, stats);
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),

@@ -1,4 +1,4 @@
-#stats.flex.w-full.flex-col.grow
+#stats.relative.flex.w-full.flex-col.grow
     div(class="w-full flex justify-center my-[11px]")
         p#total-comps.text-2xl.m-0
     #theoretical-comps.w-full.flex.justify-center.items-center.flex-col
@@ -9,7 +9,3 @@
         #init-arr.arr-container
 
 include ../mixins/_keybind_mixins
-
-#sort-res-keybinds(class="hidden absolute left-4 mt-4 gap-y-3.5 flex-col")
-    +keybind('start minigame', 'A')
-    +keybind('cancel minigame', 'B')
