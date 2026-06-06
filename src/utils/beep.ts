@@ -1,5 +1,5 @@
-import { getArrSize, getComparisonLen, getMaxFreq, getMinFreq } from "./configs.ts";
-import { sleep } from "./countdown.ts";
+import { getArrSize, getComparisonLen, getMaxFreq, getMinFreq } from "../configs.ts";
+import { sleep } from "../countdown.ts";
 
 let audioContext = new AudioContext();
 
