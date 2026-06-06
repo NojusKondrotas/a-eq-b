@@ -144,8 +144,15 @@ export function setSortPlaygroundDisplay(mode: string) {
 
 export function setSortStatsDisplay(mode: string) {
     const stats = document.getElementById('stats')!;
+    const sortResKeybinds = document.getElementById('sort-res-keybinds')!;
 
     stats.style.display = mode;
+    sortResKeybinds.style.display = mode;
+}
+
+export function positionSortResKeybinds(sortResKeybinds: HTMLElement, sortArr: HTMLElement) {
+    const height = getComputedStyle(sortArr).height;
+    sortResKeybinds.style.top = height;
 }
 
 export function setFooterDisplay(mode: string) {

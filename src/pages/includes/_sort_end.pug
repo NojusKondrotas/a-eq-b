@@ -7,3 +7,9 @@
         p#bigo(class="text-2xl mx-0 my-[11px]")
     div(class="flex w-full flex-col justify-end grow mb-[11px]")
         #init-arr.arr-container
+
+include ../mixins/_keybind_mixins
+
+#sort-res-keybinds(class="hidden absolute left-4 mt-4 gap-y-3.5 flex-col")
+    +keybind('start minigame', 'A')
+    +keybind('cancel minigame', 'B')

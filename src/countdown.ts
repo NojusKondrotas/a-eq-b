@@ -1,4 +1,4 @@
-import { getArrSize, getMeasurement, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
+import { getArrSize, getMeasurement, positionSortResKeybinds, setConfigsDisplay, setCountdownDisplay, setFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "./configs.ts";
 import { initElementMeasurement, MeasureLine } from "./dom_measurer.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 import { shuffle } from "./numerics.ts";
@@ -20,6 +20,8 @@ export async function countdown(type: SortType, secs: number) {
     const playground = document.getElementById('playground');
 
     const stats = document.getElementById('stats');
+    const sortResKeybinds = document.getElementById('sort-res-keybinds');
+    const sortedArr = document.getElementById('sorted-arr');
     const totalComps = document.getElementById('total-comps');
     const omega = document.getElementById('omega');
     const theta = document.getElementById('theta');
@@ -27,7 +29,7 @@ export async function countdown(type: SortType, secs: number) {
     const initArrDOM = document.getElementById('init-arr');
 
     if (!configurations || !startGame || !guideText || !countdownCnt || !countdownCntText || !playground
-        || !stats || !totalComps || !omega || !theta || !bigO || !initArrDOM
+        || !stats || !sortResKeybinds || !sortedArr || !totalComps || !omega || !theta || !bigO || !initArrDOM
     ) {
         window.location.href = "pages/error/error.html";
         return;
@@ -72,6 +74,7 @@ export async function countdown(type: SortType, secs: number) {
     }
 
     setSortStatsDisplay('flex');
+    positionSortResKeybinds(sortResKeybinds, sortedArr);
 
     logTotalComparisons(totalComps);
     logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn),
