@@ -1,4 +1,4 @@
-import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "../configs.ts";
+import { initConfigs, initEventListeners, initStartGameBtn, measureSortPlacements, setConfigsDisplay, setCountdownDisplay, setReducedFooterDisplay, setSortPlaygroundDisplay, setSortStatsDisplay } from "../configs.ts";
 import { countdown } from "../countdown.ts";
 import { initElementMeasurement } from "../dom_measurer.ts";
 import { registerKey, registerKeybind, unregisterKey, unregisterKeybind } from "../keybind-handler.ts";
@@ -28,6 +28,7 @@ export async function startMinigame(): Promise<void> {
 
     addEvent('game_start');
     setSortStatsDisplay('none');
+    setReducedFooterDisplay('none');
 
     unregisterKeybinds();
 
@@ -47,19 +48,19 @@ function toggleMinigameGuide(): void {
         return;
 
     guide.style.visibility == 'hidden'
-    ? guide.style.visibility = ''
-    : guide.style.visibility = 'hidden';
+        ? guide.style.visibility = ''
+        : guide.style.visibility = 'hidden';
 }
 
 function toggleConfigs(): void {
     const configs = document.getElementsByClassName('configs');
     if (!configs)
         return;
-    
+
     Array.from(configs as HTMLCollectionOf<HTMLElement>).forEach(el => {
         el.style.visibility == 'hidden'
-        ? el.style.visibility = ''
-        : el.style.visibility = 'hidden';
+            ? el.style.visibility = ''
+            : el.style.visibility = 'hidden';
     });
 }
 
@@ -69,7 +70,7 @@ function toggleKeyboard(): void {
         window.location.href = '../pages/error/error.html';
         return;
     }
-    
+
     if (keyboard.style.display == 'none') {
         setConfigsDisplay('none');
         keyboard.style.display = 'flex';
@@ -102,11 +103,11 @@ function initSortIndexEventListeners(): void {
     keybinds.forEach((val, key) => {
         registerKeybind(key, keybindHandlers.get(key)!, val, { ignoreCase: true });
     });
-    
+
     document.addEventListener('keydown', (ev) => {
         if (ev.key.toLocaleLowerCase() == 'b') {
             if (hasEventOccured('game_start') && !hasEventOccured('escape')
-                || hasEventOccured('game_end')){
+                || hasEventOccured('game_end')) {
                 deleteEvent('game_start');
                 deleteEvent('game_end');
                 deleteEvent('escape');
@@ -115,7 +116,7 @@ function initSortIndexEventListeners(): void {
                 addEvent('escape');
             }
         }
-        
+
         registerKey(ev.key, { ignoreCase: true, guardAgainstHold: true });
     });
     document.addEventListener('keyup', (ev) => {
@@ -135,9 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const startGameBtn = document.getElementById('start-game-btn')!;
     const guideText = document.getElementById('guide-text')!;
     const startGameBtnMes = initElementMeasurement(startGameBtn, document.body,
-            0, 0, 0);
+        0, 0, 0);
     const guideTextMes = initElementMeasurement(guideText, document.body,
-            0, 0, 0);
+        0, 0, 0);
     startGameBtnMes.setDisplay('none');
     guideTextMes.setDisplay('none');
 
