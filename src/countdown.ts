@@ -7,7 +7,15 @@ import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalCom
 import { SortType } from "./sorts/sort_types.ts";
 import { initAbortController } from "./utils/time-event-handler.ts";
 
-export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+export const sleep = (ms: number, signal?: AbortSignal): Promise<void> =>
+    new Promise((resolve, reject) => {
+        const id = setTimeout(resolve, ms);
+
+        signal?.addEventListener('abort', () => {
+            clearTimeout(id);
+            reject(signal.reason ?? new DOMException('Aborted', 'AbortError'))
+        }, { once: true })
+    });
 
 export const drawCountdown = (cnt: HTMLElement, sec: number) => cnt.innerHTML = `${sec}`;
 

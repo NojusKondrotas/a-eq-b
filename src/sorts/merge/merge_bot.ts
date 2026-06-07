@@ -26,11 +26,11 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
 
         if (left[i] <= right[j]) {
             arr[w] = left[i];
-            await beep(left[i]);
+            await beep(left[i], signal);
             i += 1;
         } else {
             arr[w] = right[j];
-            await beep(right[j]);
+            await beep(right[j], signal);
             j += 1;
         }
 
@@ -41,7 +41,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
         if (signal.aborted) return;
 
         arr[w] = left[i];
-        await beep(left[i]);
+        await beep(left[i], signal);
         w += 1;
         i += 1;
     }
@@ -49,7 +49,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
         if (signal.aborted) return;
 
         arr[w] = right[j];
-        await beep(right[j]);
+        await beep(right[j], signal);
         w += 1;
         j += 1;
     }
