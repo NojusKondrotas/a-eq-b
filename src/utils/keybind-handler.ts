@@ -1,4 +1,4 @@
-import { addEvent, deleteEvent, hasEventOccured } from "./time-event-handler.ts";
+import { addEvent, deleteEvent, hasEventOccurred } from "./time-event-handler.ts";
 
 const activeKeys = new Set<string>();
 const keybinds = new Map<string, string[]>();
@@ -12,14 +12,14 @@ type KeybindOpts = {
 
 export const registerKey = (key: string, opts?: KeybindOpts): void => {
     let keyNormalized = (opts?.ignoreCase)
-    ? key.toLocaleLowerCase()
-    : key;
+        ? key.toLocaleLowerCase()
+        : key;
 
     if (!activeKeys.has(keyNormalized))
         activeKeys.add(keyNormalized);
 
     if (opts?.guardAgainstHold) {
-        if (!hasEventOccured(`keyreg_${key}`)) {
+        if (!hasEventOccurred(`keyreg_${key}`)) {
             addEvent(`keyreg_${key}`);
             triggerKeybinds();
         }
@@ -29,8 +29,8 @@ export const registerKey = (key: string, opts?: KeybindOpts): void => {
 };
 export const unregisterKey = (key: string, opts?: KeybindOpts): void => {
     let keyNormalized = (opts?.ignoreCase)
-    ? key.toLocaleLowerCase()
-    : key;
+        ? key.toLocaleLowerCase()
+        : key;
 
     if (opts?.guardAgainstHold) {
         deleteEvent(`keyreg_${key}`);
@@ -42,8 +42,8 @@ export const unregisterKey = (key: string, opts?: KeybindOpts): void => {
 
 export const registerKeybind = (name: string, handler: () => void, keys: string[], opts?: KeybindOpts): void => {
     const normalised = (opts?.ignoreCase)
-    ? keys.map(key => key.toLocaleLowerCase())
-    : keys;
+        ? keys.map(key => key.toLocaleLowerCase())
+        : keys;
     keybinds.set(name, normalised.sort());
     keybindsHandlers.set(name, handler);
 };
@@ -54,7 +54,7 @@ export const unregisterKeybind = (name: string): void => {
 
 export const triggerKeybinds = (): void => {
     const activatedKeybinds = new Set<string>();
-    for(const [name, keys] of keybinds) {
+    for (const [name, keys] of keybinds) {
         if (keys.every(key => activeKeys.has(key))) {
             if (!activeKeybinds.has(name))
                 keybindsHandlers.get(name)?.();

@@ -3,7 +3,7 @@ import { countdown } from "../countdown.ts";
 import { initElementMeasurement } from "../utils/dom_measurer.ts";
 import { registerKey, registerKeybind, unregisterKey, unregisterKeybind } from "../utils/keybind-handler.ts";
 import { SortType } from "../sorts/sort_types.ts";
-import { abortController, addEvent, deleteEvent, hasEventOccured } from "../utils/time-event-handler.ts";
+import { abortController, addEvent, deleteEvent, hasEventOccurred } from "../utils/time-event-handler.ts";
 
 function unregisterKeybinds() {
     const keybinds = new Array<string>(
@@ -19,10 +19,10 @@ function unregisterKeybinds() {
 }
 
 export async function startMinigame(): Promise<void> {
-    if (abortController && hasEventOccured('game_end'))
+    if (abortController && hasEventOccurred('game_end'))
         abortController.abort();
 
-    if (hasEventOccured('game_start')) {
+    if (hasEventOccurred('game_start')) {
         return;
     }
 
@@ -106,8 +106,8 @@ function initSortIndexEventListeners(): void {
 
     document.addEventListener('keydown', (ev) => {
         if (ev.key.toLocaleLowerCase() == 'b') {
-            if (hasEventOccured('game_start') && !hasEventOccured('escape')
-                || hasEventOccured('game_end')) {
+            if (hasEventOccurred('game_start') && !hasEventOccurred('escape')
+                || hasEventOccurred('game_end')) {
                 deleteEvent('game_start');
                 deleteEvent('game_end');
                 deleteEvent('escape');

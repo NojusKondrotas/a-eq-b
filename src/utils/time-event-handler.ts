@@ -23,7 +23,7 @@ export function deleteEvent(ev: string): null {
     return null;
 }
 
-export function hasEventOccured(ev: string): boolean {
+export function hasEventOccurred(ev: string): boolean {
     console.log(timestamps);
     return !timestamps.get(ev) ? false : true;
 }
