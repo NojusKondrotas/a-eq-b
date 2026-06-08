@@ -78,6 +78,7 @@ export async function countdown(type: SortType, secs: number) {
             await startMergeSort(arrInit);
             break;
         case SortType.InsertionSort:
+            await startMergeSort(arrInit);
             break;
     }
 
