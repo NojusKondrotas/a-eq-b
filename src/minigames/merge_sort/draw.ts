@@ -11,7 +11,7 @@ export function deleteChildren(el: HTMLElement) {
 }
 
 function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
-                          checkDone: () => void): void {
+    checkDone: () => void): void {
     const val = parseInt(leftEls[lDOM].textContent);
     const outEl = createOutputEl(val.toString());
     sortedArrContainer.appendChild(outEl);
@@ -22,7 +22,7 @@ function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedA
 }
 
 function handleUpdateRight(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
-                          checkDone: () => void): void {
+    checkDone: () => void): void {
     const val = parseInt(rightEls[rDOM].textContent);
     const outEl = createOutputEl(val.toString());
     sortedArrContainer.appendChild(outEl);
@@ -33,8 +33,8 @@ function handleUpdateRight(parent: HTMLElement, sortedArr: Array<number>, sorted
 }
 
 function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HTMLElement>, sortedArrContainer:
-                       HTMLElement, writableArr: Array<number>,
-                       isleft: boolean, checkDone: () => void) {
+    HTMLElement, writableArr: Array<number>,
+    isleft: boolean, checkDone: () => void) {
     arr.forEach((num, idx) => {
         let btn: HTMLElement;
         if (idx == 0) {
@@ -45,8 +45,8 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
 
         btn.addEventListener('mousedown', () => {
             isleft
-            ? handleUpdateLeft(parent, writableArr, sortedArrContainer, checkDone)
-            : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone);
+                ? handleUpdateLeft(parent, writableArr, sortedArrContainer, checkDone)
+                : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone);
 
             addComparisonLog();
         });
@@ -66,9 +66,9 @@ export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: 
     }
 
     deleteChildren(sortedArrContainer as HTMLElement);
-    
-    let left = arr.slice(l, m+1);
-    let right = arr.slice(m+1, r+1);
+
+    let left = arr.slice(l, m + 1);
+    let right = arr.slice(m + 1, r + 1);
 
     lDOM = 0;
     rDOM = 0;

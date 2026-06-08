@@ -7,7 +7,7 @@ let freqDiff = 50
 export const getFreqDiff = () => freqDiff;
 export const calculateFreqDiff = () => freqDiff = Math.floor((getMaxFreq() - getMinFreq()) / (getArrSize() - 1));
 
-export async function beep(num: number, signal?: AbortSignal) {
+export async function beep(num: number, signal?: AbortSignal): Promise<void> {
     const oscillatorSrc = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     oscillatorSrc.type = 'sine';
