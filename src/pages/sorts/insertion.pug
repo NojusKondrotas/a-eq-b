@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title insertion_sort
+        base(href="/")
+        link(rel="stylesheet" href="/style.css")
+        link(rel="stylesheet" href="/stylesheets/sort.css")
+        link(rel="stylesheet" href="/stylesheets/configs.css")
+        link(rel="stylesheet" href="/stylesheets/universal.css")
+    body 
+        include ../includes/_sort_config
+        include ../mixins/_general_mixins
+
+        #countdown-cnt 
+            p#countdown-cnt-text 
+        .flex.w-full.h-full.flex-col
+            #playground
+                #sorted-arr.arr-container 
+                #selectable-els-insertion 
+                    #left-insertion 
+                    #curr-left-insertion 
+                    #curr-right-insertion 
+                    #right-insertion 
+            
+            include ../includes/_sort_end
+
+        +footer(
+            'footer',
+            'grid',
+            {
+                'start minigame' : 'A',
+                'cancel minigame' : 'B',
+                'guide text' : 'C',
+                'minigame configs' : 'D',
+                'display keyboard' : 'E',
+                'back to index' : 'F',
+            }
+        )
+
+        +footer(
+            'reduced-footer',
+            'hidden',
+            {
+                'start minigame' : 'A',
+                'cancel minigame' : 'B',
+            }
+        )
+
+        script(type="module" src="/configs.js")
+        script(type="module" src="/page_indexes/sort_index.js")
