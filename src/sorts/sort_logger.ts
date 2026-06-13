@@ -1,4 +1,4 @@
-import { createOutputEl } from "../minigames/minigame_utils.ts";
+import { createOutputEl, getSortedArrDOM } from "../minigames/minigame_utils.ts";
 
 export enum Complexity {
     logn = 'logn',
@@ -21,6 +21,15 @@ export class AsymptoticNotations {
 
 let total_comparisons = 0;
 export const getTotalComparisons = () => total_comparisons;
+
+export function showSortedArr(arr: Array<number>) {
+    for (const num of arr) {
+        const sortedArrDOM = getSortedArrDOM();
+        if (!sortedArrDOM)
+            return;
+        sortedArrDOM.appendChild(createOutputEl(num.toString()));
+    }
+}
 
 export function calculateTheoreticalComparisons(n: number, complexity: Complexity): number {
     switch (complexity) {
