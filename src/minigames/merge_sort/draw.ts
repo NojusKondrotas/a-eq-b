@@ -63,9 +63,10 @@ export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: 
 
     if (!leftElsContainer || !rightElsContainer || !sortedArrContainer) {
         window.location.href = '../../pages/error/error.html';
+        return Promise.reject(new Error("Required DOM elements not found"));
     }
 
-    deleteChildren(sortedArrContainer as HTMLElement);
+    deleteChildren(sortedArrContainer);
 
     let left = arr.slice(l, m + 1);
     let right = arr.slice(m + 1, r + 1);
@@ -78,12 +79,12 @@ export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: 
 
     return new Promise((resolve) => {
         const checkDone = () => {
-            if ((leftElsContainer as HTMLElement).children.length === 0
-                && (rightElsContainer as HTMLElement).children.length === 0)
+            if (leftElsContainer.children.length === 0
+                && rightElsContainer.children.length === 0)
                 resolve();
         }
 
-        addItemsBatch(leftElsContainer as HTMLElement, left, leftEls, sortedArrContainer as HTMLElement, arr, true, checkDone);
-        addItemsBatch(rightElsContainer as HTMLElement, right, rightEls, sortedArrContainer as HTMLElement, arr, false, checkDone);
+        addItemsBatch(leftElsContainer, left, leftEls, sortedArrContainer, arr, true, checkDone);
+        addItemsBatch(rightElsContainer, right, rightEls, sortedArrContainer, arr, false, checkDone);
     });
 }
