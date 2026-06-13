@@ -8,8 +8,9 @@ async function insertionSortBot(arr: Array<number>, signal: AbortSignal) {
         if (signal.aborted)
             return;
 
+        let key = arr[i];
         let j = i - 1;
-        for (let j = i - 1; j >= 0 && arr[j] > arr[j + 1]; --j) {
+        for (; j >= 0 && arr[j] > key; --j) {
             if (signal.aborted)
                 return;
 

@@ -1,4 +1,4 @@
-import { handleInsertionDrawing } from "../../minigames/merge_sort/draw.ts";
+import { handleInsertionDrawing } from "../../minigames/insertion_sort/draw.ts";
 import { getSortedArrDOM, satisfiesSortOrderDOM } from "../../minigames/minigame_utils.ts";
 
 async function insertionSortHuman(arr: Array<number>) {

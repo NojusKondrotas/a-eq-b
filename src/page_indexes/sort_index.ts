@@ -36,6 +36,9 @@ export async function startMinigame(): Promise<void> {
         case 'merge':
             await countdown(SortType.MergeSort, 3);
             break;
+        case 'insertion':
+            await countdown(SortType.InsertionSort, 3);
+            break;
     }
 
     deleteEvent('game_start');
