@@ -1,3 +1,9 @@
+:root {
+    --els-gap: 80px;
+    --el-imm-w: 128px;
+    --el-grad-w: 60px;
+}
+
 #playground {
     display: flex;
     width: 100%;
@@ -38,16 +44,48 @@
     margin: 0;
 }
 
-#left-els, #right-els {
+#left-els,
+#right-els {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
-    gap: 80px;
+    gap: var(--els-gap);
+}
+
+#selectable-els-insertion {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: calc(50% - var(--el-imm-w)) var(--el-imm-w) var(--el-imm-w) calc(50% - var(--el-imm-w));
+    grid-template-rows: var(--el-imm-w);
+}
+
+#left-insertion,
+#right-insertion {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--els-gap);
+}
+
+#left-insertion {
+    justify-content: flex-end;
+}
+
+#right-insertion {
+    justify-content: flex-start;
+}
+
+#curr-left-insertion,
+#curr-right-insertion {
+    width: 100%;
+    height: 100%;
 }
 
 .input-el-imm {
-    width: 128px;
+    width: var(--el-imm-w);
     aspect-ratio: 1;
 
     font-size: 64px;
@@ -59,7 +97,7 @@
 }
 
 .input-el-grad {
-    width: 60px;
+    width: var(--el-grad-w);
     aspect-ratio: 1;
 
     font-size: 34px;
