@@ -2,6 +2,9 @@
     --els-gap: 80px;
     --el-imm-w: 128px;
     --el-grad-w: 60px;
+    --el-selection-w: 350px;
+
+    --insertion-curr-both: calc(var(--el-selection-w) - (var(--el-selection-w) / 2 - var(--el-imm-w)));
 }
 
 #playground {
@@ -40,7 +43,7 @@
 
 #selectable-els {
     display: flex;
-    width: 350px;
+    width: var(--el-selection-w);
     margin: 0;
 }
 
@@ -57,8 +60,9 @@
     display: grid;
     width: 100%;
 
-    grid-template-columns: calc(50% - var(--el-imm-w)) var(--el-imm-w) var(--el-imm-w) calc(50% - var(--el-imm-w));
+    grid-template-columns: calc((100% - var(--insertion-curr-both)) / 2 - var(--els-gap)) var(--insertion-curr-both) calc((100% - var(--insertion-curr-both)) / 2 - var(--els-gap));
     grid-template-rows: var(--el-imm-w);
+    column-gap: var(--els-gap);
 }
 
 #left-insertion,
@@ -78,10 +82,9 @@
     justify-content: flex-start;
 }
 
-#curr-left-insertion,
-#curr-right-insertion {
-    width: 100%;
-    height: 100%;
+#curr-both-insertion {
+    display: flex;
+    justify-content: space-between;
 }
 
 .input-el-imm {
