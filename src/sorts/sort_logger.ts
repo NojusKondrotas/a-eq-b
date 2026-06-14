@@ -1,3 +1,4 @@
+import { isArrayBindingPattern } from "typescript";
 import { createOutputEl, getSortedArrDOM } from "../minigames/minigame_utils.ts";
 
 export enum Complexity {
@@ -43,20 +44,40 @@ export function calculateTheoreticalComparisons(n: number, complexity: Complexit
 
 export const initSortLog = () => total_comparisons = 0;
 export const addComparisonLog = () => total_comparisons += 1;
-export const logTotalComparisons = (el: HTMLElement) => el.textContent = `Total comparisons: ${total_comparisons}`;
-export function logTheoreticalComparisons(n: number, complexities: AsymptoticNotations,
-    omega: HTMLElement, theta: HTMLElement, bigO: HTMLElement) {
+export const logTotalComparisons = () => {
+    const totalComps = document.getElementById('total-comps');
+    if (!totalComps) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
+
+    totalComps.textContent = `Total comparisons: ${total_comparisons}`;
+}
+export function logTheoreticalComparisons(n: number, complexities: AsymptoticNotations) {
+    const omega = document.getElementById('omega');
+    const theta = document.getElementById('theta');
+    const bigO = document.getElementById('bigo');
     let tComparisonsOmega = calculateTheoreticalComparisons(n, complexities.Omega).toFixed(4);
     let tComparisonsTheta = calculateTheoreticalComparisons(n, complexities.Theta).toFixed(4);
     let tComparisonsBigO = calculateTheoreticalComparisons(n, complexities.BigO).toFixed(4);
+    if (!omega || !theta || !bigO) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     omega.textContent = `Ω(${complexities.Omega}): ${tComparisonsOmega}`;
     theta.textContent = `θ(${complexities.Theta}): ${tComparisonsTheta}`;
     bigO.textContent = `O(${complexities.BigO}): ${tComparisonsBigO}`;
 }
-export function logArr(arr: Array<number>, container: HTMLElement) {
+export function logArr(arr: Array<number>) {
+    const initArr = document.getElementById('init-arr');
+    if (!initArr) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
+
     arr.forEach(val => {
         const outEl = createOutputEl(val.toString());
-        container.appendChild(outEl);
-    })
+        initArr.appendChild(outEl);
+    });
 }

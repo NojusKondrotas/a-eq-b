@@ -1,8 +1,9 @@
 import { calculateFreqDiff, getFreqDiff } from "./utils/beep.ts";
-import { ElMeasurementsHandler } from "./utils/dom_measurer.ts";
+import { ElMeasurementsHandler, initElementMeasurement, MeasureLine } from "./utils/dom_measurer.ts";
 import { measureMergeSortPlacements } from "./minigames/merge_sort/measure.ts";
 import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
 import { startMinigame } from "./page_indexes/sort_index.ts";
+import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -109,7 +110,6 @@ export function initEventListeners(): void {
 
 export function initStartGameBtn(): void {
     const startGameBtn = document.getElementById('start-game-btn');
-
     if (!startGameBtn) {
         window.location.href = 'pages/error/error.html';
         return;
@@ -120,10 +120,24 @@ export function initStartGameBtn(): void {
     });
 }
 
+export function reinitInitArr(): void {
+    const initArr = document.getElementById('init-arr');
+    if (!initArr) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
+
+    deleteChildren(initArr);
+}
+
 export function setConfigsDisplay(mode: string) {
-    const configurations = document.getElementById('configurations')!;
-    const guideText = document.getElementById('guide-text')!;
-    const startGame = document.getElementById('start-game')!;
+    const configurations = document.getElementById('configurations');
+    const guideText = document.getElementById('guide-text');
+    const startGame = document.getElementById('start-game');
+    if (!configurations || !guideText || !startGame) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     configurations.style.display = mode;
     guideText.style.display = mode;
@@ -131,37 +145,57 @@ export function setConfigsDisplay(mode: string) {
 }
 
 export function setCountdownDisplay(mode: string) {
-    const countdownCnt = document.getElementById('countdown-cnt')!;
+    const countdownCnt = document.getElementById('countdown-cnt');
+    if (!countdownCnt) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     countdownCnt.style.display = mode;
 }
 
 export function setSortPlaygroundDisplay(mode: string) {
-    const playground = document.getElementById('playground')!;
+    const playground = document.getElementById('playground');
+    if (!playground) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     playground.style.display = mode;
 }
 
 export function setSortStatsDisplay(mode: string) {
-    const stats = document.getElementById('stats')!;
+    const stats = document.getElementById('stats');
+    if (!stats) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     stats.style.display = mode;
 }
 
-export function positionStats(footer: HTMLElement, initArr: HTMLElement): void {
-    const height = getComputedStyle(footer).height;
-    initArr.style.marginBottom = `calc(${height} + 1rem)`;
-}
-
 export function setFooterDisplay(mode: string) {
-    const footer = document.getElementById('footer')!;
+    const footer = document.getElementById('footer');
+    if (!footer) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
 
     footer.style.display = mode;
 }
 
 export function setReducedFooterDisplay(mode: string) {
-    const footer = document.getElementById('reduced-footer')!;
+    const footer = document.getElementById('reduced-footer');
+    const stats = document.getElementById('stats');
 
+    if (!footer || !stats) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
+
+    const height = getComputedStyle(footer).height;
+
+    stats.style.marginBottom = `calc(${height} + 1rem)`;
     footer.style.display = mode;
 }
 
@@ -174,4 +208,29 @@ export function measureSortPlacements(): void {
     }
 
     measurements = loc_measurements ?? [];
+}
+
+export function measureSortStats(): void {
+    const totalComps = document.getElementById('total-comps');
+    const omega = document.getElementById('omega');
+    const theta = document.getElementById('theta');
+    const bigO = document.getElementById('bigo');
+    if (!totalComps || !omega || !theta || !bigO) {
+        document.location.href = 'pages/error/error.html';
+        return;
+    }
+
+    const totalCompsMes = initElementMeasurement(totalComps, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const omegaMes = initElementMeasurement(omega, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const thetaMes = initElementMeasurement(theta, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+    const bigOMes = initElementMeasurement(bigO, document.body, 0, 0, 0,
+        [MeasureLine.Top, MeasureLine.Right, MeasureLine.Bottom, MeasureLine.Left]);
+
+    totalCompsMes.setDisplay('none');
+    omegaMes.setDisplay('none');
+    thetaMes.setDisplay('none');
+    bigOMes.setDisplay('none');
 }
