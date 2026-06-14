@@ -63,7 +63,7 @@ function initLeftImmListeners(el: HTMLElement, sortModel: SortModel, checkDone: 
     })
 }
 
-function initRightClickListeners(el: HTMLElement, sortModel: SortModel, checkDone: () => boolean) {
+function initRightImmListeners(el: HTMLElement, sortModel: SortModel, checkDone: () => boolean) {
     el.addEventListener('mousedown', () => {
         terminate(sortModel, checkDone);
     });
@@ -77,7 +77,7 @@ function addLeft(sortModel: SortModel, checkDone: () => boolean) {
 
 function addRight(sortModel: SortModel, checkDone: () => boolean) {
     const btn = createInputImmediateEl('button', sortModel.key.toString());
-    initRightClickListeners(btn, sortModel, checkDone);
+    initRightImmListeners(btn, sortModel, checkDone);
     sortModel.rightCurr.appendChild(btn);
 }
 
