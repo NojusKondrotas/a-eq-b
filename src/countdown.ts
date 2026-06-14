@@ -12,8 +12,8 @@ export const sleep = (ms: number, signal?: AbortSignal): Promise<void> =>
 
         signal?.addEventListener('abort', () => {
             clearTimeout(id);
-            reject(signal.reason ?? new DOMException('Aborted', 'AbortError'))
-        }, { once: true })
+            reject(signal.reason ?? new DOMException('Human has completed sort sooner', 'AbortSignal'));
+        }, { once: true });
     });
 
 export const drawCountdown = (cnt: HTMLElement, sec: number) => cnt.innerHTML = `${sec}`;
