@@ -1,6 +1,5 @@
 import { calculateFreqDiff, getFreqDiff } from "./utils/beep.ts";
 import { ElMeasurementsHandler, initElementMeasurement, MeasureLine } from "./utils/dom_measurer.ts";
-import { measureMergeSortPlacements } from "./minigames/merge_sort/measure.ts";
 import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
 import { startMinigame } from "./page_indexes/sort_index.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
