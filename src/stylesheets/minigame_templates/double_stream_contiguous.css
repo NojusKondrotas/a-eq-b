@@ -1,0 +1,14 @@
+#selectable-els-dsc {
+    display: flex;
+    width: var(--el-selection-w);
+    margin: 0;
+}
+
+#left-dsc,
+#right-dsc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: var(--els-gap);
+}

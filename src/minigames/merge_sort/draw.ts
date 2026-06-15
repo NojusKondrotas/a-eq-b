@@ -57,8 +57,8 @@ function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HT
 }
 
 export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: number): Promise<void> {
-    const leftElsContainer = document.getElementById('left-els');
-    const rightElsContainer = document.getElementById('right-els');
+    const leftElsContainer = document.getElementById('left-dsc');
+    const rightElsContainer = document.getElementById('right-dsc');
     const sortedArrContainer = getSortedArrDOM();
 
     if (!leftElsContainer || !rightElsContainer || !sortedArrContainer) {

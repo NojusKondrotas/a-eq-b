@@ -39,21 +39,6 @@
     margin-top: 11px;
 }
 
-#selectable-els {
-    display: flex;
-    width: var(--el-selection-w);
-    margin: 0;
-}
-
-#left-els,
-#right-els {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    gap: var(--els-gap);
-}
-
 .input-el-imm {
     width: var(--el-imm-w);
     aspect-ratio: 1;

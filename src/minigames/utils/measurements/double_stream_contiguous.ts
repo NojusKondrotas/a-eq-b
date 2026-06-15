@@ -1,7 +1,7 @@
-import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../utils/dom_measurer.ts";
-import { createInputGradualEl, createInputImmediateEl } from "../minigame_utils.ts";
+import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../../utils/dom_measurer.ts";
+import { createInputGradualEl, createInputImmediateEl } from "../../minigame_utils.ts";
 
-export function measureMergeSortPlacements() {
+export function measureDSCPlacements() {
     const parent = document.createElement('div');
     Object.assign(parent.style, {
         position: "absolute",
@@ -11,22 +11,27 @@ export function measureMergeSortPlacements() {
         left: "100%",
         margin: "0"
     });
-    const container = document.createElement('div');
-    container.classList.add('flex', 'w-full', 'h-full', 'flex-col')
+
+    const leftDSC = document.createElement('div');
+    leftDSC.id = 'left-dsc';
+    const rightDSC = document.createElement('div');
+    rightDSC.id = 'right-dsc';
+
+    const selectableElsDSC = document.createElement('div');
+    selectableElsDSC.id = 'selectable-els-dsc';
+    selectableElsDSC.appendChild(leftDSC);
+    selectableElsDSC.appendChild(rightDSC);
+    const sortedArrContainer = document.createElement('div');
+    sortedArrContainer.id = 'sorted-arr';
+    sortedArrContainer.classList.add('arr-container');
+
     const playground = document.createElement('div');
     playground.id = 'playground';
-    const sortedArr = document.createElement('div');
-    sortedArr.id = 'sorted-arr';
-    const selectableEls = document.createElement('div');
-    selectableEls.id = 'selectable-els';
-    const leftEls = document.createElement('div');
-    leftEls.id = 'left-els';
-    const rightEls = document.createElement('div');
-    rightEls.id = 'right-els';
-    selectableEls.appendChild(leftEls);
-    selectableEls.appendChild(rightEls);
-    playground.appendChild(sortedArr);
-    playground.appendChild(selectableEls);
+    playground.appendChild(sortedArrContainer);
+    playground.appendChild(selectableElsDSC);
+
+    const container = document.createElement('div');
+    container.classList.add('flex', 'w-full', 'h-full', 'flex-col');
     container.appendChild(playground);
     parent.appendChild(container);
     document.body.appendChild(parent);
@@ -43,17 +48,17 @@ export function measureMergeSortPlacements() {
     ];
     for (let i = 0; i < els.length; ++i) {
         if (i % 2 == 0) {
-            leftEls.appendChild(els[i]);
+            leftDSC.appendChild(els[i]);
         } else {
-            rightEls.appendChild(els[i]);
+            rightDSC.appendChild(els[i]);
         }
         measurements.push(measureElement(els[i], document.body, 0, 0, 0));
     }
     for (let i = 0; i < els.length; ++i) {
         if (i % 2 == 0) {
-            leftEls.removeChild(els[i]);
+            leftDSC.removeChild(els[i]);
         } else {
-            rightEls.removeChild(els[i]);
+            rightDSC.removeChild(els[i]);
         }
     }
 
