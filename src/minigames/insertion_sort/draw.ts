@@ -37,7 +37,6 @@ function move(sortModel: SortModel, checkDone: () => boolean) {
     const largerVal = sortModel.leftCurr.firstChild!.textContent!;
 
     sortModel.rightArr.appendChild(createInputGradualEl('button', largerVal));
-    deleteChildren(sortModel.rightCurr);
     deleteChildren(sortModel.leftCurr);
 
     sortModel.arr[sortModel.j + 1] = sortModel.arr[sortModel.j];
@@ -48,7 +47,6 @@ function move(sortModel: SortModel, checkDone: () => boolean) {
 
     removeFromInput(sortModel);
     addLeft(sortModel, checkDone);
-    addRight(sortModel, checkDone);
 }
 
 function terminate(sortModel: SortModel, checkDone: () => boolean) {
