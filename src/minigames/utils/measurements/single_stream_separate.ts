@@ -1,7 +1,7 @@
 import { ElMeasurementsHandler, measureElement, shiftMeasurementHorizontal } from "../../../utils/dom_measurer.ts";
 import { createInputGradualEl, createInputImmediateEl } from "../../minigame_utils.ts";
 
-export function measureSSS() {
+export function measureSSSPlacementsPlacements() {
     const parent = document.createElement('div');
     Object.assign(parent.style, {
         position: "absolute",
