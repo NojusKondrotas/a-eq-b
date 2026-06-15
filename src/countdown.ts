@@ -5,6 +5,7 @@ import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalCom
 import { SortType } from "./sorts/sort_types.ts";
 import { initAbortController } from "./utils/time-event-handler.ts";
 import { startInsertionSort } from "./sorts/insertion/insertion_handler.ts";
+import { startSelectionSort } from "./sorts/selection/selection_handler.ts";
 
 export const sleep = (ms: number, signal?: AbortSignal): Promise<void> =>
     new Promise((resolve, reject) => {
@@ -62,6 +63,9 @@ export async function countdown(type: SortType, secs: number) {
             break;
         case SortType.InsertionSort:
             await startInsertionSort(arrInit);
+            break;
+        case SortType.SelectionSort:
+            await startSelectionSort(arrInit);
             break;
     }
 

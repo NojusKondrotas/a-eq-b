@@ -1,6 +1,7 @@
 export enum SortType {
     MergeSort,
-    InsertionSort
+    InsertionSort,
+    SelectionSort
 }
 
 export interface SortRunner {
