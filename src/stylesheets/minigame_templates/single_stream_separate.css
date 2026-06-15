@@ -1,0 +1,43 @@
+#interactive-sss {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--els-gap);
+}
+
+#selectable-els-sss {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: calc(50% - var(--el-imm-w) / 2 - var(--els-gap)) var(--el-imm-w) calc(50% - var(--el-imm-w) / 2 - var(--els-gap));
+    grid-template-rows: var(--el-imm-w);
+    column-gap: var(--els-gap);
+}
+
+#left-sss,
+#right-sss {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--els-gap);
+}
+
+#left-sss {
+    justify-content: flex-end;
+}
+
+#right-sss {
+    justify-content: flex-start;
+}
+
+#curr-key-sss {
+    display: flex;
+    justify-content: space-around;
+}
+
+#curr-in-sss {
+    width: var(--el-imm-w);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: space-around;
+}

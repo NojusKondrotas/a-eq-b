@@ -4,8 +4,7 @@ import { measureMergeSortPlacements } from "./minigames/merge_sort/measure.ts";
 import { getSortedArrDOM } from "./minigames/minigame_utils.ts";
 import { startMinigame } from "./page_indexes/sort_index.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
-import { measureInsertionSortPlacements } from "./minigames/insertion_sort/measure.ts";
-import { measureSelectionSortPlacements } from "./minigames/selection_sort/measure.ts";
+import { measureSSS } from "./minigames/utils/measurements/single_stream_separate.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -208,10 +207,8 @@ export function measureSortPlacements(): void {
             loc_measurements = measureMergeSortPlacements();
             break;
         case 'insertion':
-            loc_measurements = measureInsertionSortPlacements();
-            break;
         case 'selection':
-            loc_measurements = measureSelectionSortPlacements();
+            loc_measurements = measureSSS();
             break;
     }
 

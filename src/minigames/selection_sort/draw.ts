@@ -7,18 +7,18 @@ class SortModel {
     arr: Array<number>;
     leftArr: HTMLElement;
     rightArr: HTMLElement;
-    leftCurr: HTMLElement;
-    rightCurr: HTMLElement;
+    keyCurr: HTMLElement;
+    inCurr: HTMLElement;
 
-    constructor(i: number, arr: Array<number>, lArr: HTMLElement, rArr: HTMLElement, lCurr: HTMLElement, rCurr: HTMLElement) {
+    constructor(i: number, arr: Array<number>, lArr: HTMLElement, rArr: HTMLElement, inCurr: HTMLElement, keyCurr: HTMLElement) {
         this.min_idx = i;
         this.i = i;
         this.j = i + 1;
         this.arr = arr;
         this.leftArr = lArr;
         this.rightArr = rArr;
-        this.leftCurr = lCurr;
-        this.rightCurr = rCurr;
+        this.inCurr = inCurr;
+        this.keyCurr = keyCurr;
     }
 }
 
@@ -34,9 +34,9 @@ function removeFromInput(sortModel: SortModel) {
 }
 
 function moveLeft(sortModel: SortModel, checkDone: () => boolean) {
-    sortModel.rightArr.appendChild(createInputGradualEl('button', sortModel.leftCurr.firstChild!.textContent!));
-    deleteChildren(sortModel.leftCurr);
-    deleteChildren(sortModel.rightCurr);
+    sortModel.rightArr.appendChild(createInputGradualEl('button', sortModel.inCurr.firstChild!.textContent!));
+    deleteChildren(sortModel.inCurr);
+    deleteChildren(sortModel.keyCurr);
 
     sortModel.min_idx = sortModel.j;
     sortModel.j++;
@@ -50,8 +50,8 @@ function moveLeft(sortModel: SortModel, checkDone: () => boolean) {
 }
 
 function moveRight(sortModel: SortModel, checkDone: () => boolean) {
-    sortModel.rightArr.appendChild(createInputGradualEl('button', sortModel.leftCurr.firstChild!.textContent!));
-    deleteChildren(sortModel.leftCurr);
+    sortModel.rightArr.appendChild(createInputGradualEl('button', sortModel.inCurr.firstChild!.textContent!));
+    deleteChildren(sortModel.inCurr);
 
     sortModel.j++;
 
@@ -77,13 +77,13 @@ function initRightImmListeners(el: HTMLElement, sortModel: SortModel, checkDone:
 function addLeft(sortModel: SortModel, checkDone: () => boolean) {
     const btn = createInputImmediateEl('button', sortModel.arr[sortModel.j].toString());
     initLeftImmListeners(btn, sortModel, checkDone);
-    sortModel.leftCurr.appendChild(btn);
+    sortModel.inCurr.appendChild(btn);
 }
 
 function addRight(sortModel: SortModel, checkDone: () => boolean) {
     const btn = createInputImmediateEl('button', sortModel.arr[sortModel.min_idx].toString());
     initRightImmListeners(btn, sortModel, checkDone);
-    sortModel.rightCurr.appendChild(btn);
+    sortModel.keyCurr.appendChild(btn);
 }
 
 function addBatch(sortModel: SortModel): void {
@@ -94,28 +94,28 @@ function addBatch(sortModel: SortModel): void {
 }
 
 export function handleSelectionDrawing(arr: Array<number>, i: number): Promise<void> {
-    const leftElsContainer = document.getElementById('left-selection');
-    const rightElsContainer = document.getElementById('right-selection');
-    const leftElCurr = document.getElementById('curr-left-selection');
-    const rightElCurr = document.getElementById('curr-right-selection');
+    const leftElsContainer = document.getElementById('left-sss');
+    const rightElsContainer = document.getElementById('right-sss');
+    const inElCurr = document.getElementById('curr-in-sss');
+    const keyElCurr = document.getElementById('curr-key-sss');
 
     const sortedArrContainer = getSortedArrDOM();
 
-    if (!leftElsContainer || !rightElsContainer || !leftElCurr || !rightElCurr || !sortedArrContainer) {
+    if (!leftElsContainer || !rightElsContainer || !inElCurr || !keyElCurr || !sortedArrContainer) {
         window.location.href = '../../pages/error/error.html';
         return Promise.reject(new Error("Required DOM elements not found"));
     }
 
     deleteChildren(sortedArrContainer);
-    const sortModel = new SortModel(i, arr, leftElsContainer, rightElsContainer, leftElCurr, rightElCurr);
+    const sortModel = new SortModel(i, arr, leftElsContainer, rightElsContainer, inElCurr, keyElCurr);
 
     return new Promise((resolve) => {
         const checkDone = () => {
             if (sortModel.leftArr.children.length === 0) {
                 [sortModel.arr[sortModel.i], sortModel.arr[sortModel.min_idx]] = [sortModel.arr[sortModel.min_idx], sortModel.arr[sortModel.i]];
                 deleteChildren(sortModel.leftArr);
-                deleteChildren(sortModel.leftCurr);
-                deleteChildren(sortModel.rightCurr);
+                deleteChildren(sortModel.inCurr);
+                deleteChildren(sortModel.keyCurr);
                 deleteChildren(sortModel.rightArr);
                 resolve();
                 return true;

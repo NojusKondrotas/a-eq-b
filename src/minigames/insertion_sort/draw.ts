@@ -6,18 +6,18 @@ class SortModel {
     arr: Array<number>;
     leftArr: HTMLElement;
     rightArr: HTMLElement;
-    leftCurr: HTMLElement;
-    rightCurr: HTMLElement;
+    inCurr: HTMLElement;
+    keyCurr: HTMLElement;
     doTerminate: boolean;
 
-    constructor(j: number, arr: Array<number>, lArr: HTMLElement, rArr: HTMLElement, lCurr: HTMLElement, rCurr: HTMLElement) {
+    constructor(j: number, arr: Array<number>, lArr: HTMLElement, rArr: HTMLElement, inCurr: HTMLElement, keyCurr: HTMLElement) {
         this.key = arr[j + 1];
         this.j = j;
         this.arr = arr;
         this.leftArr = lArr;
         this.rightArr = rArr;
-        this.leftCurr = lCurr;
-        this.rightCurr = rCurr;
+        this.inCurr = inCurr;
+        this.keyCurr = keyCurr;
         this.doTerminate = false;
     }
 }
@@ -34,10 +34,10 @@ function removeFromInput(sortModel: SortModel) {
 }
 
 function move(sortModel: SortModel, checkDone: () => boolean) {
-    const largerVal = sortModel.leftCurr.firstChild!.textContent!;
+    const largerVal = sortModel.inCurr.firstChild!.textContent!;
 
     sortModel.rightArr.appendChild(createInputGradualEl('button', largerVal));
-    deleteChildren(sortModel.leftCurr);
+    deleteChildren(sortModel.inCurr);
 
     sortModel.arr[sortModel.j + 1] = sortModel.arr[sortModel.j];
     sortModel.j--;
@@ -70,13 +70,13 @@ function initRightImmListeners(el: HTMLElement, sortModel: SortModel, checkDone:
 function addLeft(sortModel: SortModel, checkDone: () => boolean) {
     const btn = createInputImmediateEl('button', sortModel.arr[sortModel.j].toString());
     initLeftImmListeners(btn, sortModel, checkDone);
-    sortModel.leftCurr.appendChild(btn);
+    sortModel.inCurr.appendChild(btn);
 }
 
 function addRight(sortModel: SortModel, checkDone: () => boolean) {
     const btn = createInputImmediateEl('button', sortModel.key.toString());
     initRightImmListeners(btn, sortModel, checkDone);
-    sortModel.rightCurr.appendChild(btn);
+    sortModel.keyCurr.appendChild(btn);
 }
 
 function addBatch(sortModel: SortModel): void {
@@ -87,20 +87,20 @@ function addBatch(sortModel: SortModel): void {
 }
 
 export function handleInsertionDrawing(arr: Array<number>, j: number): Promise<void> {
-    const leftElsContainer = document.getElementById('left-insertion');
-    const rightElsContainer = document.getElementById('right-insertion');
-    const leftElCurr = document.getElementById('curr-left-insertion');
-    const rightElCurr = document.getElementById('curr-right-insertion');
+    const leftElsContainer = document.getElementById('left-sss');
+    const rightElsContainer = document.getElementById('right-sss');
+    const inElCurr = document.getElementById('curr-in-sss');
+    const keyElCurr = document.getElementById('curr-key-sss');
 
     const sortedArrContainer = getSortedArrDOM();
 
-    if (!leftElsContainer || !rightElsContainer || !leftElCurr || !rightElCurr || !sortedArrContainer) {
+    if (!leftElsContainer || !rightElsContainer || !inElCurr || !keyElCurr || !sortedArrContainer) {
         window.location.href = '../../pages/error/error.html';
         return Promise.reject(new Error("Required DOM elements not found"));
     }
 
     deleteChildren(sortedArrContainer);
-    const sortModel = new SortModel(j, arr, leftElsContainer, rightElsContainer, leftElCurr, rightElCurr);
+    const sortModel = new SortModel(j, arr, leftElsContainer, rightElsContainer, inElCurr, keyElCurr);
 
     return new Promise((resolve) => {
         const checkDone = () => {
@@ -110,8 +110,8 @@ export function handleInsertionDrawing(arr: Array<number>, j: number): Promise<v
             ) {
                 sortModel.arr[sortModel.j + 1] = sortModel.key;
                 deleteChildren(sortModel.leftArr);
-                deleteChildren(sortModel.leftCurr);
-                deleteChildren(sortModel.rightCurr);
+                deleteChildren(sortModel.inCurr);
+                deleteChildren(sortModel.keyCurr);
                 deleteChildren(sortModel.rightArr);
                 resolve();
                 return true;
