@@ -2,9 +2,7 @@
     --els-gap: 80px;
     --el-imm-w: 128px;
     --el-grad-w: 60px;
-    --el-selection-w: 350px;
-
-    --ins-sel-curr-both: calc(var(--el-selection-w) - (var(--el-selection-w) / 2 - var(--el-imm-w)));
+    --el-selection-w: 340px;
 }
 
 #playground {
@@ -62,7 +60,7 @@
     display: grid;
     width: 100%;
 
-    grid-template-columns: calc((100% - var(--ins-sel-curr-both)) / 2 - var(--els-gap)) var(--ins-sel-curr-both) calc((100% - var(--ins-sel-curr-both)) / 2 - var(--els-gap));
+    grid-template-columns: calc(50% - var(--el-selection-w) / 2 - var(--els-gap)) var(--el-selection-w) calc(50% - var(--el-selection-w) / 2 - var(--els-gap));
     grid-template-rows: var(--el-imm-w);
     column-gap: var(--els-gap);
 }
@@ -95,7 +93,7 @@
 
 #curr-both-selection {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .input-el-imm {
