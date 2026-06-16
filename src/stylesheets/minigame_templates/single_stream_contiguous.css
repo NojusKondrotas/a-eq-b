@@ -1,0 +1,34 @@
+#selectable-els-ssc {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: calc(50% - var(--el-imm-w) - var(--els-gap) * 1.5) var(--el-imm-w) var(--el-imm-w) calc(50% - var(--el-imm-w) - var(--els-gap) * 1.5);
+    grid-template-rows: var(--el-imm-w);
+    column-gap: var(--els-gap);
+}
+
+#left-ssc,
+#right-ssc {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--els-gap);
+}
+
+#left-ssc {
+    justify-content: flex-end;
+}
+
+#right-ssc {
+    justify-content: flex-start;
+}
+
+#curr-left-ssc,
+#curr-right-ssc {
+    display: flex;
+    width: var(--el-imm-w);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: space-around;
+}
