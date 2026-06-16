@@ -1,4 +1,4 @@
-import { createInputGradualEl, createInputImmediateEl, getSortedArrDOM } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 
 class SortModel {
     key: number;
@@ -19,12 +19,6 @@ class SortModel {
         this.inCurr = inCurr;
         this.keyCurr = keyCurr;
         this.doTerminate = false;
-    }
-}
-
-export function deleteChildren(el: HTMLElement) {
-    while (el.firstChild) {
-        el.removeChild(el.lastChild as ChildNode);
     }
 }
 

@@ -1,14 +1,8 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
-import { createInputGradualEl, createInputImmediateEl, createOutputEl, getSortedArrDOM, gradualToImmediateEl } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren, getSortedArrDOM, gradualToImmediateEl } from "../minigame_utils.ts";
 
 let leftEls: Array<HTMLElement>, rightEls: Array<HTMLElement>;
 let lDOM: number, rDOM: number, w: number;
-
-export function deleteChildren(el: HTMLElement) {
-    while (el.firstChild) {
-        el.removeChild(el.lastChild as ChildNode);
-    }
-}
 
 function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
     checkDone: () => void): void {

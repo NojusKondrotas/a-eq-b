@@ -1,3 +1,9 @@
+export function deleteChildren(el: HTMLElement) {
+    while (el.firstChild) {
+        el.removeChild(el.lastChild as ChildNode);
+    }
+}
+
 export function getSortedArrDOM(): HTMLElement | null {
     return document.getElementById('sorted-arr');
 }
@@ -51,10 +57,10 @@ export function getArrayElementValue(container: Element): number {
     return parseInt(el.textContent);
 }
 
-export function satisfiesSortOrderDOM(container: HTMLElement): boolean  {
+export function satisfiesSortOrderDOM(container: HTMLElement): boolean {
     const children = container.children;
     const len = container.children.length;
-    
+
     let isCorrect = true;
     for (let i = 1; i < len; ++i) {
         if (getArrayElementValue(children[i - 1]) > getArrayElementValue(children[i])) {
