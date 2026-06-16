@@ -5,6 +5,7 @@ import { startMinigame } from "./page_indexes/sort_index.ts";
 import { deleteChildren } from "./minigames/merge_sort/draw.ts";
 import { measureSSSPlacements } from "./minigames/utils/measurements/single_stream_separate.ts";
 import { measureDSCPlacements } from "./minigames/utils/measurements/double_stream_contiguous.ts";
+import { measureSSCPlacements } from "./minigames/utils/measurements/single_stream_contiguous.ts";
 
 let cfgMinFreqIn: HTMLElement | null;
 let cfgMaxFreqIn: HTMLElement | null;
@@ -209,6 +210,9 @@ export function measureSortPlacements(): void {
         case 'insertion':
         case 'selection':
             loc_measurements = measureSSSPlacements();
+            break;
+        case 'bubble':
+            loc_measurements = measureSSCPlacements();
             break;
     }
 

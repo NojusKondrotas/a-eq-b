@@ -42,6 +42,9 @@ export async function startMinigame(): Promise<void> {
         case 'selection':
             await countdown(SortType.SelectionSort, 3);
             break;
+        case 'bubble':
+            await countdown(SortType.BubbleSort, 3);
+            break;
     }
 
     deleteEvent('game_start');
