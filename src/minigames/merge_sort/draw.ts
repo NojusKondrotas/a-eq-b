@@ -1,52 +1,70 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren, getSortedArrDOM, gradualToImmediateEl } from "../minigame_utils.ts";
 
-let leftEls: Array<HTMLElement>, rightEls: Array<HTMLElement>;
-let lDOM: number, rDOM: number, w: number;
+class SortModel {
+    arr: Array<number>;
+    leftArr: Array<number>;
+    rightArr: Array<number>;
+    leftContainer: HTMLElement;
+    rightContainer: HTMLElement;
+    sortedContainer: HTMLElement;
 
-function handleUpdateLeft(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
-    checkDone: () => void): void {
-    const val = parseInt(leftEls[lDOM].textContent);
+    lDOM: number = 0;
+    rDOM: number = 0;
+    w: number;
+
+    leftArrDOM: Array<HTMLElement> = [];
+    rightArrDOM: Array<HTMLElement> = [];
+
+    constructor(arr: Array<number>, l: number, m: number, r: number,
+        lCont: HTMLElement, rCont: HTMLElement, sCont: HTMLElement) {
+        this.arr = arr;
+        this.leftArr = arr.slice(l, m + 1);
+        this.rightArr = arr.slice(m + 1, r + 1);
+        this.w = l;
+        this.leftContainer = lCont;
+        this.rightContainer = rCont;
+        this.sortedContainer = sCont;
+    }
+}
+
+function handleUpdate(sortModel: SortModel, isLeft: boolean, checkDone: () => void): void {
+    const targetArray = isLeft ? sortModel.leftArrDOM : sortModel.rightArrDOM;
+    const index = isLeft ? sortModel.lDOM : sortModel.rDOM;
+    const container = isLeft ? sortModel.leftContainer : sortModel.rightContainer;
+
+    const val = parseInt(targetArray[index].textContent!);
     const outEl = createOutputEl(val.toString());
-    sortedArrContainer.appendChild(outEl);
-    parent.removeChild(leftEls[lDOM]);
-    ++lDOM < leftEls.length ? gradualToImmediateEl(leftEls[lDOM]) : lDOM;
-    sortedArr[w++] = val;
+
+    sortModel.sortedContainer.appendChild(outEl);
+    container.removeChild(targetArray[index]);
+
+    if (isLeft) {
+        if (++sortModel.lDOM < sortModel.leftArrDOM.length) gradualToImmediateEl(sortModel.leftArrDOM[sortModel.lDOM]);
+    } else {
+        if (++sortModel.rDOM < sortModel.rightArrDOM.length) gradualToImmediateEl(sortModel.rightArrDOM[sortModel.rDOM]);
+    }
+
+    sortModel.arr[sortModel.w++] = val;
+    addComparisonLog();
     checkDone();
 }
 
-function handleUpdateRight(parent: HTMLElement, sortedArr: Array<number>, sortedArrContainer: HTMLElement,
-    checkDone: () => void): void {
-    const val = parseInt(rightEls[rDOM].textContent);
-    const outEl = createOutputEl(val.toString());
-    sortedArrContainer.appendChild(outEl);
-    parent.removeChild(rightEls[rDOM]);
-    ++rDOM < rightEls.length ? gradualToImmediateEl(rightEls[rDOM]) : rDOM;
-    sortedArr[w++] = val;
-    checkDone();
-}
+function addItemsBatch(sortModel: SortModel, checkDone: () => void) {
+    sortModel.leftArr.forEach((num, idx) => {
+        const btn = (idx === 0) ? createInputImmediateEl('button', num.toString())
+            : createInputGradualEl('button', num.toString());
+        btn.addEventListener('mousedown', () => handleUpdate(sortModel, true, checkDone));
+        sortModel.leftContainer.appendChild(btn);
+        sortModel.leftArrDOM.push(btn);
+    });
 
-function addItemsBatch(parent: HTMLElement, arr: Array<number>, arrDOM: Array<HTMLElement>, sortedArrContainer:
-    HTMLElement, writableArr: Array<number>,
-    isleft: boolean, checkDone: () => void) {
-    arr.forEach((num, idx) => {
-        let btn: HTMLElement;
-        if (idx == 0) {
-            btn = createInputImmediateEl('button', num.toString());
-        } else {
-            btn = createInputGradualEl('button', num.toString());
-        }
-
-        btn.addEventListener('mousedown', () => {
-            isleft
-                ? handleUpdateLeft(parent, writableArr, sortedArrContainer, checkDone)
-                : handleUpdateRight(parent, writableArr, sortedArrContainer, checkDone);
-
-            addComparisonLog();
-        });
-
-        parent.appendChild(btn);
-        arrDOM.push(btn);
+    sortModel.rightArr.forEach((num, idx) => {
+        const btn = (idx === 0) ? createInputImmediateEl('button', num.toString())
+            : createInputGradualEl('button', num.toString());
+        btn.addEventListener('mousedown', () => handleUpdate(sortModel, false, checkDone));
+        sortModel.rightContainer.appendChild(btn);
+        sortModel.rightArrDOM.push(btn);
     });
 }
 
@@ -61,24 +79,15 @@ export function handleMergeDrawing(arr: Array<number>, l: number, m: number, r: 
     }
 
     deleteChildren(sortedArrContainer);
-
-    let left = arr.slice(l, m + 1);
-    let right = arr.slice(m + 1, r + 1);
-
-    lDOM = 0;
-    rDOM = 0;
-    w = l;
-
-    leftEls = [], rightEls = [];
+    const sortModel = new SortModel(arr, l, m, r, leftElsContainer, rightElsContainer, sortedArrContainer);
 
     return new Promise((resolve) => {
         const checkDone = () => {
-            if (leftElsContainer.children.length === 0
-                && rightElsContainer.children.length === 0)
+            if (sortModel.leftContainer.children.length === 0
+                && sortModel.rightContainer.children.length === 0)
                 resolve();
         }
 
-        addItemsBatch(leftElsContainer, left, leftEls, sortedArrContainer, arr, true, checkDone);
-        addItemsBatch(rightElsContainer, right, rightEls, sortedArrContainer, arr, false, checkDone);
+        addItemsBatch(sortModel, checkDone);
     });
 }
