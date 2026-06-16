@@ -11,8 +11,10 @@ html(lang="en")
         link(rel="stylesheet" href="/stylesheets/configs.css")
         link(rel="stylesheet" href="/stylesheets/universal.css")
     body 
-        include ../includes/_sort_config
         include ../mixins/_general_mixins
+        include ../mixins/_sort_mixins
+
+        +config("during the sorting procedure, tap on the element which is the largest")
 
         #countdown-cnt 
             p#countdown-cnt-text 
