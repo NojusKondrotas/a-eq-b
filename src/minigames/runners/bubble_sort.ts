@@ -90,7 +90,6 @@ export class BubbleRunner implements Runner {
         }
 
         const model = this.model;
-        model.sortedArrDOM.style.flexDirection = 'row-reverse';
 
         return new Promise((resolve) => {
             const checkDone = () => {
@@ -107,7 +106,6 @@ export class BubbleRunner implements Runner {
                     } else {
                         model.clearDOM();
                         resolve();
-                        model.sortedArrDOM.style.flexDirection = 'row';
                         ret = AlgorithmState.terminate;
                     }
                 }
