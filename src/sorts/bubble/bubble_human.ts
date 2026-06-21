@@ -1,13 +1,10 @@
-import { handleBubbleDrawing } from "../../minigames/bubble/draw.ts";
 import { getSortedArrDOM, satisfiesSortOrderDOM } from "../../minigames/minigame_utils.ts";
+import { BubbleRunner } from "../../minigames/runners/bubble_sort.ts";
 import { showSortedArr } from "../sort_logger.ts";
 
 async function bubbleSortHuman(arr: Array<number>) {
-    let state = { swapped: true };
-    while (state.swapped) {
-        state.swapped = false;
-        await handleBubbleDrawing(arr, state);
-    }
+    const runner = new BubbleRunner();
+    await runner.run(arr);
 }
 
 export async function startBubbleSortHuman(arr: Array<number>): Promise<void> {
