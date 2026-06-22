@@ -11,7 +11,7 @@ export class SSSModel implements Model {
     inCurrDOM: HTMLElement;
     sortedArrDOM: HTMLElement;
 
-    clearDOM(): void {
+    clearPlayground(): void {
         deleteChildren(this.sortedArrDOM);
         deleteChildren(this.leftDOM);
         deleteChildren(this.rightDOM);

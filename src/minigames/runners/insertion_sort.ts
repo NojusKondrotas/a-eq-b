@@ -86,7 +86,7 @@ export class InsertionRunner implements Runner {
                     || model.leftDOM.children.length === 0
                     || model.j < 0) {
                     model.arr[model.j + 1] = this.key;
-                    model.clearDOM();
+                    model.clearPlayground();
                     ++model.i;
                     model.j = model.i - 1;
                     if (model.i < model.arr.length) {
@@ -100,7 +100,7 @@ export class InsertionRunner implements Runner {
                 }
                 
                 if (model.i >= model.arr.length) {
-                    model.clearDOM();
+                    model.clearPlayground();
                     resolve()
                     ret = AlgorithmState.terminate;
                 }

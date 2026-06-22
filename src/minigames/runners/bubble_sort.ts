@@ -96,7 +96,7 @@ export class BubbleRunner implements Runner {
                 let ret = 0;
                 if (model.i >= arr.length) {
                     if (this.swapped) {
-                        model.clearDOM();
+                        model.clearPlayground();
                         model.i = 1;
                         this.addBatch(model);
                         this.addLeft(model, checkDone);
@@ -104,7 +104,7 @@ export class BubbleRunner implements Runner {
                         this.swapped = false;
                         ret = AlgorithmState.nextIter;
                     } else {
-                        model.clearDOM();
+                        model.clearPlayground();
                         resolve();
                         ret = AlgorithmState.terminate;
                     }

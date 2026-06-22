@@ -1,3 +1,3 @@
 export interface Model {
-    clearDOM(): void
+    clearPlayground(): void
 };

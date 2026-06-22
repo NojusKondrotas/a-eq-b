@@ -10,7 +10,7 @@ export class SSCModel implements Model {
     rightCurrDOM: HTMLElement;
     sortedArrDOM: HTMLElement
 
-    clearDOM(): void {
+    clearPlayground(): void {
         deleteChildren(this.sortedArrDOM);
         deleteChildren(this.leftDOM);
         deleteChildren(this.rightDOM);

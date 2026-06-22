@@ -100,7 +100,7 @@ export class SelectionRunner implements Runner {
                 if (model.rightDOM.children.length === 0) {
                     [model.arr[model.i], model.arr[this.key]] = [model.arr[this.key], model.arr[model.i]];
                     ++model.i;
-                    model.clearDOM();
+                    model.clearPlayground();
                     model.j = model.i + 1;
                     this.key = model.i;
                     if (model.j < model.arr.length) {
@@ -112,7 +112,7 @@ export class SelectionRunner implements Runner {
                 }
 
                 if (model.i == model.arr.length - 1) {
-                    model.clearDOM();
+                    model.clearPlayground();
                     resolve()
                     ret = AlgorithmState.terminate;
                 }
@@ -121,7 +121,7 @@ export class SelectionRunner implements Runner {
             }
     
             model.i = 0, model.j = 1, this.key = 0;
-            model.clearDOM();
+            model.clearPlayground();
             this.addBatch(model);
             this.addIn(model, checkDone);
             this.addKey(model, checkDone);
