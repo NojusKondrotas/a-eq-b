@@ -1,12 +1,6 @@
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
-import { Runner } from "./runner.ts";
-
-enum AlgorithmState {
-    currentIter = 1,
-    nextIter,
-    terminate,
-}
+import { AlgorithmState, Runner } from "./runner.ts";
 
 export class InsertionRunner implements Runner {
     model: SSSModel | null = null;
