@@ -1,5 +1,3 @@
-import { Model } from "../models/model.ts";
-
 export enum AlgorithmState {
     currentIter = 1,
     nextIter,

@@ -1,7 +1,22 @@
+#interactive-dsc {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--els-gap);
+}
+
 #selectable-els-dsc {
     display: grid;
     grid-template-columns: var(--el-imm-w) var(--el-imm-w);
     column-gap: var(--els-gap);
+}
+
+#curr-left-dsc,
+#curr-right-dsc {
+    display: flex;
+    width: var(--el-imm-w);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: space-around;
 }
 
 #left-dsc,
