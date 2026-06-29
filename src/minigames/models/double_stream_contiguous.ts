@@ -13,6 +13,8 @@ export class DSCModel implements Model {
     clearPlayground(): void {
         deleteChildren(this.leftDOM);
         deleteChildren(this.rightDOM);
+        deleteChildren(this.leftCurrDOM);
+        deleteChildren(this.rightCurrDOM);
         deleteChildren(this.sortedArrDOM);
     }
 
