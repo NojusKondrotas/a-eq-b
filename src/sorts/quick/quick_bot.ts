@@ -2,41 +2,42 @@ import { beep } from "../../utils/beep.ts";
 
 function medianOfThree(arr: Array<number>, l: number, r: number) {
     const m = Math.floor(l + (r - l) / 2);
-    const tmp = [arr[l], arr[m], arr[r]].sort();
+    const tmp = [{ idx: l, num: arr[l] }, { idx: m, num: arr[m] }, { idx: r, num: arr[r] }].sort((a, b) => a.num - b.num);
     return tmp[1];
+}
+
+async function quickSortPartition(arr: Array<number>, l: number, r: number, signal: AbortSignal): Promise<number> {
+    if (signal.aborted) return -1;
+    if (l >= r) return -1;
+
+    const pivot = medianOfThree(arr, l, r);
+    [arr[r], arr[pivot.idx]] = [arr[pivot.idx], arr[r]];
+    let i = l - 1;
+    for (let j = l; j < r; ++j) {
+        if (signal.aborted) return -1;
+
+        if (arr[j] <= pivot.num) {
+            if (signal.aborted) return -1;
+
+            ++i;
+            await beep(arr[i], signal);
+            await beep(arr[j], signal);
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+    ++i;
+    [arr[i], arr[r]] = [arr[r], arr[i]];
+
+    return i;
 }
 
 async function quickSortBot(arr: Array<number>, l: number, r: number, signal: AbortSignal) {
     if (signal.aborted) return;
-    if (l >= r) return;
-
-    const pivot = medianOfThree(arr, l, r);
-    let i = l, j = r;
-
-    while (i < j) {
-        if (signal.aborted) return;
-
-        while (arr[i] < pivot) {
-            if (signal.aborted) return;
-
-            await beep(arr[i], signal);
-            ++i;
-        }
-        while (arr[j] > pivot) {
-            if (signal.aborted) return;
-
-            await beep(arr[j], signal);
-            --j;
-        }
-        
-        if (i > j) break;
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-        ++i;
-        --j;
-    }
-
-    await quickSortBot(arr, l, j, signal);
-    await quickSortBot(arr, i, r, signal);
+    
+    const idx = await quickSortPartition(arr, l, r, signal);
+    if (idx == -1) return;
+    await quickSortBot(arr, l, idx, signal);
+    await quickSortBot(arr, idx + 1, r, signal);
 }
 
 export async function startQuickSortBot(arr: Array<number>, signal: AbortSignal): Promise<void> {
