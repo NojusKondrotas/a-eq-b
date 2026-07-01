@@ -11,7 +11,7 @@
 }
 
 * {
-    cursor: url('../res/new-cursor.png'), auto !important;
+    cursor: url('../res/cursor.png'), auto !important;
 }
 
 html, body {
