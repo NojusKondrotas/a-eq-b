@@ -5,8 +5,7 @@ import { hash } from "./utils/numerics.ts";
 document.addEventListener('DOMContentLoaded', () => {
     const sorts = new Map<string, string[]>([
         ['merge', ['A']], ['insertion', ['B']],
-        ['selection', ['C']], ['quick', ['D']],
-        ['bubble', ['E']], ['heap', ['F']]
+        ['selection', ['C']], ['bubble', ['D']],
     ]);
     for (const [sort, keybinds] of sorts) {
         const sortClickerDOM = document.getElementById(`${sort}-sort`);
