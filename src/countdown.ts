@@ -3,7 +3,7 @@ import { shuffle } from "./utils/numerics.ts";
 import { startMergeSort } from "./sorts/merge/merge_handler.ts";
 import { AsymptoticNotations, Complexity, initSortLog, logArr, logTheoreticalComparisons, logTotalComparisons } from "./sorts/sort_logger.ts";
 import { SortType } from "./sorts/sort_types.ts";
-import { initAbortController } from "./utils/time-event-handler.ts";
+import { abortController, addEvent, initAbortController } from "./utils/time-event-handler.ts";
 import { startInsertionSort } from "./sorts/insertion/insertion_handler.ts";
 import { startSelectionSort } from "./sorts/selection/selection_handler.ts";
 import { startBubbleSort } from "./sorts/bubble/bubble_handler.ts";
@@ -14,7 +14,7 @@ export const sleep = (ms: number, signal?: AbortSignal): Promise<void> =>
 
         signal?.addEventListener('abort', () => {
             clearTimeout(id);
-            reject(signal.reason ?? new DOMException('Human has completed sort sooner', 'AbortSignal'));
+            reject(signal.reason ?? new DOMException('Human has completed sort sooner', 'AbortError'));
         }, { once: true });
     });
 
@@ -72,6 +72,9 @@ export async function countdown(type: SortType, secs: number) {
             await startBubbleSort(arrInit);
             break;
     }
+
+    addEvent('game_end');
+    abortController.abort();
 
     setSortStatsDisplay('flex');
     setReducedFooterDisplay('grid');

@@ -1,10 +1,9 @@
 import { beep } from "../../utils/beep.ts";
 
 async function mergeSortBot(arr: Array<number>, l: number, r: number, signal: AbortSignal) {
-    if (signal.aborted) return;
+    if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
-    if (l >= r)
-        return;
+    if (l >= r) return;
 
     let m = Math.floor(l + (r - l) / 2);
     await mergeSortBot(arr, l, m, signal);
@@ -13,7 +12,7 @@ async function mergeSortBot(arr: Array<number>, l: number, r: number, signal: Ab
 }
 
 async function mergeBot(arr: Array<number>, l: number, m: number, r: number, signal: AbortSignal) {
-    if (signal.aborted) return;
+    if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
     let left = arr.slice(l, m + 1);
     let right = arr.slice(m + 1, r + 1);
@@ -22,7 +21,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
     let w = l;
 
     while (i < left.length && j < right.length) {
-        if (signal.aborted) return;
+        if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
         if (left[i] <= right[j]) {
             arr[w] = left[i];
@@ -38,7 +37,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
     }
 
     while (i < left.length) {
-        if (signal.aborted) return;
+        if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
         arr[w] = left[i];
         await beep(left[i], signal);
@@ -46,7 +45,7 @@ async function mergeBot(arr: Array<number>, l: number, m: number, r: number, sig
         i += 1;
     }
     while (j < right.length) {
-        if (signal.aborted) return;
+        if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
         arr[w] = right[j];
         await beep(right[j], signal);

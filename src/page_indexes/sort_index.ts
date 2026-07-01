@@ -48,7 +48,6 @@ export async function startMinigame(): Promise<void> {
     }
 
     deleteEvent('game_start');
-    addEvent('game_end');
 }
 
 function toggleMinigameGuide(): void {

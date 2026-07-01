@@ -1,15 +1,14 @@
 import { beep } from "../../utils/beep.ts";
 
 async function bubbleSortBot(arr: Array<number>, signal: AbortSignal) {
-    if (signal.aborted) return;
+    if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
     const length = arr.length;
     let swapped = true;
     while (swapped) {
         swapped = false;
         for (let i = 1; i < length; ++i) {
-            if (signal.aborted)
-                return;
+            if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
             if (arr[i - 1] > arr[i]) {
                 [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
