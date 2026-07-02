@@ -7,36 +7,36 @@ function medianOfThree(arr: Array<number>, l: number, r: number) {
 }
 
 async function quickSortPartition(arr: Array<number>, l: number, r: number, signal: AbortSignal): Promise<number> {
-    if (signal.aborted) return -1;
+    if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
     if (l >= r) return -1;
 
     const pivot = medianOfThree(arr, l, r);
     [arr[r], arr[pivot.idx]] = [arr[pivot.idx], arr[r]];
-    let i = l - 1;
+    let i = l;
     for (let j = l; j < r; ++j) {
-        if (signal.aborted) return -1;
+        if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
         if (arr[j] <= pivot.num) {
-            if (signal.aborted) return -1;
+            if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
-            ++i;
             await beep(arr[i], signal);
             await beep(arr[j], signal);
             [arr[i], arr[j]] = [arr[j], arr[i]];
+            ++i;
         }
     }
-    ++i;
+    
     [arr[i], arr[r]] = [arr[r], arr[i]];
 
     return i;
 }
 
 async function quickSortBot(arr: Array<number>, l: number, r: number, signal: AbortSignal) {
-    if (signal.aborted) return;
+    if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
     
     const idx = await quickSortPartition(arr, l, r, signal);
     if (idx == -1) return;
-    await quickSortBot(arr, l, idx, signal);
+    await quickSortBot(arr, l, idx - 1, signal);
     await quickSortBot(arr, idx + 1, r, signal);
 }
 
