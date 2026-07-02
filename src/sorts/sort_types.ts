@@ -3,6 +3,7 @@ export enum SortType {
     InsertionSort,
     SelectionSort,
     BubbleSort,
+    QuickSort,
 }
 
 export interface SortRunner {
