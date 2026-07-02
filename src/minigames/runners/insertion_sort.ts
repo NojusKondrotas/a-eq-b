@@ -1,3 +1,4 @@
+import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
@@ -36,12 +37,14 @@ export class InsertionRunner implements Runner {
     initInImmListeners(el: HTMLElement, model: SSSModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.move(model, checkDone);
+            addComparisonLog();
         })
     }
 
     initKeyImmListeners(el: HTMLElement, model: SSSModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.nextIter(checkDone);
+            addComparisonLog();
         });
     }
 

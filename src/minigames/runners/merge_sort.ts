@@ -1,3 +1,4 @@
+import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { Queue } from "../../utils/queue.ts";
 import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren } from "../minigame_utils.ts";
 import { DSCModel } from "../models/double_stream_contiguous.ts";
@@ -63,12 +64,14 @@ export class MergeRunner implements Runner {
     initLeftImmListeners(el: HTMLElement, model: DSCModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveLeft(model, checkDone);
+            addComparisonLog();
         })
     }
 
     initRightImmListeners(el: HTMLElement, model: DSCModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveRight(model, checkDone);
+            addComparisonLog();
         });
     }
 

@@ -1,3 +1,4 @@
+import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 import { SSCModel } from "../models/single_stream_contiguous.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
@@ -48,12 +49,14 @@ export class BubbleRunner implements Runner {
     initLeftImmListeners(el: HTMLElement, model: SSCModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveLeft(model, checkDone);
+            addComparisonLog();
         })
     }
 
     initRightImmListeners(el: HTMLElement, model: SSCModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveRight(model, checkDone);
+            addComparisonLog();
         });
     }
 

@@ -1,3 +1,4 @@
+import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { Queue } from "../../utils/queue.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getChild } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
@@ -66,12 +67,14 @@ export class QuickRunner implements Runner {
     initInImmListeners(el: HTMLElement, model: SSSModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveIn(model, checkDone);
+            addComparisonLog();
         })
     }
     
     initKeyImmListeners(el: HTMLElement, model: SSSModel, checkDone: () => AlgorithmState) {
         el.addEventListener('mousedown', () => {
             this.moveKey(model, checkDone);
+            addComparisonLog();
         });
     }
     
