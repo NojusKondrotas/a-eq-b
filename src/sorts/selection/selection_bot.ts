@@ -1,4 +1,5 @@
 import { beep } from "../../utils/beep.ts";
+import { swap } from "../../utils/numerics.ts";
 
 async function selectionSortBot(arr: Array<number>, signal: AbortSignal) {
     if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
@@ -18,7 +19,7 @@ async function selectionSortBot(arr: Array<number>, signal: AbortSignal) {
             await beep(arr[j], signal);
         }
 
-        [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
+        swap(arr, i, min_idx);
     }
 }
 

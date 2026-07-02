@@ -13,3 +13,7 @@ export function hash(str: string): string {
 
     return hash.toString(16);
 }
+
+export function swap(arr: Array<number>, i: number, j: number): void {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+}

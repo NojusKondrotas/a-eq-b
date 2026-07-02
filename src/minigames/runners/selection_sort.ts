@@ -1,4 +1,5 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
+import { swap } from "../../utils/numerics.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
@@ -95,7 +96,7 @@ export class SelectionRunner implements Runner {
             const checkDone = () => {
                 let ret = 0;
                 if (model.rightDOM.children.length === 0) {
-                    [model.arr[model.i], model.arr[this.key]] = [model.arr[this.key], model.arr[model.i]];
+                    swap(model.arr, model.i, this.key);
                     ++model.i;
                     model.clearPlayground();
                     model.j = model.i + 1;

@@ -1,4 +1,5 @@
 import { beep } from "../../utils/beep.ts";
+import { swap } from "../../utils/numerics.ts";
 
 function medianOfThree(arr: Array<number>, l: number, r: number) {
     const m = Math.floor(l + (r - l) / 2);
@@ -21,12 +22,12 @@ async function quickSortPartition(arr: Array<number>, l: number, r: number, sign
 
             await beep(arr[i], signal);
             await beep(arr[j], signal);
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+            swap(arr, i, j);
             ++i;
         }
     }
     
-    [arr[i], arr[r]] = [arr[r], arr[i]];
+    swap(arr, i, r);
 
     return i;
 }

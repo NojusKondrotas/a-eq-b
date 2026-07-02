@@ -1,4 +1,5 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
+import { swap } from "../../utils/numerics.ts";
 import { Queue } from "../../utils/queue.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getChild } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
@@ -32,7 +33,7 @@ export class QuickRunner implements Runner {
         model.leftDOM.appendChild(createInputGradualEl('button', smallerValue));
         deleteChildren(model.inCurrDOM);
     
-        [model.arr[model.i], model.arr[model.j]] = [model.arr[model.j], model.arr[model.i]];
+        swap(model.arr, model.i, model.j);
         const childLeft = getChild(model.leftDOM, model.i - this.l);
         const childRight = getChild(model.leftDOM, model.j - this.l);
         if (childLeft)
@@ -139,7 +140,7 @@ export class QuickRunner implements Runner {
                         this.l = currentPartition.l, this.r = currentPartition.r;
                         model.i = model.j = this.l;
                         pivot = this.medianOfThree(model.arr, this.l, this.r);
-                        [model.arr[this.r], model.arr[pivot.idx]] = [model.arr[pivot.idx], model.arr[this.r]];
+                        swap(model.arr, this.r, pivot.idx);
                         this.addBatch(model, currentPartition, checkDone);
                     }
                     ret = AlgorithmState.nextIter;

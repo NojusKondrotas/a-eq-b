@@ -1,4 +1,5 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
+import { swap } from "../../utils/numerics.ts";
 import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
 import { SSCModel } from "../models/single_stream_contiguous.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
@@ -16,7 +17,7 @@ export class BubbleRunner implements Runner {
         deleteChildren(model.leftCurrDOM);
         deleteChildren(model.rightCurrDOM);
     
-        [model.arr[model.i - 1], model.arr[model.i]] = [model.arr[model.i], model.arr[model.i - 1]];
+        swap(model.arr, model.i - 1, model.i);
         this.swapped = true;
         model.leftDOM.appendChild(createInputGradualEl('button', model.arr[model.i - 1].toString()));
         ++model.i;
