@@ -4,6 +4,12 @@ export function deleteChildren(el: HTMLElement) {
     }
 }
 
+export function getChild(el: HTMLElement, idx: number): HTMLElement | null {
+    const child = el.children.item(idx);
+    if (child) return child as HTMLElement;
+    return child;
+}
+
 export function getSortedArrDOM(): HTMLElement | null {
     return document.getElementById('sorted-arr');
 }

@@ -1,5 +1,5 @@
 import { Queue } from "../../utils/queue.ts";
-import { createInputGradualEl, createInputImmediateEl, deleteChildren } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, deleteChildren, getChild } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
 
@@ -32,6 +32,12 @@ export class QuickRunner implements Runner {
         deleteChildren(model.inCurrDOM);
     
         [model.arr[model.i], model.arr[model.j]] = [model.arr[model.j], model.arr[model.i]];
+        const childLeft = getChild(model.leftDOM, model.i - this.l);
+        const childRight = getChild(model.leftDOM, model.j - this.l);
+        if (childLeft)
+            childLeft.textContent = model.arr[model.i].toString();
+        if (childRight)
+            childRight.textContent = model.arr[model.j].toString();
         ++model.i;
         ++model.j;
     
