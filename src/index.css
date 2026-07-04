@@ -1,11 +1,9 @@
 #sorts-box {
-    display: flex;
-    width: 750px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 33px 50px;
 
     margin-top: 5%;
-    gap: 20px 50px;
-
-    flex-wrap: wrap;
 }
 
 .sort-link-box {
