@@ -60,24 +60,31 @@ export async function countdown(type: SortType, secs: number) {
     initSortLog();
     initAbortController();
 
+    let asymptoticComplex: AsymptoticNotations;
     switch (type) {
         case SortType.MergeSort:
             await startMergeSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn);
             break;
         case SortType.InsertionSort:
             await startInsertionSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.n, Complexity.n2, Complexity.n2);
             break;
         case SortType.SelectionSort:
             await startSelectionSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.n2, Complexity.n2, Complexity.n2);
             break;
         case SortType.BubbleSort:
             await startBubbleSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.n, Complexity.n2, Complexity.n2);
             break;
         case SortType.QuickSort:
             await startQuickSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.n2);
             break;
         case SortType.HeapSort:
             await startHeapSort(arrInit);
+            asymptoticComplex = new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn);
             break;
     }
 
@@ -88,7 +95,7 @@ export async function countdown(type: SortType, secs: number) {
     setReducedFooterDisplay('grid');
 
     logTotalComparisons();
-    logTheoreticalComparisons(arrInit.length, new AsymptoticNotations(Complexity.nlogn, Complexity.nlogn, Complexity.nlogn));
+    logTheoreticalComparisons(arrInit.length, asymptoticComplex!);
     logArr(arrInit);
 
     measureSortStats();
