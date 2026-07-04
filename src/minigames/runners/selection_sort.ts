@@ -1,6 +1,6 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { swap } from "../../utils/numerics.ts";
-import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
 
@@ -11,6 +11,17 @@ export class SelectionRunner implements Runner {
     removeFromInput(model: SSSModel) {
         if (model.rightDOM.firstChild)
             model.rightDOM.removeChild(model.rightDOM.firstChild);
+    }
+
+    clearInput(model: SSSModel) {
+        deleteChildren(model.keyCurrDOM);
+        deleteChildren(model.inCurrDOM);
+        deleteChildren(model.leftDOM);
+    }
+
+    addToSorted(model: SSSModel, val: number) {
+        const outEl = createOutputEl(val.toString());
+        model.sortedArrDOM.appendChild(outEl);
     }
     
     moveIn(model: SSSModel, checkDone: () => AlgorithmState) {
@@ -97,8 +108,9 @@ export class SelectionRunner implements Runner {
                 let ret = 0;
                 if (model.rightDOM.children.length === 0) {
                     swap(model.arr, model.i, this.key);
+                    this.addToSorted(model, model.arr[model.i]);
+                    this.clearInput(model);
                     ++model.i;
-                    model.clearPlayground();
                     model.j = model.i + 1;
                     this.key = model.i;
                     if (model.j < model.arr.length) {
@@ -110,7 +122,8 @@ export class SelectionRunner implements Runner {
                 }
 
                 if (model.i == model.arr.length - 1) {
-                    model.clearPlayground();
+                    this.addToSorted(model, model.arr[model.i]);
+                    this.clearInput(model);
                     resolve()
                     ret = AlgorithmState.terminate;
                 }

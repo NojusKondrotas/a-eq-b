@@ -1,5 +1,5 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
-import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren } from "../minigame_utils.ts";
 import { SSSModel } from "../models/single_stream_separate.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
 
@@ -11,6 +11,13 @@ export class InsertionRunner implements Runner {
     removeFromInput(model: SSSModel) {
         if (model.leftDOM.lastChild)
             model.leftDOM.removeChild(model.leftDOM.lastChild);
+    }
+
+    addToSorted(model: SSSModel) {
+        for (let i = 0; i < model.i; ++i) {
+            const outEl = createOutputEl(model.arr[i].toString());
+            model.sortedArrDOM.appendChild(outEl);
+        }
     }
 
     move(model: SSSModel, checkDone: () => AlgorithmState) {
@@ -86,6 +93,7 @@ export class InsertionRunner implements Runner {
                     model.clearPlayground();
                     ++model.i;
                     model.j = model.i - 1;
+                    this.addToSorted(model);
                     if (model.i < model.arr.length) {
                         this.key = model.arr[model.i]
                         this.addBatch(model);
@@ -97,7 +105,6 @@ export class InsertionRunner implements Runner {
                 }
                 
                 if (model.i >= model.arr.length) {
-                    model.clearPlayground();
                     resolve()
                     ret = AlgorithmState.terminate;
                 }
@@ -105,11 +112,13 @@ export class InsertionRunner implements Runner {
                 return ret || AlgorithmState.currentIter;
             }
 
-            model.i = 0;
-            model.j = model.i - 1;
+            model.clearPlayground();
+            model.i = 1;
+            model.j = 0;
             this.key = model.arr[model.i]
-            this.doNext = true;
-            checkDone();
+            this.addBatch(model);
+            this.addIn(model, checkDone);
+            this.addKey(model, checkDone);
         });
     }
 }

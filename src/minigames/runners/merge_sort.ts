@@ -139,7 +139,6 @@ export class MergeRunner implements Runner {
                 }
                 
                 if (!currentPartition) {
-                    model.clearPlayground();
                     resolve()
                     ret = AlgorithmState.terminate;
                 }

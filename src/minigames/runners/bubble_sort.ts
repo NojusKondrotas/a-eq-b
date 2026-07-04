@@ -1,16 +1,24 @@
 import { addComparisonLog } from "../../sorts/sort_logger.ts";
 import { swap } from "../../utils/numerics.ts";
-import { createInputGradualEl, createInputImmediateEl, deleteChildren, getSortedArrDOM } from "../minigame_utils.ts";
+import { createInputGradualEl, createInputImmediateEl, createOutputEl, deleteChildren } from "../minigame_utils.ts";
 import { SSCModel } from "../models/single_stream_contiguous.ts";
 import { AlgorithmState, Runner } from "./runner.ts";
 
 export class BubbleRunner implements Runner {
     model: SSCModel | null = null;
     swapped: boolean = false;
+    iter: number = 0;
 
     removeFromInput(model: SSCModel) {
         if (model.rightDOM.firstChild)
             model.rightDOM.removeChild(model.rightDOM.firstChild);
+    }
+
+    addToSorted(model: SSCModel) {
+        for (let i = model.arr.length - this.iter; i < model.arr.length; ++i) {
+            const outEl = createOutputEl(model.arr[i].toString());
+            model.sortedArrDOM.appendChild(outEl);
+        }
     }
 
     moveLeft(model: SSCModel, checkDone: () => AlgorithmState) {
@@ -95,6 +103,8 @@ export class BubbleRunner implements Runner {
                 if (model.i >= arr.length) {
                     if (this.swapped) {
                         model.clearPlayground();
+                        this.addToSorted(model);
+                        ++this.iter;
                         model.i = 1;
                         this.addBatch(model);
                         this.addLeft(model, checkDone);
@@ -111,9 +121,12 @@ export class BubbleRunner implements Runner {
                 return ret || AlgorithmState.currentIter;
             }
 
-            model.i = model.arr.length;
-            this.swapped = true;
-            checkDone();
+            model.clearPlayground();
+            model.i = 1;
+            this.iter = 1;
+            this.addBatch(model);
+            this.addLeft(model, checkDone);
+            this.addRight(model, checkDone);
         });
     }
 }
