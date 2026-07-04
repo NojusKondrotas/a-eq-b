@@ -63,7 +63,7 @@ function toggleConfigs() {
 function toggleKeyboard() {
     const keyboard = document.getElementById('keyboard');
     if (!keyboard) {
-        window.location.href = '../pages/error/error.html';
+        window.location.href = 'pages/error/error.html';
         return;
     }
     if (keyboard.style.display == 'none') {
@@ -76,7 +76,7 @@ function toggleKeyboard() {
     }
 }
 function redirectToIndexPage() {
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
 }
 function initSortIndexEventListeners() {
     const keybinds = new Map([
