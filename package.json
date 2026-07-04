@@ -8,6 +8,7 @@
     "@tailwindcss/cli": "^4.2.4",
     "@types/bun": "^1.3.12",
     "copyfiles": "^2.4.1",
+    "gh-pages": "^6.3.0",
     "pug": "^3.0.4",
     "pug-cli": "^1.0.0-alpha6",
     "serve": "^14.2.6",
@@ -17,9 +18,11 @@
   "private": true,
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "tsc && pug ./src --out ./dist --hierarchy && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build:local": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}' && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build:gh_pages": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}' && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css && touch dist/.nojekyll",
     "start": "serve dist",
-    "dev": "bun run build && bun run serve"
+    "dev": "bun run build:local && bun run start",
+    "deploy": "bun run clean && bun run build:gh_pages && gh-pages -d dist --dotfiles"
   },
   "type": "module"
 }
