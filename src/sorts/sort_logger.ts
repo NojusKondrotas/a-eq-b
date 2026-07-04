@@ -1,4 +1,3 @@
-import { isArrayBindingPattern } from "typescript";
 import { createOutputEl, getSortedArrDOM } from "../minigames/minigame_utils.ts";
 
 export enum Complexity {
@@ -24,10 +23,13 @@ let total_comparisons = 0;
 export const getTotalComparisons = () => total_comparisons;
 
 export function showSortedArr(arr: Array<number>) {
+     const sortedArrDOM = getSortedArrDOM();
+    if (!sortedArrDOM
+        || sortedArrDOM.children.length > 0
+    )
+        return;
+        
     for (const num of arr) {
-        const sortedArrDOM = getSortedArrDOM();
-        if (!sortedArrDOM)
-            return;
         sortedArrDOM.appendChild(createOutputEl(num.toString()));
     }
 }
