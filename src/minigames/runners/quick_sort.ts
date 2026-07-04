@@ -134,7 +134,6 @@ export class QuickRunner implements Runner {
                     [model.arr[model.i], model.arr[this.r]] = [model.arr[this.r], model.arr[model.i]];
                     model.clearPlayground();
                     this.partition(partitions, model);
-                    model.clearPlayground();
                     currentPartition = partitions.shift()!;
                     if (currentPartition) {
                         this.l = currentPartition.l, this.r = currentPartition.r;
