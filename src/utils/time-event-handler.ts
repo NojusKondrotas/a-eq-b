@@ -6,25 +6,21 @@ export const initAbortController = () => abortController = new AbortController()
 export function addEvent(ev: string): number {
     const time = performance.now();
     timestamps.set(ev, time);
-    console.log(timestamps);
     return time;
 }
 
 export function updateEvent(ev: string): number {
     const time = performance.now();
     timestamps.set(ev, time);
-    console.log(timestamps);
     return time;
 }
 
 export function deleteEvent(ev: string): null {
     timestamps.set(ev, null);
-    console.log(timestamps);
     return null;
 }
 
 export function hasEventOccurred(ev: string): boolean {
-    console.log(timestamps);
     return !timestamps.get(ev) ? false : true;
 }
 

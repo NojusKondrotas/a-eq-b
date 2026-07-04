@@ -58,7 +58,6 @@ export function highlightWrongElement(container: Element): void {
 
 export function getArrayElementValue(container: Element): number {
     const el = container.children[0];
-    console.log(el.textContent);
 
     return parseInt(el.textContent);
 }

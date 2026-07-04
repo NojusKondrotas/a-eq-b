@@ -20,9 +20,7 @@ export class ElMeasurementsHandler {
 
 export function shiftMeasurementHorizontal(mes: ElMeasurementsHandler, val: string) {
     const left = getComputedStyle(mes.measurementContainer).left;
-    console.log(left, mes.measurementContainer.style.left)
     mes.measurementContainer.style.left = `calc(${left} - ${val})`
-    console.log(val, mes.measurementContainer.style.left)
 }
 
 export function addMeasuredElEventListeners(el: HTMLElement, measurements: ElMeasurementsHandler) {
