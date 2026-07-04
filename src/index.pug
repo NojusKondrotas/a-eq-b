@@ -5,21 +5,21 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         base(href="/")
         title a -eq b
-        link(rel="stylesheet" href="/style.css")
-        link(rel="stylesheet" href="/stylesheets/universal.css")
-        link(rel="stylesheet" href="/index.css")
+        link(rel="stylesheet" href="style.css")
+        link(rel="stylesheet" href="stylesheets/universal.css")
+        link(rel="stylesheet" href="index.css")
     body 
         include pages/mixins/_index_mixins
         include pages/mixins/_general_mixins
 
         .w-full.flex.justify-center
             #sorts-box 
-                +sort_container('merge', '/pages/sorts/merge.html', 'merge sort')
-                +sort_container('insertion', '/pages/sorts/insertion.html', 'insertion sort')
-                +sort_container('selection', '/pages/sorts/selection.html', 'selection sort')
-                +sort_container('quick', '/pages/sorts/quick.html', 'quicksort')
-                +sort_container('bubble', '/pages/sorts/bubble.html', 'bubble sort')
-                +sort_container('heap', '/pages/sorts/heap.html', 'heapsort')
+                +sort_container('merge', 'pages/sorts/merge.html', 'merge sort')
+                +sort_container('insertion', 'pages/sorts/insertion.html', 'insertion sort')
+                +sort_container('selection', 'pages/sorts/selection.html', 'selection sort')
+                +sort_container('quick', 'pages/sorts/quick.html', 'quicksort')
+                +sort_container('bubble', 'pages/sorts/bubble.html', 'bubble sort')
+                +sort_container('heap', 'pages/sorts/heap.html', 'heapsort')
         
         +footer(
             'footer',
@@ -34,4 +34,4 @@ html(lang="en")
             }
         )
         
-        script(type="module" src="/index.js")
+        script(type="module" src="index.js")
