@@ -15,6 +15,7 @@ async function insertionSortBot(arr, signal) {
             await beep(arr[j], signal);
         }
         arr[j + 1] = arr[i];
+        await beep(arr[j + 1], signal);
     }
 }
 export async function startInsertionSortBot(arr, signal) {

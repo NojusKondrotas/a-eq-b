@@ -16,11 +16,10 @@ async function quickSortPartition(arr, l, r, signal) {
     for (let j = l; j < r; ++j) {
         if (signal.aborted)
             throw new DOMException('Human has completed sort sooner', 'AbortError');
+        await beep(arr[j], signal);
         if (arr[j] <= pivot.num) {
             if (signal.aborted)
                 throw new DOMException('Human has completed sort sooner', 'AbortError');
-            await beep(arr[i], signal);
-            await beep(arr[j], signal);
             swap(arr, i, j);
             ++i;
         }
