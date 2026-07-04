@@ -1,3 +1,0 @@
-@import "tailwindcss/utilities.css" layer(utilities);
-@import "tailwindcss/theme.css";
-@source "../dist/**/*.html";
