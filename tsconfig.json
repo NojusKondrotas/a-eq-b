@@ -2,26 +2,20 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    // Environment setup & latest features
     "lib": ["ESNext", "DOM"],
     "target": "esnext",
     "module": "nodenext",
-    "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
-
     "moduleResolution": "nodenext",
+    "moduleDetection": "force",
 
-    // Best practices
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "rewriteRelativeImportExtensions": true,
 
-    // Some stricter flags (disabled by default)
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": true,
   }
 }
