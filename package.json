@@ -18,7 +18,7 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "tsc && pug ./src --out ./dist --hierarchy && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
-    "serve": "serve dist",
+    "start": "serve dist",
     "dev": "bun run build && bun run serve"
   },
   "type": "module"
