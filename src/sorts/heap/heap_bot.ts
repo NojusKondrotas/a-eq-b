@@ -30,7 +30,7 @@ async function maxHeapifyGame(arr: Array<number>, i: number, heapSize: number, s
     const left = getLeftIndex(i);
     const right = getRightIndex(i);
     let largest = i;
-    if (left < heapSize && arr[left] > arr[largest])
+    if (left < heapSize)
         await beep(arr[left], signal);
         if (arr[left] > arr[largest])
             largest = left;
