@@ -11,10 +11,10 @@ async function bubbleSortBot(arr: Array<number>, signal: AbortSignal) {
         for (let i = 1; i < length; ++i) {
             if (signal.aborted) throw new DOMException('Human has completed sort sooner', 'AbortError');
 
+            await beep(arr[i - 1], signal);
             if (arr[i - 1] > arr[i]) {
                 swap(arr, i - 1, i);
                 swapped = true;
-                await beep(arr[i - 1], signal);
             }
         }
     }

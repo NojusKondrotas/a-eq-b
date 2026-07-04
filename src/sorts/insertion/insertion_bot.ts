@@ -17,6 +17,7 @@ async function insertionSortBot(arr: Array<number>, signal: AbortSignal) {
         }
 
         arr[j + 1] = arr[i];
+        await beep(arr[j + 1], signal);
     }
 }
 
