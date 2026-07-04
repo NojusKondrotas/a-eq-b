@@ -209,6 +209,7 @@ export function measureSortPlacements(): void {
         case 'insertion':
         case 'selection':
         case 'quick':
+        case 'heap':
             loc_measurements = measureSSSPlacements();
             break;
         case 'bubble':

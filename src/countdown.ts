@@ -8,6 +8,7 @@ import { startInsertionSort } from "./sorts/insertion/insertion_handler.ts";
 import { startSelectionSort } from "./sorts/selection/selection_handler.ts";
 import { startBubbleSort } from "./sorts/bubble/bubble_handler.ts";
 import { startQuickSort } from "./sorts/quick/quick_handler.ts";
+import { startHeapSort } from "./sorts/heap/heap_handler.ts";
 
 export const sleep = (ms: number, signal?: AbortSignal): Promise<void> =>
     new Promise((resolve, reject) => {
@@ -74,6 +75,9 @@ export async function countdown(type: SortType, secs: number) {
             break;
         case SortType.QuickSort:
             await startQuickSort(arrInit);
+            break;
+        case SortType.HeapSort:
+            await startHeapSort(arrInit);
             break;
     }
 

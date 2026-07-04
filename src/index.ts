@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sorts = new Map<string, string[]>([
         ['merge', ['A']], ['insertion', ['B']],
         ['selection', ['C']], ['quick', ['D']],
-        ['bubble', ['E']],
+        ['bubble', ['E']], ['heap', ['F']],
     ]);
     for (const [sort, keybinds] of sorts) {
         const sortClickerDOM = document.getElementById(`${sort}-sort`);

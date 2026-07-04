@@ -4,6 +4,7 @@ export enum SortType {
     SelectionSort,
     BubbleSort,
     QuickSort,
+    HeapSort,
 }
 
 export interface SortRunner {

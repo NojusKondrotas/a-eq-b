@@ -48,6 +48,9 @@ export async function startMinigame(): Promise<void> {
         case 'quick':
             await countdown(SortType.QuickSort, 3);
             break;
+        case 'heap':
+            await countdown(SortType.HeapSort, 3);
+            break;
     }
 
     deleteEvent('game_start');
