@@ -17,6 +17,11 @@ export class HeapRunner implements Runner {
         deleteChildren(model.inCurrDOM);
     }
 
+    addToSorted(model: SSSModel, val: number) {
+        const outEl = createOutputEl(val.toString());
+        model.sortedArrDOM.insertBefore(outEl, model.sortedArrDOM.firstChild);
+    }
+
     moveTop(model: SSSModel, checkDone: () => AlgorithmState) {
         ++this.doNextCounter;
 
@@ -110,7 +115,8 @@ export class HeapRunner implements Runner {
             const checkDone = (): AlgorithmState => {
                 let ret = 0;
                 if (model.j === 1) {
-                    model.clearPlayground();
+                    this.addToSorted(model, model.arr[0]);
+                    this.clearInput(model);
                     resolve()
                     ret = AlgorithmState.terminate;
                 } else {
@@ -124,9 +130,10 @@ export class HeapRunner implements Runner {
                             break;
                     }
 
-                    while (model.j > 1 && this.doNextCounter === 2) {
+                    while (this.doNextCounter === 2 && model.j > 1) {
                         if (model.i === this.key) {
                             model.i = this.key = 0;
+                            this.addToSorted(model, model.arr[0]);
                             --model.j;
                             swap(model.arr, 0, model.j);
                         } else {
