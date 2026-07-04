@@ -12,4 +12,4 @@ Build and run:<br>
 
 ## Closing remarks
 
-Sometime in the indeterminate future, I'll feature a few non-mainstream sorts, like Timsort and Introsort, as well as, ideally, a visual step-by-step progress of each sort.
+Sometime in the indeterminate future, a few non-mainstream but rather popular sorts, like Timsort and Introsort, will be available on the site. Sometime in the indeterminate but distant future, visual step-by-step progresses of each sort may become accessible.
