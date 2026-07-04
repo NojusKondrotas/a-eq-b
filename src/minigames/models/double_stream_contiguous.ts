@@ -29,7 +29,7 @@ export class DSCModel implements Model {
         const sortedArrContainer = getSortedArrDOM();
 
         if (!leftElsContainer || !rightElsContainer || !leftElCurr || !rightElCurr || !sortedArrContainer) {
-            window.location.href = '../../pages/error/error.html';
+            window.location.href = 'pages/error/error.html';
             throw new Error("Required DOM elements not found");
         }
 

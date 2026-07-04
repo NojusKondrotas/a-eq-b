@@ -32,7 +32,7 @@ export class SSSModel implements Model {
         const sortedArrContainer = getSortedArrDOM();
 
         if (!leftElsContainer || !rightElsContainer || !inElCurr || !keyElCurr || !sortedArrContainer) {
-            window.location.href = '../../pages/error/error.html';
+            window.location.href = 'pages/error/error.html';
             throw new Error("Required DOM elements not found");
         }
 

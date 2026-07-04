@@ -81,7 +81,7 @@ function toggleConfigs(): void {
 function toggleKeyboard(): void {
     const keyboard = document.getElementById('keyboard');
     if (!keyboard) {
-        window.location.href = '../pages/error/error.html';
+        window.location.href = 'pages/error/error.html';
         return;
     }
 
@@ -95,7 +95,7 @@ function toggleKeyboard(): void {
 }
 
 function redirectToIndexPage(): void {
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
 }
 
 function initSortIndexEventListeners(): void {
