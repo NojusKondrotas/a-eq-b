@@ -1,6 +1,9 @@
 {
   "name": "a-eq-b",
   "module": "src/index.ts",
+  "dependencies": {
+    "rimraf": "^6.1.3"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.4",
     "@types/bun": "^1.3.12",
@@ -8,10 +11,8 @@
     "pug": "^3.0.4",
     "pug-cli": "^1.0.0-alpha6",
     "serve": "^14.2.6",
-    "tailwindcss": "^4.2.4"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "tailwindcss": "^4.2.4",
+    "typescript": "^6.0.3"
   },
   "private": true,
   "scripts": {
@@ -20,8 +21,5 @@
     "serve": "serve dist",
     "dev": "bun run build && bun run serve"
   },
-  "type": "module",
-  "dependencies": {
-    "rimraf": "^6.1.3"
-  }
+  "type": "module"
 }
