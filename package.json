@@ -18,11 +18,19 @@
   "private": true,
   "scripts": {
     "clean": "rimraf ./dist",
-    "build:local": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}' && copyfiles res/**/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
-    "build:gh_pages": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}' && copyfiles res/**/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build-ts": "tsc",
+
+    "build-pug:local": "pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}'",
+    "build-pug:deployment": "pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}'",
+    "build-res": "copyfiles res/**/* dist/",
+    "build-tailwind": "copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+
+    "build:local": "bun run build-ts && bun run build-pug:local && bun run build-res && bun run build-tailwind",
+    "build:deployment": "bun run build-ts && bun run build-pug:deployment && bun run build-res && bun run build-tailwind",
+    
     "start": "serve dist",
     "dev": "bun run build:local && bun run start",
-    "deploy": "bun run clean && bun run build:gh_pages && gh-pages -d dist --nojekyll -m \"$MESSAGE\""
+    "deploy": "bun run clean && bun run build:deployment && gh-pages -d dist --nojekyll -m \"$MESSAGE\""
   },
   "type": "module"
 }
