@@ -18,8 +18,8 @@
   "private": true,
   "scripts": {
     "clean": "rimraf ./dist",
-    "build:local": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}' && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
-    "build:gh_pages": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}' && copyfiles res/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build:local": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}' && copyfiles res/**/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build:gh_pages": "tsc && pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}' && copyfiles res/**/* dist/ && copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
     "start": "serve dist",
     "dev": "bun run build:local && bun run start",
     "deploy": "bun run clean && bun run build:gh_pages && gh-pages -d dist --nojekyll"
