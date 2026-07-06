@@ -23,7 +23,7 @@
     "build-pug:local": "pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/\"}'",
     "build-pug:deployment": "pug ./src --out ./dist --hierarchy -O '{\"baseHref\":\"/a-eq-b/\"}'",
     "build-res": "copyfiles res/**/* dist/",
-    "build-tailwind": "copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css",
+    "build-tailwind": "copyfiles -u 1 src/**/*.css dist && tailwindcss -i ./src/style.css -o ./dist/style.css --minify",
 
     "build:local": "bun run build-ts && bun run build-pug:local && bun run build-res && bun run build-tailwind",
     "build:deployment": "bun run build-ts && bun run build-pug:deployment && bun run build-res && bun run build-tailwind",
